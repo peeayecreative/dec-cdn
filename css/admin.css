@@ -1,0 +1,6 @@
+div.error p {
+    display: none !important;
+    }
+    .wp-list-table.plugins .plugin-title{
+        color:green !important;
+    }
