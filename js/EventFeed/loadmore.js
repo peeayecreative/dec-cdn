@@ -1,9 +1,15 @@
 jQuery(function ($) {
 
+  jQuery(".page-numbers").on("click",function () {
+    jQuery(this).addClass("active-page");
+    jQuery(".page-numbers").not(this).removeClass("active-page");
+   // jQuery("a").removeAttr("href");
+});
 
 
 
   $(" .event_ajax_load, .ecs-page_alignment_left, .ecs-page_alignment_right").on("click", function () {
+
     var classList = jQuery(this).parents('.decm_event_display').attr('class').split(/\s+/);
     //console.log(jQuery(this));
     var mainClass = "";
@@ -14,7 +20,7 @@ jQuery(function ($) {
       }
     });
     var eventFeed = $(window)[0][`eventFeed${mainClass.substr(1, mainClass.length)}`];
-
+    
     //console.log(jQuery(this).parent('.decm_event_display').attr('class').split(/\s+/));
     $(mainClass + ' .event_ajax_load a').hide();
     // $('.append_events').addClass('ajax_load_img');
@@ -31,6 +37,9 @@ jQuery(function ($) {
       eventfeed_current_page = eventfeed_prev_page - 1;
     }
     jQuery(mainClass + " .event_ajax_load").append(event_image);
+
+  
+  
     // debugger;
 
     var data = {
@@ -40,14 +49,13 @@ jQuery(function ($) {
       dateType: "html",
       eventfeed_current_page: eventfeed_current_page,
       eventfeed_page: eventfeed_page,
-      eventfeed_prev_page: eventfeed_prev_page,
+      eventfeed_prev_page: eventfeed_prev_page,  
       categId: eventFeed.categId,
       categslug: eventFeed.categslug,
+      term_id: eventFeed.term_id,
       pagination_type: eventFeed.pagination_type,
       class_pagination: eventFeed.class_pagination,
       // security: eventFeed.security,
-
-
     };
     // console.log(eventFeed.class_pagination);
     //console.log(pagination_type);
@@ -61,6 +69,7 @@ jQuery(function ($) {
       //     jQuery('#contract_row > div').remove();
       // }
       // console.log(eventfeed_class_pagination);
+
       if (event_image == "success") {
         $(mainClass + ' .event_ajax_load img').remove();
         $(mainClass + ' .event_ajax_load a').show();
@@ -81,6 +90,17 @@ jQuery(function ($) {
         }
       }
       if (eventfeed_page == "paged") {
+        
+        // jQuery(mainClass + ' #eventfeed_current_pagination_page').val(eventfeed_current_pagination_page);
+        // jQuery('.current_page').html(eventfeed_current_pagination_page);
+
+      //   if (eventfeed_max_page <= eventfeed_current_pagination_page) {
+      //     jQuery('.pages').append('<span class="px-points d-none" data-point="0">...</span>');
+      // }
+
+
+      // jQuery(mainClass + " input[name='eventfeed_current_pagination_page']").val(eventfeed_current_pagination_pages);
+        
         // jQuery( ".append_events" ).remove(html);
         jQuery(mainClass + ' .append_events').html(atts);
         // jQuery('.append_events').html(atts);
@@ -99,17 +119,18 @@ jQuery(function ($) {
           $(mainClass + ' .ecs-page_alignment_right').show();
 
         }
-
+   
         jQuery(mainClass + ' #eventfeed_current_page').val(eventfeed_current_page);
         jQuery(mainClass + ' #eventfeed_prev_page').val(eventfeed_prev_page);
         if (eventfeed_max_page <= eventfeed_current_page) {
           jQuery('.event_ajax_load').remove();
           $(mainClass + ' .ecs-page_alignment_right').hide();
         }
+
+        
       }
 
     });
-
     // btn.prop('disabled', true);
   });
 });
