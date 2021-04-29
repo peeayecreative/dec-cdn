@@ -1,6 +1,6 @@
 let html;
 let calendar_view="";
-console.log(myAjax.start);
+//console.log(myAjax.start);
 //jQuery(".fc-widget-content").css('border', '0px solid');
 jQuery(window).on('resize',function(){
  // var screenWidth = jQuery(this).width();
@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", function() {
     calendar_view+="listWeek,";
   }
  
-  console.log(calendar_view);
+  //console.log(calendar_view);
   calendar_view=calendar_view.slice(0,-1);
-  console.log(calendar_view.substr(0,-1));
+  //console.log(calendar_view.substr(0,-1));
   //console.log(Month_view);
   var calendar = new FullCalendar.Calendar(calendarEl, {
     eventOrder: myAjax.calendar_eventorder,
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
      },
     eventRender: function(info) {
-      console.log(myAjax.show_week_view_button);
+      //console.log(myAjax.show_week_view_button);
       // console.log(info.el.querySelector('tr.fc-list-item'));
       // var newCell = info.el.insertCell(0);
       // var newText = document.createTextNode('Hello');
