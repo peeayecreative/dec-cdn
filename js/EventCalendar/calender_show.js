@@ -111,7 +111,7 @@ if(calendar.view.type=='dayGridMonth'|| calendar.view.type=='timeGridWeek'||cale
       if(calendar.view.type=='listWeek'){
         //info.el.querySelector('.fc-list-item').innerHTML=info.event.title;
         if(info.event.extendedProps.event_start_time==null){
-        jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">all-day</td>');
+   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">'+info.event-extendedProps.all-day+'</td>');
         }
         else{
           jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">'+ info.event.extendedProps.event_start_time+info.event.extendedProps.event_end_time+'</td>');
