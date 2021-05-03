@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
      else{ jQuery(info.el).children(".fc-content").css("visibility","visible").css("width","auto").css("height","auto");}
 if(calendar.view.type=='dayGridMonth'|| calendar.view.type=='timeGridWeek'||calendar.view.type=='timeGridDay'){
       if(info.event.extendedProps.event_start_time==null){
-        info.el.querySelector('.fc-title').innerHTML =myAjax.show_calendar_event_date=="on"?'<span class="fc-calendar-time">All Day Event</span></br><span class="fc-calendar-title">'+info.event.title + "</span>":'<span class="fc-calendar-title">'+info.event.title + "</span>";
+        info.el.querySelector('.fc-title').innerHTML =myAjax.show_calendar_event_date=="on"?'<span class="fc-calendar-time">'+info.event.extendedProps.allDayEvent+'</span></br><span class="fc-calendar-title">'+info.event.title + "</span>":'<span class="fc-calendar-title">'+info.event.title + "</span>";
       }
 
       else{
