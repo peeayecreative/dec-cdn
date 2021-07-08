@@ -63,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
   plugins: [ 'dayGrid','timeGrid','list'],
     defaultView:myAjax.calendar_default_view,
     fixedWeekCount:false,
+    lazyFatching:true,
     header: {
       left: 'prev,next today',
       center: 'title',
@@ -164,11 +165,12 @@ if(calendar.view.type=='dayGridMonth'|| calendar.view.type=='timeGridWeek'||cale
       
       url: myAjax.ajaxurl+"?action=fetch_Events&dateformat="+myAjax.date_format+"&timeformat="+myAjax.time_format+"&timezone="+myAjax.show_time_zone+"&categories="+myAjax.included_categories+"&show_feature_event="+myAjax.show_feature_event+"&show_tooltip="+myAjax.show_tooltip+"&show_image="+myAjax.show_image+"&show_excerpt="+myAjax.show_excerpt+"&show_price="+myAjax.show_price+"&show_title="+myAjax.show_title+"&show_date="+myAjax.show_date+"&show_time="+myAjax.show_time+"&calendar_eventorder="+myAjax.calendar_eventorder+"&id="+myAjax.id+"&show_month_view_button="+myAjax.show_month_view_button+"&show_list_view_button="+myAjax.show_list_view_button+"&show_week_view_button="+myAjax.show_week_view_button+"&show_day_view_button="+myAjax.show_day_view_button+"&categslug="+myAjax.categslug+"&categId="+myAjax.categId+"&show_dynamic_content="+myAjax.show_dynamic_content+"&show_tooltip_category="+myAjax.show_tooltip_category+"&show_tooltip_weburl="+myAjax.show_tooltip_weburl+"&week_start_on="+myAjax.week_start_on+"start="+myAjax.start+"&show_calendar_event_date="+myAjax.show_calendar_event_date+"&calendar_default_view="+myAjax.calendar_default_view+"&show_recurring_event="+myAjax.show_recurring_event,
 
-      type: 'POST',
-      data: {
-        
-        timeFormat : myAjax.date_format,
-      },
+      type: 'GET',
+      // extraParams: function() {
+      //   return {
+      //     cachebuster: new Date().valueOf()
+      //   };
+      // },
         
       success: function(){
        // alert("joshi");
