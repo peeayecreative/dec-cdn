@@ -2968,7 +2968,7 @@
 			'<span aria-label="' + 'Next' + '"></span>'
 		],
 		navSpeed: false,
-		navElement: 'button type="button" role="presentation"',
+		navElement: 'button aria-label="present" type="button"  role="presentation"',
 		navContainer: false,
 		navContainerClass: 'owl-nav',
 		navClass: [
