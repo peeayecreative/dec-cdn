@@ -1,5 +1,7 @@
 let html;
 let calendar_view = "";
+let calendar_view_tablet = "";
+let calendar_view_phone = "";
 //console.log(myAjax.start);
 //jQuery(".fc-widget-content").css('border', '0px solid');
 jQuery(window).on('resize', function () {
@@ -53,21 +55,60 @@ document.addEventListener("DOMContentLoaded", function () {
     calendar_view += "listWeek,";
   }
 
+
+
+
+
+  if (myAjax.show_month_view_button_tablet == 'on' || myAjax.show_month_view_button_tablet == "") {
+    calendar_view_tablet += "dayGridMonth,";
+  }
+  if (myAjax.show_week_view_button_tablet == 'on' || myAjax.show_week_view_button_tablet == "") {
+    calendar_view_tablet += "timeGridWeek,";
+  }
+
+
+  if (myAjax.show_day_view_button_tablet == 'on' || myAjax.show_day_view_button_tablet == "") {
+    calendar_view_tablet += "timeGridDay,";
+  }
+  if (myAjax.show_list_view_button_tablet == 'on' || myAjax.show_list_view_button_tablet == "") {
+    calendar_view_tablet += "listWeek,";
+  }
+
+
+  if (myAjax.show_month_view_button_phone == 'on' || myAjax.show_month_view_button_phone == "") {
+    calendar_view_phone += "dayGridMonth,";
+  }
+  if (myAjax.show_week_view_button_phone == 'on' || myAjax.show_week_view_button_phone == "") {
+    calendar_view_phone += "timeGridWeek,";
+  }
+
+
+  if (myAjax.show_day_view_button_phone == 'on' || myAjax.show_day_view_button_phone == "") {
+    calendar_view_phone += "timeGridDay,";
+  }
+  if (myAjax.show_list_view_button_phone == 'on' || myAjax.show_list_view_button_phone == "") {
+    calendar_view_phone += "listWeek,";
+  }
   //console.log(calendar_view);
   calendar_view = calendar_view.slice(0, -1);
+  calendar_view_tablet = calendar_view_tablet.slice(0, -1);
+  calendar_view_phone = calendar_view_phone.slice(0, -1);
   //console.log(calendar_view.substr(0,-1));
-  //console.log(Month_view);
+  console.log(calendar_view, "=>dektop");
+  console.log(calendar_view_tablet, "=>tablet");
+  console.log(calendar_view_phone, "=>phone");
   var calendar = new FullCalendar.Calendar(calendarEl, {
     eventOrder: myAjax.calendar_eventorder,
     displayEventTime: false,
     plugins: ['dayGrid', 'timeGrid', 'list'],
-    defaultView: myAjax.calendar_default_view,
+    defaultView: screen.width <= 981 && screen.width >= 767 && myAjax.calendar_default_view_tablet != "" ? myAjax.calendar_default_view_tablet : screen.width <= 766 && myAjax.calendar_default_view_phone != "" ? myAjax.calendar_default_view_phone : myAjax.calendar_default_view,
+    //defaultView: myAjax.calendar_default_view,
     fixedWeekCount: false,
     lazyFatching: true,
     header: {
       left: 'prev,next today',
       center: 'title',
-      right: calendar_view,
+      right: screen.width <= 981 && screen.width >= 767 ? calendar_view_tablet : screen.width <= 766 ? calendar_view_phone : calendar_view,
 
     },
     firstDay: parseInt(myAjax.week_start_on),
@@ -75,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
     views: {
       dayGridMonth: { // name of view
         columnHeaderFormat: {
-          weekday: jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_4") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_5") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_6") == true || screen.width < 767 ? "narrow" : "short",
+          weekday: jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_4") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_5") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_6") == true || screen.width < 767 ? "narrow" : myAjax.day_of_the_week_name,
         }
         // other view-specific options here
       }
@@ -98,7 +139,15 @@ document.addEventListener("DOMContentLoaded", function () {
       else { jQuery(info.el).children(".fc-content").css("visibility", "visible").css("width", "auto").css("height", "auto"); }
       if (calendar.view.type == 'dayGridMonth' || calendar.view.type == 'timeGridWeek' || calendar.view.type == 'timeGridDay') {
         if (info.event.extendedProps.event_start_time == null) {
-          info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          if (myAjax.show_calendar_event_date_tablet == "on" || myAjax.show_calendar_event_date_tablet == "") {
+            info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date_tablet == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          }
+          if (myAjax.show_calendar_event_date_phone == "on" || myAjax.show_calendar_event_date_phone == "") {
+            info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date_phone == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          }
+          if (myAjax.show_calendar_event_date == "on") {
+            info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          }
         }
 
         else {
@@ -163,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // nextDayThreshold: '11:59:00',
       // allDay:false,
 
-      url: myAjax.ajaxurl + "?action=fetch_Events&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone + "&categories=" + myAjax.included_categories + "&show_feature_event=" + myAjax.show_feature_event + "&show_tooltip=" + myAjax.show_tooltip + "&show_image=" + myAjax.show_image + "&show_excerpt=" + myAjax.show_excerpt + "&show_price=" + myAjax.show_price + "&show_title=" + myAjax.show_title + "&show_date=" + myAjax.show_date + "&show_time=" + myAjax.show_time + "&calendar_eventorder=" + myAjax.calendar_eventorder + "&id=" + myAjax.id + "&show_month_view_button=" + myAjax.show_month_view_button + "&show_list_view_button=" + myAjax.show_list_view_button + "&show_week_view_button=" + myAjax.show_week_view_button + "&show_day_view_button=" + myAjax.show_day_view_button + "&categslug=" + myAjax.categslug + "&categId=" + myAjax.categId + "&show_dynamic_content=" + myAjax.show_dynamic_content + "&show_tooltip_category=" + myAjax.show_tooltip_category + "&show_tooltip_weburl=" + myAjax.show_tooltip_weburl + "&week_start_on=" + myAjax.week_start_on + "start=" + myAjax.start + "&show_calendar_event_date=" + myAjax.show_calendar_event_date + "&calendar_default_view=" + myAjax.calendar_default_view + "&show_recurring_event=" + myAjax.show_recurring_event + "&event_start_date=" + myAjax.event_start_date + "&event_end_date=" + myAjax.event_end_date,
+      url: myAjax.ajaxurl + "?action=fetch_Events&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone + "&venue=" + myAjax.show_venue + "&location=" + myAjax.show_location + "&street=" + myAjax.show_address + "&locality=" + myAjax.show_locality + "&postal=" + myAjax.show_postal + "&country=" + myAjax.show_country + "&organizer=" + myAjax.show_organizer + "&categories=" + myAjax.included_categories + "&show_feature_event=" + myAjax.show_feature_event + "&show_tooltip=" + myAjax.show_tooltip + "&show_image=" + myAjax.show_image + "&thumbnail_width=" + myAjax.thumbnail_width + "&thumbnail_height=" + myAjax.thumbnail_height + "&show_excerpt=" + myAjax.show_excerpt + "&show_price=" + myAjax.show_price + "&show_title=" + myAjax.show_title + "&show_date=" + myAjax.show_date + "&show_time=" + myAjax.show_time + "&calendar_eventorder=" + myAjax.calendar_eventorder + "&id=" + myAjax.id + "&show_month_view_button=" + myAjax.show_month_view_button + "&show_list_view_button=" + myAjax.show_list_view_button + "&show_week_view_button=" + myAjax.show_week_view_button + "&show_day_view_button=" + myAjax.show_day_view_button + "&show_month_view_button_tablet=" + myAjax.show_month_view_button_tablet + "&show_list_view_button_tablet=" + myAjax.show_list_view_button_tablet + "&show_week_view_button_tablet=" + myAjax.show_week_view_button_tablet + "&show_day_view_button_tablet=" + myAjax.show_day_view_button_tablet + "&show_month_view_button_phone=" + myAjax.show_month_view_button_phone + "&show_list_view_button_phone=" + myAjax.show_list_view_button_phone + "&show_week_view_button_phone=" + myAjax.show_week_view_button_phone + "&show_day_view_button_phone=" + myAjax.show_day_view_button_phone + "&categslug=" + myAjax.categslug + "&categId=" + myAjax.categId + "&show_dynamic_content=" + myAjax.show_dynamic_content + "&show_tooltip_category=" + myAjax.show_tooltip_category + "&enable_category_link=" + myAjax.enable_category_link + "&custom_category_link_target=" + myAjax.custom_category_link_target + "&show_tooltip_weburl=" + myAjax.show_tooltip_weburl + "&week_start_on=" + myAjax.week_start_on + "start=" + myAjax.start + "&show_calendar_event_date=" + myAjax.show_calendar_event_date + "&calendar_default_view=" + myAjax.calendar_default_view + "&calendar_default_view_tablet=" + myAjax.calendar_default_view_tablet + "&calendar_default_view_phone=" + myAjax.calendar_default_view_phone + "&show_recurring_event=" + myAjax.show_recurring_event + "&event_start_date=" + myAjax.event_start_date + "&event_end_date=" + myAjax.event_end_date + "&day_of_the_week_name=" + myAjax.day_of_the_week_name + "&single_event_page_link=" + myAjax.single_event_page_link + "&disable_event_title_link=" + myAjax.disable_event_title_link + "&disable_event_image_link=" + myAjax.disable_event_image_link + "&disable_event_calendar_title_link=" + myAjax.disable_event_calendar_title_link + "&custom_event_link_url=" + myAjax.custom_event_link_url + "&custom_event_link_target=" + myAjax.custom_event_link_target + "&website_link=" + myAjax.website_link + "&custom_website_link_text=" + myAjax.custom_website_link_text + "&custom_website_link_target=" + myAjax.custom_website_link_target + "&show_end_time=" + myAjax.show_end_time,
 
       type: 'GET',
       // extraParams: function() {
