@@ -1,8 +1,9 @@
 
 
 (function($) {
+
   $(document).ready(function() {
-      $('.diec_event_carousel_style_class').each(function() {
+      $('.owl-carousel').each(function() {
           var items = $(this).attr('data');
           var itemsTablet = $(this).attr('data-items-tablet');
           var itemsPhone = $(this).attr('data-items-phone');
