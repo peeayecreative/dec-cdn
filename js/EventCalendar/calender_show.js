@@ -4,34 +4,36 @@ let calendar_view_tablet = "";
 let calendar_view_phone = "";
 //console.log(myAjax.start);
 //jQuery(".fc-widget-content").css('border', '0px solid');
-jQuery(window).on('resize', function () {
-  // var screenWidth = jQuery(this).width();
-  if (jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_4") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_5") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_6") == true || screen.width < 767) {
+jQuery(document).ready(function ($) {
+  jQuery(window).on('resize', function () {
+    // var screenWidth = jQuery(this).width();
+    if (jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_4") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_5") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_6") == true || screen.width < 767) {
 
-    jQuery(".fc-toolbar").css("display", "block");
-    jQuery(".fc-day-number").css("font-size", "17px");
-    jQuery(".fc-day-header").css("font-size", "12px");
+      jQuery(".fc-toolbar").css("display", "block");
+      jQuery(".fc-day-number").css("font-size", "17px");
+      jQuery(".fc-day-header").css("font-size", "12px");
 
 
-  }
-  else {
-    jQuery(".fc-toolbar").css("display", "flex");
-    jQuery(".fc-day-number").css("font-size", "24px");
-    jQuery(".fc-day-header").css("font-size", "15px");
-  }
-});
-jQuery('body').on('click', ('button.fc-next-button,button.fc-prev-button'), function () {
-  if (jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_4") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_5") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_6") == true || screen.width < 767) {
+    }
+    else {
+      jQuery(".fc-toolbar").css("display", "flex");
+      jQuery(".fc-day-number").css("font-size", "24px");
+      jQuery(".fc-day-header").css("font-size", "15px");
+    }
+  });
+  jQuery('body').on('click', ('button.fc-next-button,button.fc-prev-button'), function () {
+    if (jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_4") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_5") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_6") == true || screen.width < 767) {
 
-    jQuery(".fc-toolbar").css("display", "block");
-    jQuery(".fc-day-number").css("font-size", "17px");
-    jQuery(".fc-day-header").css("font-size", "12px");
-  }
-  else {
-    jQuery(".fc-toolbar").css("display", "flex");
-    jQuery(".fc-day-number").css("font-size", "24px");
-    jQuery(".fc-day-header").css("font-size", "15px");
-  }
+      jQuery(".fc-toolbar").css("display", "block");
+      jQuery(".fc-day-number").css("font-size", "17px");
+      jQuery(".fc-day-header").css("font-size", "12px");
+    }
+    else {
+      jQuery(".fc-toolbar").css("display", "flex");
+      jQuery(".fc-day-number").css("font-size", "24px");
+      jQuery(".fc-day-header").css("font-size", "15px");
+    }
+  });
 });
 //'dayGridMonth,timeGridWeek,timeGridDay'
 
