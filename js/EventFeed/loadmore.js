@@ -486,7 +486,9 @@ jQuery(function ($) {
   function PagingEventDislay(PageNumber, TotalRecords, ClassName, DisableClassName, event_filter_page, event_filter_page_first, event_filter_page_last) {
     var ReturnValue = "";
     var TotalPages = TotalRecords;
-
+    var event_filter_page = jQuery(" input[name='dec-eventfeed-page-translation']").val();
+    var event_filter_page_first = jQuery(" input[name='dec-eventfeed-first-translation']").val();
+    var event_filter_page_last = jQuery(" input[name='dec-eventfeed-last-translation']").val();
     ReturnValue = ReturnValue + "<span > <span class='dec-page-text-display'>Page</span> <span class='dec-page-text-display-none'>" + event_filter_page + "</span>" + PageNumber + " of " + TotalPages + "</span> ";
 
     if (+PageNumber > 1) {
