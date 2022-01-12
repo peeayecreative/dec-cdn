@@ -11,6 +11,37 @@ jQuery(function ($) {
 // 	}
 //    });
 	
+let module_css_filter = jQuery("input[name='module-css-filter']").val();
+
+var mainClass = "";
+
+$('.decm_event_display').each(function (i, item) {  
+
+  var classfilter = jQuery(item).attr('class').split(/\s+/);
+
+  // console.log("module class");
+ //  console.log(classfilter);
+
+  $.each(classfilter, function (index, item) {
+
+	if (module_css_filter != '' && item != '') {
+	  if (item == module_css_filter) {
+		mainClass = "." + item;
+
+	  }
+	}else if (item.match(/decm_event_display_/g)) {
+	  mainClass = "." + item;
+	   
+	}
+
+  });
+  //test
+
+
+  });
+
+  //console.log(mainClass,"main class");
+
 
 	$("#dec-event-filters-icon").on("click",function(){
 		
@@ -56,7 +87,7 @@ jQuery(function ($) {
 	   });
 
 
-	   $('#reportrange').daterangepicker({
+	$('#reportrange').daterangepicker({
 		autoUpdateInput: false,
 		  ranges: {
 			'Today': [moment(), moment()],
@@ -71,16 +102,16 @@ jQuery(function ($) {
 	
 	  $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
 		  $('#dec-date-current-select').html(picker.startDate.format('MMMM D, YYYY') + ' - ' + picker.endDate.format('MMMM D, YYYY'));
-		  jQuery("input[name='EventstartDate']").val(picker.startDate.format('YYYY-MM-DD'));
-		  jQuery("input[name='EventendDate']").val(picker.endDate.format('YYYY-MM-DD'));
+		  jQuery(mainClass+" input[name='EventstartDate']").val(picker.startDate.format('YYYY-MM-DD'));
+		  jQuery(mainClass+" input[name='EventendDate']").val(picker.endDate.format('YYYY-MM-DD'));
 		  jQuery('#reportrange').addClass("dec-filter-select");
 		  jQuery('.dec-date-range-remove').css({"display": "initial"});
 	  });
 	
-	  $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+	  $(' #reportrange').on('cancel.daterangepicker', function(ev, picker) {
 		  $('#dec-date-current-select').html('<span>Date Range</span>');
-		  jQuery("input[name='EventstartDate']").val('');
-		  jQuery("input[name='EventendDate']").val('');
+		  jQuery(mainClass+" input[name='EventstartDate']").val('');
+		  jQuery(mainClass+" input[name='EventendDate']").val('');
 		  jQuery('#reportrange').removeClass("dec-filter-select");
 		  jQuery('.dec-date-range-remove').css({"display": "none"});
 	  });
@@ -94,13 +125,13 @@ jQuery(function ($) {
 			max: maxCost,
 			values: [ 0, maxCost],
 			slide: function( event, ui ) {
-			$( "#Eventprice" ).val( "$" + ui.values[0] + " - $" + ui.values[1] );
-			jQuery("input[name='EventcostMax']").val(ui.values[1]);
-			jQuery("input[name='EventcostMin']").val(ui.values[0]);
+			$("#Eventprice" ).val( "$" + ui.values[0] + " - $" + ui.values[1] );
+			jQuery(mainClass+ " input[name='EventcostMax']").val(ui.values[1]);
+			jQuery(mainClass+" input[name='EventcostMin']").val(ui.values[0]);
 			}
 		});
 			
-		$( "#Eventprice" ).val( "$" + $( "#eventCostslider" ).slider( "values", 0 ) +
+		$("#Eventprice" ).val( "$" + $( "#eventCostslider" ).slider( "values", 0 ) +
 			" - $" + $( "#eventCostslider" ).slider( "values", 1 ) );
 
 			
@@ -117,14 +148,14 @@ jQuery(function ($) {
 						});
                        
 						if(selectedOrganizer.length > 0) {
-							$('#dec-eventfeed-organizer').val(selectedOrganizerId);
+							$(mainClass+' #dec-eventfeed-organizer').val(selectedOrganizerId);
 							$('#dec-organizer-current-select' ).html(": "+ selectedOrganizer);	
 							$('#dec-organizer-current-select' ).parent().addClass("dec-filter-select");		
 						    $('.dec-organizer-remove').css({"display": "initial"});
 						}else if (jQuery(this).text() != '') {
 							var text = jQuery(this).text();
 						    var dataId = $(this).data("id");
-								$('#dec-eventfeed-organizer').val(dataId);
+								$(mainClass+' #dec-eventfeed-organizer').val(dataId);
 							//	$('.organizer-filter-selection-list' ).html("<span class='organizer-filter-selection'>"+ text +"</span>");	
 								$('#dec-organizer-current-select' ).html(": "+ text);	
 								$('#dec-organizer-current-select' ).parent().addClass("dec-filter-select");		
@@ -143,18 +174,16 @@ jQuery(function ($) {
 					var keycode =  event.which;
                     if(keycode == '13'){
 				     var filter_search  = $('#dec-filter-search__input').val();
-					 $('#dec-filter-search').val(filter_search);
+					 $(mainClass+' #dec-filter-search').val(filter_search);
 					}					
 				});
 
 				$('#dec-find-events').on("click", function () { 					
 				     var filter_search  = $('#dec-filter-search__input').val();
-					 $('#dec-filter-search').val(filter_search);					
+					 $(mainClass+' #dec-filter-search').val(filter_search);					
 				});
 		
 				jQuery('input[name=\'dec_filter_category\'], .decm-filter-catrgory-list').on("click",function() {
-
-				//	console.log('event category');
 
 					var selectedCategory = new Array();
 					var selectedCategoryId = new Array();
@@ -162,9 +191,9 @@ jQuery(function ($) {
 							selectedCategory.push(" "+this.value);
 							selectedCategoryId.push(this.id);
 						});			
-					//	console.log(selectedCategory.length,'length check');
+						
 						 if(selectedCategory.length > 0){
-							$('#dec-eventfeed-category').val(selectedCategoryId);
+							$( mainClass+' #dec-eventfeed-category').val(selectedCategoryId);
 						    $('.event-category-filter-selection-list' ).html("<span class='event-category-filter-selection'>"+ selectedCategory +"</span>");	
 						    $('#dec-event-current-select' ).html(": "+ selectedCategory);
 							$('#dec-event-current-select' ).parent().addClass("dec-filter-select");		
@@ -173,7 +202,7 @@ jQuery(function ($) {
 						//	console.log('event category if');
 							var text = jQuery(this).text();
 						    var dataId = $(this).data("id");
-								$('#dec-eventfeed-category').val(dataId);
+								$(mainClass+' #dec-eventfeed-category').val(dataId);
 								$('.event-category-filter-selection-list' ).html("<span class='event-category-filter-selection'>"+ text +"</span>");	
 								$('#dec-event-current-select' ).html(": "+ text);
 								$('#dec-event-current-select' ).parent().addClass("dec-filter-select");		
@@ -198,14 +227,14 @@ jQuery(function ($) {
 						});
 
 						 if(selectedTag.length > 0){
-							$('#dec-eventfeed-tag').val(selectedTagId);
+							$(mainClass +' #dec-eventfeed-tag').val(selectedTagId);
 						    $('#dec-tag-current-select' ).html(": "+ selectedTag);
 							$('#dec-tag-current-select' ).parent().addClass("dec-filter-select");	
 						    $('.dec-tag-remove').css({"display": "initial"});
 						}else if(jQuery(this).text() != '') {
 							var text = jQuery(this).text();
 							var dataId = $(this).data("id");
-							$('#dec-eventfeed-tag').val(dataId);
+							$(mainClass +' #dec-eventfeed-tag').val(dataId);
 						    $('#dec-tag-current-select' ).html(": "+ text);	
 							$('#dec-tag-current-select' ).parent().addClass("dec-filter-select");	
 						    $('.dec-tag-remove').css({"display": "initial"});	
@@ -232,7 +261,7 @@ jQuery(function ($) {
 						
 						if(selectedVenue.length > 0){
 
-							$('#dec-eventfeed-venue').val(selectedId);
+							$(mainClass +' #dec-eventfeed-venue').val(selectedId);
 							//$('.dec-venue-filter-selection-list' ).html("<span class='venue-filter-selection'>"+ selectedVenue +"</span>");
 							$('#dec-venue-current-select' ).html(": "+ selectedVenue);
 							$('#dec-venue-current-select' ).parent().addClass("dec-filter-select");	
@@ -241,13 +270,13 @@ jQuery(function ($) {
 						}else if (jQuery(this).text() != '') {
 							var text = jQuery(this).text();
 							var dataId = $(this).data("id");
-							$('#dec-eventfeed-venue').val(dataId);
+							$(mainClass +' #dec-eventfeed-venue').val(dataId);
 							//$('.dec-venue-filter-selection-list' ).html("<span class='venue-filter-selection'>"+ text +"</span>");
 						    $('#dec-venue-current-select' ).html(": "+ text);	
 							$('#dec-venue-current-select' ).parent().addClass("dec-filter-select");	
 						    $('.dec-venue-remove').css({"display": "initial"});	
 						}else{
-							$('#dec-eventfeed-venue').val("");
+							$(mainClass +' #dec-eventfeed-venue').val("");
 							//$('.dec-venue-filter-selection-list' ).html("<span class='venue-filter-selection'>"+ selectedVenue +"</span>");
 							$('#dec-venue-current-select' ).html(" ");
 							$('#dec-venue-current-select' ).parent().removeClass("dec-filter-select");	
@@ -268,14 +297,14 @@ jQuery(function ($) {
 						});
 
 						if(selectedLocation.length > 0){
-							$('#dec-eventfeed-address').val(selectedLocation);
+							$(mainClass +' #dec-eventfeed-address').val(selectedLocation);
 							$('#dec-location-current-select' ).html(": "+ selectedLocation);
 							$('#dec-location-current-select' ).parent().addClass("dec-filter-select");	
 					        $('.dec-location-remove').css({"display": "initial"});	
 						}else if (jQuery(this).text() != '') {
 							var text = jQuery(this).text();
 						//	var dataId = $(this).data("id");
-							$('#dec-eventfeed-address').val(text);
+							$(mainClass +' #dec-eventfeed-address').val(text);
 							$('.dec-location-filter-selection-list' ).html("<span class='location-filter-selection'>"+ text +"</span>");
 							$('#dec-location-current-select' ).html(": "+ text);
 							$('#dec-location-current-select' ).parent().addClass("dec-filter-select");	
@@ -300,20 +329,20 @@ jQuery(function ($) {
 
 
 						if (selectedTime.length > 0) {
-							$('#dec-eventfeed-time').val(selectedTimeId);
+							$(mainClass +' #dec-eventfeed-time').val(selectedTimeId);
 							$('#dec-time-current-select' ).html(": "+ selectedTime);
 							$('#dec-time-current-select' ).parent().addClass("dec-filter-select");
 						    $('.dec-time-remove').css({"display": "initial"});			
 						}else if(jQuery(this).text() != '') {
 						       var text = jQuery(this).text();
 						        var dataId = $(this).data("id");
-						        $('#dec-eventfeed-time').val(dataId);
+						        $( mainClass +' #dec-eventfeed-time').val(dataId);
 						       // $('#event-time').val(selectedTime);
 						        $('#dec-time-current-select' ).html(": "+ text);
 								$('#dec-time-current-select' ).parent().addClass("dec-filter-select");
 						        $('.dec-time-remove').css({"display": "initial"});
 						}else {
-								  $('#dec-eventfeed-time').val("");
+								  $(mainClass +' #dec-eventfeed-time').val("");
 								  $('#dec-time-current-select' ).html("");	
 								  $('#dec-time-current-select' ).parent().removeClass("dec-filter-select");
 						          $('.dec-time-remove').css({"display": "none"});
@@ -330,19 +359,19 @@ jQuery(function ($) {
 					});
 
 					if (selectedDays.length > 0) {
-						$('#dec-eventfeed-day').val(selectedDays);
+						$(mainClass +' #dec-eventfeed-day').val(selectedDays);
 						$('#dec-day-current-select' ).html(": "+ selectedDays);
 						$('#dec-day-current-select' ).parent().addClass("dec-filter-select");
 					    $('.dec-day-remove').css({"display": "initial"});
 					}else if (jQuery(this).text() != '') {
 						var text = jQuery(this).text();
 						var dataId = $(this).data("id");
-						$('#dec-eventfeed-day').val(dataId);
+						$(mainClass +' #dec-eventfeed-day').val(dataId);
 						$('#dec-day-current-select' ).html(": "+ text);
 						$('#dec-day-current-select' ).parent().addClass("dec-filter-select");
 					    $('.dec-day-remove').css({"display": "initial"});
 					}else{
-						$('#dec-eventfeed-day').val("");
+						$( mainClass +'#dec-eventfeed-day').val("");
 						$('#dec-day-current-select' ).html("");
 						$('#dec-day-current-select' ).parent().removeClass("dec-filter-select");
 					    $('.dec-day-remove').css({"display": "none"});
@@ -362,19 +391,19 @@ jQuery(function ($) {
 						});
 
 						if (selectedCity.length > 0) {	
-							$('#dec-eventfeed-city').val(selectedCity);
+							$( mainClass +' #dec-eventfeed-city').val(selectedCity);
 							$('#dec-city-current-select' ).html(": "+ selectedCity);
 							$('#dec-city-current-select' ).parent().addClass("dec-filter-select");
 					        $('.dec-city-remove').css({"display": "initial"});							
 						}else if (jQuery(this).text() != '') {
 							var text = jQuery(this).text();
 						//	var dataId = $(this).data("id");
-							$('#dec-eventfeed-city').val(text);
+							$( mainClass +' #dec-eventfeed-city').val(text);
 							$('#dec-city-current-select' ).html(": "+ text);	
 							$('#dec-city-current-select' ).parent().addClass("dec-filter-select");
 					       $('.dec-city-remove').css({"display": "initial"});	
 						}else{
-							$('#dec-eventfeed-city').val("");
+							$(mainClass +' #dec-eventfeed-city').val("");
 							$('#dec-city-current-select' ).html("");
 							$('#dec-city-current-select' ).parent().removeClass("dec-filter-select");
 				        	$('.dec-city-remove').css({"display": "none"});		
@@ -393,25 +422,23 @@ jQuery(function ($) {
 						});
 
 						if (selectedState.length > 0) {
-							$('#dec-eventfeed-state').val(selectedState);
+							$(mainClass +' #dec-eventfeed-state').val(selectedState);
 							$('#dec-state-current-select' ).html(": "+ selectedState);	
 							$('#dec-state-current-select' ).parent().addClass("dec-filter-select");	
 					        $('.dec-state-remove').css({"display": "initial"});	
 						}else if (jQuery(this).text() != '') {
 							var text = jQuery(this).text();
 		                //	var dataId = $(this).data("id");
-							$('#dec-eventfeed-state').val(text);
+							$(mainClass +' #dec-eventfeed-state').val(text);
 							$('#dec-state-current-select' ).html(": "+ text);	
 							$('#dec-state-current-select' ).parent().addClass("dec-filter-select");	
 					        $('.dec-state-remove').css({"display": "initial"});
 						}else{
-							$('#dec-eventfeed-state').val("");
+							$( mainClass +' #dec-eventfeed-state').val("");
 							$('#dec-state-current-select' ).html("");	
 							$('#dec-state-current-select' ).parent().removeClass("dec-filter-select");	
 					        $('.dec-state-remove').css({"display": "none"});		
-						}
-		
-					
+						}			
 
 				});
 		
@@ -419,23 +446,23 @@ jQuery(function ($) {
 				jQuery('input[name=\'dec_filter_country\'], .dec-country-list').on("click",function() {
 
 					var selectedCountry = new Array();
-						$(" input[name='dec_filter_country']:checked").each(function () {
+						$("input[name='dec_filter_country']:checked").each(function () {
 							 selectedCountry.push(" "+this.value);
 						});
 
 						if (selectedCountry.length > 0) {
-							$('#dec-eventfeed-country').val(selectedCountry);
+							$(mainClass +' #dec-eventfeed-country').val(selectedCountry);
 					        $('#dec-country-current-select' ).html(": "+ selectedCountry);
 							$('#dec-country-current-select' ).parent().addClass("dec-filter-select");	
 					        $('.dec-country-remove').css({"display": "initial"});
 						}else if (jQuery(this).text() != '') {
 							var text = jQuery(this).text();
-							$('#dec-eventfeed-country').val(text);
+							$(mainClass +' #dec-eventfeed-country').val(text);
 							$('#dec-country-current-select' ).html(": "+ text);	
 							$('#dec-country-current-select' ).parent().addClass("dec-filter-select");	
 					        $('.dec-country-remove').css({"display": "initial"});
 						}else{
-							$('#dec-eventfeed-country').val("");
+							$(mainClass +' #dec-eventfeed-country').val("");
 					        $('#dec-country-current-select' ).html("");
 							$('#dec-country-current-select' ).parent().removeClass("dec-filter-select");	
 					        $('.dec-country-remove').css({"display": "none"});	
@@ -454,19 +481,19 @@ jQuery(function ($) {
 					});
 
 					if (selectedMonths.length > 0) {
-						$('#dec-eventfeed-month').val(selectedMonthsId);
+						$(mainClass +' #dec-eventfeed-month').val(selectedMonthsId);
 						$('#dec-month-current-select' ).html(": "+ selectedMonths);
 						$('#dec-month-current-select' ).parent().addClass("dec-filter-select");	
 						$('.dec-month-remove').css({"display": "initial"});
 					}else if (jQuery(this).text() != '') {
 						var text = jQuery(this).text();
 					    var dataId = $(this).data("id");
-					   $('#dec-eventfeed-month').val(dataId);
+					   $( mainClass +' #dec-eventfeed-month').val(dataId);
 					   $('#dec-month-current-select' ).html(": "+ text);
 					   $('#dec-month-current-select' ).parent().addClass("dec-filter-select");	
 						$('.dec-month-remove').css({"display": "initial"});
 					}else{
-					   $('#dec-eventfeed-month').val("");
+					   $(mainClass +' #dec-eventfeed-month').val("");
 					   $('#dec-month-current-select' ).html("");
 					   $('#dec-month-current-select' ).parent().removeClass("dec-filter-select");	
 					   $('.dec-month-remove').css({"display": "none"});
@@ -506,7 +533,7 @@ jQuery(function ($) {
 						var text = jQuery(this).text();
 						var dataId = $(this).data("id");
 					//	console.log(text);
-						$('#dec-eventfeed-order').val(dataId);
+						$(mainClass +' #dec-eventfeed-order').val(dataId);
 						$('#dec-order-current-select' ).html(": "+ text);	
 							
 					//}
@@ -526,19 +553,19 @@ jQuery(function ($) {
 					});
 
 					if (selectedYear.length > 0) {
-						$('#dec-eventfeed-year').val(selectedYearId);
+						$(mainClass +' #dec-eventfeed-year').val(selectedYearId);
 						$('#dec-year-current-select' ).html(": "+ selectedYear);
 						$('#dec-year-current-select' ).parent().addClass("dec-filter-select");	
 				        $('.dec-year-remove').css({"display": "initial"});	
 					}else if (jQuery(this).text() != '') {
 						var text = jQuery(this).text();
 				        var dataId = $(this).data("id");
-				        $('#dec-eventfeed-year').val(dataId);
+				        $(mainClass +' #dec-eventfeed-year').val(dataId);
 						$('#dec-year-current-select' ).html(": "+ text);	
 						$('#dec-year-current-select' ).parent().addClass("dec-filter-select");	
 				        $('.dec-year-remove').css({"display": "initial"});
 					}else{
-						$('#dec-eventfeed-year').val("");
+						$(mainClass +' #dec-eventfeed-year').val("");
 						$('#dec-year-current-select' ).html("");
 						$('#dec-year-current-select' ).parent().removeClass("dec-filter-select");	
 				        $('.dec-year-remove').css({"display": "none"});	
@@ -625,14 +652,14 @@ jQuery(function ($) {
 					$('#dec-date-current-select' ).html("<span>Date Range</span>");
 					$('#reportrange' ).removeClass("dec-filter-select");	
 					jQuery('.dec-date-range-remove').css({"display": "none"});	 
-					$('#EventstartDate').val("");
-					$('#EventendDate').val("");
+					$(mainClass+' #EventstartDate').val("");
+					$(mainClass+' #EventendDate').val("");
 			   });
 		
 				jQuery('.dec-organizer-remove').on("click",function(){
 					$("input[name='dec_filter_organizer']").prop('checked', false);
 					 $('#dec-organizer-current-select' ).html("");
-					 $('#dec-eventfeed-organizer').val("");
+					 $(mainClass +' #dec-eventfeed-organizer').val("");
 					 $('.organizer-filter-selection-list' ).html("");
 					 $('#dec-organizer-current-select' ).parent().removeClass("dec-filter-select");	
 					 $(this).css({"display": "none"});	
@@ -643,7 +670,7 @@ jQuery(function ($) {
 				jQuery('.dec-venue-remove').on("click",function(){
 					$("input[name='dec_filter_venue']").prop('checked', false);
 					$('#dec-venue-current-select').html("");	
-					$('#dec-eventfeed-venue').val("");
+					$(mainClass +' #dec-eventfeed-venue').val("");
 					$('.dec-venue-filter-selection-list').html("");
 					$('#dec-venue-current-select' ).parent().removeClass("dec-filter-select");
 					$(this).css({"display": "none"});	
@@ -653,7 +680,7 @@ jQuery(function ($) {
 				jQuery('.dec-year-remove').on("click",function(){
 					$("input[name='dec_filter_years']").prop('checked', false);
 					$('#dec-year-current-select').html("");	
-					$('#dec-eventfeed-year').val("");
+					$(mainClass +' #dec-eventfeed-year').val("");
 					$('.dec-year-filter-selection-list').html("");
 					$('#dec-year-current-select' ).parent().removeClass("dec-filter-select");
 					$(this).css({"display": "none"});	
@@ -662,8 +689,8 @@ jQuery(function ($) {
 		
 			   jQuery('.dec-price-remove').on("click",function(){
 					$('#dec-price-current-select').html("");	
-					$('#EventcostMax').val("");
-					$('#EventcostMin').val("");
+					$(mainClass +' #EventcostMax').val("");
+					$(mainClass +' #EventcostMin').val("");
 					$('#dec-price-current-select' ).parent().removeClass("dec-filter-select");
 					$(this).css({"display": "none"});	
 					$('.dec-price-filter-list').hide();		 
@@ -672,7 +699,7 @@ jQuery(function ($) {
 				jQuery('.dec-month-remove').on("click",function(){
 					$("input[name='dec_filter_months']").prop('checked', false);
 					$('#dec-month-current-select').html("");	
-					$('#dec-eventfeed-month').val("");
+					$(mainClass +' #dec-eventfeed-month').val("");
 					$('.dec-month-filter-selection-list').html("");
 					$('#dec-month-current-select' ).parent().removeClass("dec-filter-select");
 					$(this).css({"display": "none"});	
@@ -682,7 +709,7 @@ jQuery(function ($) {
 			jQuery('.dec-day-remove').on("click",function(){
 				    $("input[name='dec_filter_days']").prop('checked', false);
 					$('#dec-day-current-select').html("");	
-					$('#dec-eventfeed-day').val("");
+					$(mainClass +' #dec-eventfeed-day').val("");
 					$('.dec-day-filter-selection-list').html("");
 					$('#dec-day-current-select' ).parent().removeClass("dec-filter-select");
 					$(this).css({"display": "none"});	
@@ -693,7 +720,7 @@ jQuery(function ($) {
 			jQuery('.dec-time-remove').on("click",function(){
 				    $("input[name='dec_filter_time']").prop('checked', false);
 					$('#dec-time-current-select').html("");	
-					$('#dec-eventfeed-time').val("");
+					$(mainClass +' #dec-eventfeed-time').val("");
 					$('.dec-time-filter-selection-list').html("");
 					$('#dec-time-current-select' ).parent().removeClass("dec-filter-select");
 					$(this).css({"display": "none"});	
@@ -702,9 +729,9 @@ jQuery(function ($) {
 		
 			   jQuery('.dec-tag-remove').on("click",function(){
 				    $("input[name='dec_filter_tag']").prop('checked', false);
-					$('#dec-tag-current-select' ).html("");
+					$( '#dec-tag-current-select' ).html("");
 					$('.tag-filter-selection-list' ).html("");
-					$('#dec-eventfeed-tag').val("");
+					$(mainClass +' #dec-eventfeed-tag').val("");
 					$('#dec-tag-current-select' ).parent().removeClass("dec-filter-select");	
 					$(this).css({"display": "none"});	
 					$('.dec-tag-filter-list').hide();		 
@@ -713,7 +740,7 @@ jQuery(function ($) {
 				jQuery('.dec-category-remove').on("click",function(){
 					$("input[name='dec_filter_category']").prop('checked', false);
 					$('#dec-event-current-select' ).html("");
-					$('#dec-eventfeed-category').val("");
+					$(mainClass +' #dec-eventfeed-category').val("");
 					$('.event-category-filter-selection-list').html("");
 					$(this).css({"display": "none"});	
 					$('#dec-event-current-select' ).parent().removeClass("dec-filter-select");
@@ -723,7 +750,7 @@ jQuery(function ($) {
 				jQuery('.dec-city-remove').on("click",function(){
 					$("input[name='dec_filter_city']").prop('checked', false);
 					$('#dec-city-current-select' ).html("");
-					$('#dec-eventfeed-city').val("");
+					$(mainClass +' #dec-eventfeed-city').val("");
 					$(this).css({"display": "none"});	
 					$('#dec-city-current-select' ).parent().removeClass("dec-filter-select");
 					$('.dec-city-category-filter-list').hide();		 
@@ -732,7 +759,7 @@ jQuery(function ($) {
 				jQuery('.dec-country-remove').on("click",function(){
 					$("input[name='dec_filter_country']").prop('checked', false);
 					$('#dec-country-current-select' ).html("");
-					$('#dec-eventfeed-country').val("");
+					$(mainClass +' #dec-eventfeed-country').val("");
 					$(this).css({"display": "none"});	
 					$('#dec-country-current-select' ).parent().removeClass("dec-filter-select");
 					$('.dec-country-category-filter-list').hide();		 
@@ -742,7 +769,7 @@ jQuery(function ($) {
 				jQuery('.dec-location-remove').on("click",function(){
 					$("input[name='dec_filter_location']").prop('checked', false);
 					$('#dec-location-current-select' ).html("");
-					$('#dec-eventfeed-address').val("");
+					$(mainClass +' #dec-eventfeed-address').val("");
 					$(this).css({"display": "none"});	
 					$('#dec-location-current-select' ).parent().removeClass("dec-filter-select");
 					$('.dec-location-category-filter-list').hide();		 
@@ -751,7 +778,7 @@ jQuery(function ($) {
 				jQuery('.dec-state-remove').on("click",function(){
 					$("input[name='dec_filter_state']").prop('checked', false);
 					$('#dec-state-current-select' ).html("");
-					$('#dec-eventfeed-state').val("");
+					$(mainClass +' #dec-eventfeed-state').val("");
 					$(this).css({"display": "none"});	
 					$('#dec-state-current-select' ).parent().removeClass("dec-filter-select");
 					$('.dec-state-category-filter-list').hide();		 
@@ -760,7 +787,7 @@ jQuery(function ($) {
 				jQuery('.dec-order-remove').on("click",function(){
 					$("input[name='dec_filter_order']").prop('checked', false);
 					$('#dec-order-current-select' ).html("");
-					$('#dec-eventfeed-order').val("");
+					$(mainClass +' #dec-eventfeed-order').val("");
 					$(this).css({"display": "none"});	
 					$('#dec-order-current-select' ).parent().removeClass("dec-filter-select");
 					$('.dec-order-category-filter-list').hide();		 
@@ -795,25 +822,25 @@ jQuery(function ($) {
 					$('#dec-state-current-select' ).html("");
 					$('#dec-country-current-select' ).html("");
 					$('#dec-location-current-select' ).html("");
-					$('#dec-eventfeed-location').val("");
-					$('#dec-eventfeed-country').val("");
-					$('#dec-eventfeed-city').val("");
-					$('#dec-eventfeed-order').val("");
-					$('#dec-eventfeed-tag').val("");
-					$('#dec-eventfeed-day').val("");
-					$('#dec-eventfeed-category').val("");
-					$('#dec-eventfeed-time').val("");	
-					$('#dec-eventfeed-venue').val("");
-					$('#dec-eventfeed-organizer').val("");
-					$('#dec-eventfeed-month').val("");
-					$('#dec-eventfeed-year').val("");
-					$('#dec-eventfeed-state').val("");
-					$('#dec-eventfeed-address').val("");
-					$('#EventcostMax').val("");
-					$('#EventcostMin').val("");
-					$('#EventstartDate').val("");
-					$('#EventendDate').val("");
-					$('#dec-filter-search').val("");
+					$(mainClass +' #dec-eventfeed-location').val("");
+					$(mainClass +' #dec-eventfeed-country').val("");
+					$(mainClass +' #dec-eventfeed-city').val("");
+					$(mainClass +' #dec-eventfeed-order').val("");
+					$(mainClass +' #dec-eventfeed-tag').val("");
+					$(mainClass +' #dec-eventfeed-day').val("");
+					$(mainClass +' #dec-eventfeed-category').val("");
+					$(mainClass +' #dec-eventfeed-time').val("");	
+					$(mainClass +' #dec-eventfeed-venue').val("");
+					$(mainClass +' #dec-eventfeed-organizer').val("");
+					$(mainClass +' #dec-eventfeed-month').val("");
+					$(mainClass +' #dec-eventfeed-year').val("");
+					$(mainClass +' #dec-eventfeed-state').val("");
+					$(mainClass +' #dec-eventfeed-address').val("");
+					$(mainClass +' #EventcostMax').val("");
+					$(mainClass +' #EventcostMin').val("");
+					$(mainClass +' #EventstartDate').val("");
+					$(mainClass +' #EventendDate').val("");
+					$(mainClass +' #dec-filter-search').val("");
 					$('#dec-date-current-select' ).html("<span>Date Range</span>");
 					$('#dec-event-current-select' ).parent().removeClass("dec-filter-select");
 					$('#dec-tag-current-select' ).parent().removeClass("dec-filter-select");
