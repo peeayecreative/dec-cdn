@@ -1,4 +1,4 @@
-let html;
+let calendar_html;
 let calendar_view = "";
 let calendar_view_tablet = "";
 let calendar_view_phone = "";
