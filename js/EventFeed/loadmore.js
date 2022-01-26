@@ -127,6 +127,20 @@ $(window).on( "load", function() {
       let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
       let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
       let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
+      
+       let eventfeed_current_pagination_pages = jQuery(mainClass + " input[name='eventfeed_current_pagination_page']").val();
+    let eventfeed_current_page = jQuery(mainClass + " input[name='eventfeed_current_page']").val();
+    let eventfeed_class_pagination = jQuery(mainClass + " input[name='eventfeed_class_pagination']").val();
+    let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
+    let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
+    let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
+    let eventfeed_load_img = jQuery(mainClass + " input[name='eventfeed_load_img']").val();
+    let event_image = '<img src="' + eventfeed_load_img + '" class="eventFeed_load_img">';
+    // jQuery(".append_events").html('<img src="'+eventfeed_load_img+'">')
+    //console.log(eventfeed_load_img);
+    if (eventfeed_page == "paged" && jQuery(this)[0].className == "ecs-page_alignment_left") {
+      eventfeed_current_page = eventfeed_prev_page - 1;
+    }
 
 
       var data = {
@@ -134,6 +148,15 @@ $(window).on( "load", function() {
         atts: JSON.stringify(eventFeed.atts),
         type: "POST",
         dateType: "html",
+        eventfeed_current_page: eventfeed_current_page,
+        eventfeed_page: eventfeed_page,
+        eventfeed_prev_page: eventfeed_prev_page,
+        eventfeed_current_pagination_page: eventfeed_current_pagination_pages,
+        categId: eventFeed.categId,
+        categslug: eventFeed.categslug,
+        term_id: eventFeed.term_id,
+        pagination_type: eventFeed.pagination_type,
+        class_pagination: eventFeed.class_pagination,
         filter_event_category: filter_event_category,
         event_filter_organizer: event_filter_organizer,
         event_filter_tag: event_filter_tag,
@@ -241,12 +264,35 @@ $(window).on( "load", function() {
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
    //  console.log('event category ajax value');
    //  console.log(filter_event_category,"class");
+    
+     let eventfeed_current_pagination_pages = jQuery(mainClass + " input[name='eventfeed_current_pagination_page']").val();
+    let eventfeed_current_page = jQuery(mainClass + " input[name='eventfeed_current_page']").val();
+    let eventfeed_class_pagination = jQuery(mainClass + " input[name='eventfeed_class_pagination']").val();
+    let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
+    let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
+    let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
+    let eventfeed_load_img = jQuery(mainClass + " input[name='eventfeed_load_img']").val();
+    let event_image = '<img src="' + eventfeed_load_img + '" class="eventFeed_load_img">';
+    // jQuery(".append_events").html('<img src="'+eventfeed_load_img+'">')
+    //console.log(eventfeed_load_img);
+    if (eventfeed_page == "paged" && jQuery(this)[0].className == "ecs-page_alignment_left") {
+      eventfeed_current_page = eventfeed_prev_page - 1;
+    }
 
     var data = {
       action: "filters_event_posts",
       atts: JSON.stringify(eventFeed.atts),
       type: "POST",
       dateType: "html",
+      eventfeed_current_page: eventfeed_current_page,
+      eventfeed_page: eventfeed_page,
+      eventfeed_prev_page: eventfeed_prev_page,
+      eventfeed_current_pagination_page: eventfeed_current_pagination_pages,
+      categId: eventFeed.categId,
+      categslug: eventFeed.categslug,
+      term_id: eventFeed.term_id,
+      pagination_type: eventFeed.pagination_type,
+      class_pagination: eventFeed.class_pagination,
       filter_event_category: filter_event_category,
       event_filter_organizer: event_filter_organizer,
       event_filter_tag: event_filter_tag,
