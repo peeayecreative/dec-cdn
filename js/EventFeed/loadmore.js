@@ -24,9 +24,8 @@ $(window).on( "load", function() {
 
   // });
 
- // console.log(mainClass,'main class');
+  let eventfeed_page = jQuery("input[name='eventfeed_page']").val();
   
-
     var eventFeed = $(window)[0][`eventFeed${mainClass.substr(1, mainClass.length)}`];
 
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
@@ -34,7 +33,7 @@ $(window).on( "load", function() {
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
     let eventfeed_current_pagination_pages = jQuery(mainClass + " input[name='eventfeed_current_pagination_page']").val();
     let eventfeed_current_page = jQuery(mainClass + " input[name='eventfeed_current_page']").val();
-    let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
+    
     let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
     let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
   //  let eventfeed_show_past = jQuery(mainClass + " input[name='dec-eventfeed-past-event']").val();
@@ -58,11 +57,13 @@ $(window).on( "load", function() {
     // console.log(categslug);
 
     $.post(eventFeed.ajaxurl, data, function () {
-     
-      
+   
+      let paging_max_page = jQuery("input[name='eventfeed_max_page']").val();
+      var result = PagingEventDislay(1, paging_max_page, "ecs-page-numbers", "ecs-page-disable");
+      jQuery(".ecs-event-pagination").html(result);
+   //   console.log("run code");
     //  $('.actionButton.single-pet').attr("style", "display: inline !important");
       if (eventfeed_page == "numeric_pagination") {
-      //  console.log("chech duhgudhfh");
         var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page,event_filter_page_first,event_filter_page_last);
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
@@ -128,35 +129,14 @@ $(window).on( "load", function() {
       let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
       let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
 
-      let eventfeed_current_pagination_pages = jQuery(mainClass + " input[name='eventfeed_current_pagination_page']").val();
-      let eventfeed_current_page = jQuery(mainClass + " input[name='eventfeed_current_page']").val();
-      let eventfeed_class_pagination = jQuery(mainClass + " input[name='eventfeed_class_pagination']").val();
       let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
-      let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
-      let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
-      let eventfeed_load_img = jQuery(mainClass + " input[name='eventfeed_load_img']").val();
-      let event_image = '<img src="' + eventfeed_load_img + '" class="eventFeed_load_img">';
-      // jQuery(".append_events").html('<img src="'+eventfeed_load_img+'">')
-      //console.log(eventfeed_load_img);
-      if (eventfeed_page == "paged" && jQuery(this)[0].className == "ecs-page_alignment_left") {
-        eventfeed_current_page = eventfeed_prev_page - 1;
-      }
-   //   jQuery(mainClass + " .event_ajax_load").append(event_image);
+      jQuery(mainClass +' #eventfeed_current_page').val("1");
 
       var data = {
         action: "filters_event_posts",
         atts: JSON.stringify(eventFeed.atts),
         type: "POST",
         dateType: "html",
-        eventfeed_current_page: eventfeed_current_page,
-        eventfeed_page: eventfeed_page,
-        eventfeed_prev_page: eventfeed_prev_page,
-        eventfeed_current_pagination_page: eventfeed_current_pagination_pages,
-        categId: eventFeed.categId,
-        categslug: eventFeed.categslug,
-        term_id: eventFeed.term_id,
-        pagination_type: eventFeed.pagination_type,
-        class_pagination: eventFeed.class_pagination,
         filter_event_category: filter_event_category,
         event_filter_organizer: event_filter_organizer,
         event_filter_tag: event_filter_tag,
@@ -182,24 +162,52 @@ $(window).on( "load", function() {
         jQuery(mainClass + ' .append_events').html('');
         jQuery(mainClass + ' .append_events').append(atts);
 
-        var eventfeed_max_page = jQuery(mainClass + '#page_max').val();
-        var eventfeed_current_pagination_pages = jQuery('#eventfeed_current_pagination_page').val();
-        jQuery(mainClass + ' #eventfeed_max_page').val(eventfeed_max_page);
-
-        var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable",event_filter_page,event_filter_page_first,event_filter_page_last);
-        jQuery(mainClass + ' .ecs-event-pagination').html('');
-        jQuery(mainClass + ' .ecs-event-pagination').append(result);
-        jQuery(".dec-page-text-display").attr("style", "display: none !important");
-      jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+        if (eventfeed_page == "load_more") {
+          var max_page = jQuery(mainClass + ' #page_max').val();
+          jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
+          if(max_page == 1){
+            jQuery(mainClass + ' .event_ajax_load').hide();
+          }else{
+            jQuery(mainClass + ' .event_ajax_load').show();
+          }
+        }
+        
+        if(eventfeed_page == "numeric_pagination") {
+          var eventfeed_max_page = jQuery(mainClass + ' #page_max').val();
+          var eventfeed_current_pagination_pages = jQuery(mainClass + ' #current_page').val();
+          jQuery(mainClass + ' #eventfeed_max_page').val(eventfeed_max_page);
+          console.log(eventfeed_max_page, "max page numaric");
+          var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable",event_filter_page,event_filter_page_first,event_filter_page_last);
+          jQuery(mainClass + ' .ecs-event-pagination').html('');
+          jQuery(mainClass + ' .ecs-event-pagination').append(result);
+          jQuery(".dec-page-text-display").attr("style", "display: none !important");
+          jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+    
+        }
+         
+    
+        if (eventfeed_page == "paged") {
+    
+          var max_page = jQuery(mainClass + ' #page_max').val();
+          jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
+         
+          if(max_page == 1){
+            $(mainClass + ' .ecs-page_alignment_left').hide();
+            $(mainClass + ' .ecs-page_alignment_right').hide();
+          }else{
+            $(mainClass + ' .ecs-page_alignment_left').hide();
+            $(mainClass + ' .ecs-page_alignment_right').show();
+          }
+         
+        }
+        
       });
     }
     event.stopPropagation();
   });
 
 
-  let paging_max_page = jQuery(" input[name='eventfeed_max_page']").val();
-  var result = PagingEventDislay(1, paging_max_page, "ecs-page-numbers", "ecs-page-disable");
-  jQuery(".ecs-event-pagination").html(result);
+ 
 
 
   $("input[name='dec_filter_category'], input[name='dec_filter_tag'], input[name='dec_filter_venue'], input[name='dec_filter_organizer'], input[name='dec_filter_location'], input[name='dec_filter_days'], input[name='dec_filter_city'], input[name='dec_filter_state'], input[name='dec_filter_country'], input[name='dec_filter_months'], input[name='dec_filter_years'], .decm-filter-catrgory-list, .dec-years-list, .dec-tag-list, .dec-order-filter-list  ul li, .dec-organizer-list, .dec-venue-list, .dec-city-list, .dec-country-list, .dec-months-list, .dec-state-list, .dec-days-list, .dec-time-list, .dec-location-list,  #dec-find-events, #dec-filter-remove, #eventCostslider .ui-slider-range, #eventCostslider > .ui-slider-handle, #reportrange, .dec-filter-label > button").on("click apply.daterangepicker cancel.daterangepicker'", function (event) {
@@ -265,36 +273,15 @@ $(window).on( "load", function() {
    //  console.log('event category ajax value');
    //  console.log(filter_event_category,"class");
 
-   
-   let eventfeed_current_pagination_pages = jQuery(mainClass + " input[name='eventfeed_current_pagination_page']").val();
-   let eventfeed_current_page = jQuery(mainClass + " input[name='eventfeed_current_page']").val();
-   let eventfeed_class_pagination = jQuery(mainClass + " input[name='eventfeed_class_pagination']").val();
-   let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
-   let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
-   let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
-   let eventfeed_load_img = jQuery(mainClass + " input[name='eventfeed_load_img']").val();
-   let event_image = '<img src="' + eventfeed_load_img + '" class="eventFeed_load_img">';
-   // jQuery(".append_events").html('<img src="'+eventfeed_load_img+'">')
-   //console.log(eventfeed_load_img);
-   if (eventfeed_page == "paged" && jQuery(this)[0].className == "ecs-page_alignment_left") {
-     eventfeed_current_page = eventfeed_prev_page - 1;
-   }
- //  jQuery(mainClass + " .event_ajax_load").append(event_image);
+      let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
+      jQuery(mainClass +' #eventfeed_current_page').val("1");
+
 
     var data = {
       action: "filters_event_posts",
       atts: JSON.stringify(eventFeed.atts),
       type: "POST",
       dateType: "html",
-      eventfeed_current_page: eventfeed_current_page,
-      eventfeed_page: eventfeed_page,
-      eventfeed_prev_page: eventfeed_prev_page,
-      eventfeed_current_pagination_page: eventfeed_current_pagination_pages,
-      categId: eventFeed.categId,
-      categslug: eventFeed.categslug,
-      term_id: eventFeed.term_id,
-      pagination_type: eventFeed.pagination_type,
-      class_pagination: eventFeed.class_pagination,
       filter_event_category: filter_event_category,
       event_filter_organizer: event_filter_organizer,
       event_filter_tag: event_filter_tag,
@@ -318,16 +305,47 @@ $(window).on( "load", function() {
     };
 
     $.post(eventFeed.ajaxurl, data, function (atts) {
-
       jQuery(mainClass + ' .append_events').html('');
       jQuery(mainClass + ' .append_events').append(atts);
 
-      var eventfeed_max_page = jQuery('#page_max').val();
-      var eventfeed_current_pagination_pages = jQuery('#eventfeed_current_pagination_page').val();
+    if (eventfeed_page == "load_more") {
+      var max_page = jQuery(mainClass + ' #page_max').val();
+      jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
+      if(max_page == 1){
+        jQuery(mainClass + ' .event_ajax_load').hide();
+      }else{
+        jQuery(mainClass + ' .event_ajax_load').show();
+      }
+    }
+    
+    if(eventfeed_page == "numeric_pagination") {
+      var eventfeed_max_page = jQuery(mainClass + ' #page_max').val();
+      var eventfeed_current_pagination_pages = jQuery(mainClass + ' #current_page').val();
       jQuery(mainClass + ' #eventfeed_max_page').val(eventfeed_max_page);
-      var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page,event_filter_page_first,event_filter_page_last);
+      console.log(eventfeed_max_page, "max page numaric");
+      var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable",event_filter_page,event_filter_page_first,event_filter_page_last);
       jQuery(mainClass + ' .ecs-event-pagination').html('');
       jQuery(mainClass + ' .ecs-event-pagination').append(result);
+      jQuery(".dec-page-text-display").attr("style", "display: none !important");
+      jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+
+    }
+     
+
+    if (eventfeed_page == "paged") {
+
+      var max_page = jQuery(mainClass + ' #page_max').val();
+      jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
+     
+      if(max_page == 1){
+        $(mainClass + ' .ecs-page_alignment_left').hide();
+        $(mainClass + ' .ecs-page_alignment_right').hide();
+      }else{
+        $(mainClass + ' .ecs-page_alignment_left').hide();
+        $(mainClass + ' .ecs-page_alignment_right').show();
+      }
+     
+    }
 
     });
 
@@ -474,9 +492,10 @@ $(window).on( "load", function() {
         }
         jQuery(mainClass + ' #eventfeed_current_page').val(eventfeed_current_page);
         if (eventfeed_max_page <= eventfeed_current_page) {
-          jQuery(mainClass + ' .event_ajax_load').remove();
+          jQuery(mainClass + ' .event_ajax_load').hide();
         }
       }
+      
       if (eventfeed_page == "paged") {
 
         jQuery(mainClass + ' #eventfeed_current_pagination_page').val(eventfeed_current_pagination_page);
@@ -505,11 +524,10 @@ $(window).on( "load", function() {
 
         }
 
-
         jQuery(mainClass + ' #eventfeed_current_page').val(eventfeed_current_page);
         jQuery(mainClass + ' #eventfeed_prev_page').val(eventfeed_prev_page);
         if (eventfeed_max_page <= eventfeed_current_page) {
-          jQuery('.event_ajax_load').remove();
+          jQuery(mainClass + ' .event_ajax_load').remove();
           $(mainClass + ' .ecs-page_alignment_right').hide();
         }
 
