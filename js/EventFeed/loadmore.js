@@ -2,8 +2,16 @@ jQuery(function ($) {
   
 $(window).on( "load", function() {
   
-  let module_css_filter = jQuery("input[name='dec-eventfeed-module-class']").val();
-  var mainClass = module_css_filter;
+  let module_css_filter = jQuery("input[name='module-css-filter']").val();
+  if(module_css_filter != ""){
+    var mainClass = "." +module_css_filter;
+  }
+ 
+  if(module_css_filter == ""){
+    let module_css_filter = jQuery("input[name='dec-eventfeed-module-class']").val();
+    var mainClass = module_css_filter;
+  }
+  
 
   // $('.decm_event_display').each(function (i, item) {
 
