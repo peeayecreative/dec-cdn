@@ -1,7 +1,8 @@
 jQuery(function ($) {
   
 $(window).on( "load", function() {
-  
+
+
   let module_css_filter = jQuery("input[name='module-css-filter']").val();
   if(module_css_filter != ""){
     var mainClass = "." +module_css_filter;
@@ -12,6 +13,10 @@ $(window).on( "load", function() {
     var mainClass = module_css_filter;
   }
   
+
+
+ 
+ 
 
   // $('.decm_event_display').each(function (i, item) {
 
@@ -45,7 +50,7 @@ $(window).on( "load", function() {
     let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
     let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
   //  let eventfeed_show_past = jQuery(mainClass + " input[name='dec-eventfeed-past-event']").val();
-  
+//  console.log(mainClass, "main class");
     var data = {
       action: "load_event_posts",
       atts: JSON.stringify(eventFeed.atts),
@@ -133,6 +138,7 @@ $(window).on( "load", function() {
       let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
       let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
       let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
+      let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
       let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
       let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
       let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
@@ -163,6 +169,7 @@ $(window).on( "load", function() {
         event_filter_state: event_filter_state,
         event_filter_address: event_filter_address,
         event_filter_order: event_filter_order,
+        event_filter_status: event_filter_status,
         // security: eventFeed.security,
       };
 
@@ -218,7 +225,7 @@ $(window).on( "load", function() {
  
 
 
-  $("input[name='dec_filter_category'], input[name='dec_filter_tag'], input[name='dec_filter_venue'], input[name='dec_filter_organizer'], input[name='dec_filter_location'], input[name='dec_filter_days'], input[name='dec_filter_city'], input[name='dec_filter_state'], input[name='dec_filter_country'], input[name='dec_filter_months'], input[name='dec_filter_years'], .decm-filter-catrgory-list, .dec-years-list, .dec-tag-list, .dec-order-filter-list  ul li, .dec-organizer-list, .dec-venue-list, .dec-city-list, .dec-country-list, .dec-months-list, .dec-state-list, .dec-days-list, .dec-time-list, .dec-location-list,  #dec-find-events, #dec-filter-remove, #eventCostslider .ui-slider-range, #eventCostslider > .ui-slider-handle, #reportrange, .dec-filter-label > button").on("click apply.daterangepicker cancel.daterangepicker'", function (event) {
+  $("input[name='dec_filter_category'], input[name='dec_filter_tag'], input[name='dec_filter_status'], input[name='dec_filter_venue'], input[name='dec_filter_organizer'], input[name='dec_filter_location'], input[name='dec_filter_days'], input[name='dec_filter_city'], input[name='dec_filter_state'], input[name='dec_filter_country'], input[name='dec_filter_months'], input[name='dec_filter_years'], .decm-filter-catrgory-list, .dec-years-list, .dec-tag-list, .dec-order-filter-list  ul li, .dec-organizer-list, .dec-venue-list, .dec-city-list, .dec-country-list, .dec-months-list, .dec-state-list,  .dec-status-list, .dec-days-list, .dec-time-list, .dec-location-list,  #dec-find-events, #dec-filter-remove, #eventCostslider .ui-slider-range, #eventCostslider > .ui-slider-handle, #reportrange, .dec-filter-label > button").on("click apply.daterangepicker cancel.daterangepicker'", function (event) {
 
     //  event.preventDefault();
 
@@ -275,6 +282,7 @@ $(window).on( "load", function() {
     let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
     let event_filter_venue = jQuery(mainClass +" input[name='dec-eventfeed-venue']").val();
     let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
+    let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
     let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
@@ -309,6 +317,7 @@ $(window).on( "load", function() {
       event_filter_address: event_filter_address,
       event_filter_page: event_filter_page,
       event_filter_order: event_filter_order,
+      event_filter_status: event_filter_status,
       // security: eventFeed.security,
     };
 
@@ -413,6 +422,7 @@ $(window).on( "load", function() {
     let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
     let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
     let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
+    let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
     let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
@@ -468,6 +478,7 @@ $(window).on( "load", function() {
       event_filter_state: event_filter_state,
       event_filter_address: event_filter_address,
       event_filter_order: event_filter_order,
+      event_filter_status: event_filter_status,
       event_filter_page: event_filter_page,
       // security: eventFeed.security,
     };
