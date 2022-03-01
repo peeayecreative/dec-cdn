@@ -502,47 +502,50 @@ $('.decm_event_display').each(function (i, item) {
 				});
 
 
-				jQuery('.dec-order-filter-list li').on("click",function() {
 
-					// var selectedOrder = new Array();
-					// var checkedOrder = new Array();;
-					// var checkedOrderId;
-					// var selectedOrderId = new Array();
+				jQuery('input[name=\'dec_filter_status\'], .dec-status-list').on("click",function() {
 
-					// $('input[name="order"]').on('change', function(i) {
-					// 	$('input[name="order"]').not(this).prop('checked', false);
-					//  var value =	$('input[name="order"]:checked').val();
-					
-					//  checkedOrder.push(value);	
-				    //  checkedOrderId =  $(this).attr("id");
+					var selectedStatus = new Array();
+					var selectedStatusId = new Array();
+					$("input[name='dec_filter_status']:checked").each(function () {
+						selectedStatus.push(" "+this.value);
+						selectedStatusId.push(this.id);
+					});
 
-					// console.log(checkedOrder);
-					// console.log(checkedOrderId);
-					// selectedOrder.push(checkedOrder);
-				//	});
-
-					// $(" input[name='order']:checked").each(function () {
-					// 	selectedOrder.push(this.value);
-					// 	selectedOrderId.push(this.id);
-					// });
-
-					//  if(checkedOrder != null) {
-					// 	$('#event-order').val(checkedOrderId);
-					// 	$('#dec-order-current-select' ).html(" : "+ checkedOrder);		
-					// }else{
+					if (selectedStatus.length > 0) {
+						$(mainClass +' #dec-eventfeed-status').val(selectedStatusId);
+						$('#dec-status-current-select' ).html(": "+ selectedStatus);
+						$('#dec-status-current-select' ).parent().addClass("dec-filter-select");	
+						$('.dec-status-remove').css({"display": "initial"});
+					}else if (jQuery(this).text() != '') {
 						var text = jQuery(this).text();
-						var dataId = $(this).data("id");
-					//	console.log(text);
-						$(mainClass +' #dec-eventfeed-order').val(dataId);
-						$('#dec-order-current-select' ).html(": "+ text);	
-							
-					//}
-		
-					$('#dec-order-current-select' ).parent().addClass("dec-filter-select");	
-					$('.dec-order-remove').css({"display": "initial"});
-				
+					    var dataId = $(this).data("id");
+					   $( mainClass +' #dec-eventfeed-status').val(dataId);
+					   $('#dec-status-current-select' ).html(": "+ text);
+					   $('#dec-status-current-select' ).parent().addClass("dec-filter-select");	
+						$('.dec-status-remove').css({"display": "initial"});
+					}else{
+					   $(mainClass +' #dec-eventfeed-status').val("");
+					   $('#dec-status-current-select' ).html("");
+					   $('#dec-status-current-select' ).parent().removeClass("dec-filter-select");	
+					   $('.dec-status-remove').css({"display": "none"});
+					}		
+					//$('.dec-month-filter-selection-list' ).html("<span class='venue-filter-selection'>"+ text +"</span>");
 				});
 
+
+				jQuery('.dec-order-filter-list li').on("click",function() {
+
+					var text = jQuery(this).text();
+					var dataId = $(this).data("id");
+				
+					$(mainClass +' #dec-eventfeed-order').val(dataId);
+					$('#dec-order-current-select' ).html(": "+ text);	
+	
+				$('#dec-order-current-select' ).parent().addClass("dec-filter-select");	
+				$('.dec-order-remove').css({"display": "initial"});
+			
+			});
 		
 			  jQuery('input[name=\'dec_filter_years\'], .dec-years-list').on("click",function() {
 				var selectedYear = new Array();
@@ -641,6 +644,11 @@ $('.decm_event_display').each(function (i, item) {
 		
 				$('.dec-filter-time').on("click",function(){
 					$('.dec-time-filter-list').toggle();
+
+				});
+
+				$('.dec-filter-status').on("click",function(){
+					$('.dec-status-filter-list').toggle();
 
 				});
 		
@@ -792,6 +800,16 @@ $('.decm_event_display').each(function (i, item) {
 					$('#dec-order-current-select' ).parent().removeClass("dec-filter-select");
 					$('.dec-order-category-filter-list').hide();		 
 				});
+
+				jQuery('.dec-status-remove').on("click",function(){
+					$("input[name='dec_filter_status']").prop('checked', false);
+					$('#dec-status-current-select' ).html("");
+					$(mainClass +' #dec-eventfeed-status').val("");
+					$(this).css({"display": "none"});	
+					$('#dec-status-current-select' ).parent().removeClass("dec-filter-select");
+					$('.dec-status-category-filter-list').hide();		 
+				});
+		
 		
 				jQuery('#dec-filter-remove').on("click",function(){
 					$( ".dec-filter-label > button" ).hide();
@@ -804,6 +822,7 @@ $('.decm_event_display').each(function (i, item) {
 					$("input[name='dec_filter_organizer']").prop('checked', false);
 					$("input[name='dec_filter_order']").prop('checked', false);
 					$("input[name='dec_filter_months']").prop('checked', false);
+					$("input[name='dec_filter_status']").prop('checked', false);
 					$("input[name='dec_filter_time']").prop('checked', false);
 					$("input[name='dec_filter_days']").prop('checked', false);
 					$("input[name='dec_filter_years']").prop('checked', false);
@@ -822,6 +841,7 @@ $('.decm_event_display').each(function (i, item) {
 					$('#dec-state-current-select' ).html("");
 					$('#dec-country-current-select' ).html("");
 					$('#dec-location-current-select' ).html("");
+					$('#dec-status-current-select' ).html("");
 					$(mainClass +' #dec-eventfeed-location').val("");
 					$(mainClass +' #dec-eventfeed-country').val("");
 					$(mainClass +' #dec-eventfeed-city').val("");
@@ -841,6 +861,8 @@ $('.decm_event_display').each(function (i, item) {
 					$(mainClass +' #EventstartDate').val("");
 					$(mainClass +' #EventendDate').val("");
 					$(mainClass +' #dec-filter-search').val("");
+					$(mainClass +' #dec-eventfeed-status').val("");
+				//	$(mainClass +' #eventfeed_current_page').val("0");
 					$('#dec-date-current-select' ).html("<span>Date Range</span>");
 					$('#dec-event-current-select' ).parent().removeClass("dec-filter-select");
 					$('#dec-tag-current-select' ).parent().removeClass("dec-filter-select");
@@ -856,6 +878,7 @@ $('.decm_event_display').each(function (i, item) {
 					$('#dec-state-current-select' ).parent().removeClass("dec-filter-select");
 					$('#dec-location-current-select' ).parent().removeClass("dec-filter-select");
 					$('#dec-order-current-select' ).parent().removeClass("dec-filter-select");
+					$('#dec-status-current-select' ).parent().removeClass("dec-filter-select");
 					$('#reportrange' ).removeClass("dec-filter-select");
 				});
 		
