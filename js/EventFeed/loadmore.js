@@ -1,44 +1,39 @@
 jQuery(function ($) {
-  
-$(window).on( "load", function() {
+
+  $(window).on("load", function () {
+
+    let module_css_filter = jQuery("input[name='module-css-filter']").val();
+    if (module_css_filter != "") {
+      var mainClass = "." + module_css_filter;
+    }
+
+    if (module_css_filter == "" || module_css_filter == undefined) {
+      let module_css_filter = jQuery("input[name='dec-eventfeed-module-class']").val();
+      var mainClass = module_css_filter;
+    }
 
 
-  let module_css_filter = jQuery("input[name='module-css-filter']").val();
-  if(module_css_filter != ""){
-    var mainClass = "." +module_css_filter;
-  }
- 
-  if(module_css_filter == ""){
-    let module_css_filter = jQuery("input[name='dec-eventfeed-module-class']").val();
-    var mainClass = module_css_filter;
-  }
-  
+    // $('.decm_event_display').each(function (i, item) {
 
+    //   var classfilter = jQuery(item).attr('class').split(/\s+/);
 
- 
- 
+    //   $.each(classfilter, function (index, item) {
 
-  // $('.decm_event_display').each(function (i, item) {
+    //     if (module_css_filter != '' && item != '') {
+    //       if (item == module_css_filter) {
+    //         mainClass = "." + item;
+    //       }
+    //     } else if (item.match(/decm_event_display_/g)) {
+    //       mainClass = "." + item;
+    //     }
 
-  //   var classfilter = jQuery(item).attr('class').split(/\s+/);
+    //   });
+    //   //test
 
-  //   $.each(classfilter, function (index, item) {
+    // });
 
-  //     if (module_css_filter != '' && item != '') {
-  //       if (item == module_css_filter) {
-  //         mainClass = "." + item;
-  //       }
-  //     } else if (item.match(/decm_event_display_/g)) {
-  //       mainClass = "." + item;
-  //     }
+    let eventfeed_page = jQuery("input[name='eventfeed_page']").val();
 
-  //   });
-  //   //test
-
-  // });
-
-  let eventfeed_page = jQuery("input[name='eventfeed_page']").val();
-  
     var eventFeed = $(window)[0][`eventFeed${mainClass.substr(1, mainClass.length)}`];
 
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
@@ -46,11 +41,11 @@ $(window).on( "load", function() {
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
     let eventfeed_current_pagination_pages = jQuery(mainClass + " input[name='eventfeed_current_pagination_page']").val();
     let eventfeed_current_page = jQuery(mainClass + " input[name='eventfeed_current_page']").val();
-    
+
     let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
     let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
-  //  let eventfeed_show_past = jQuery(mainClass + " input[name='dec-eventfeed-past-event']").val();
-//  console.log(mainClass, "main class");
+    //  let eventfeed_show_past = jQuery(mainClass + " input[name='dec-eventfeed-past-event']").val();
+
     var data = {
       action: "load_event_posts",
       atts: JSON.stringify(eventFeed.atts),
@@ -62,7 +57,7 @@ $(window).on( "load", function() {
       eventfeed_current_pagination_page: eventfeed_current_pagination_pages,
       pagination_type: eventFeed.pagination_type,
       class_pagination: eventFeed.class_pagination,
-    //  eventfeed_show_past:eventfeed_show_past,
+      //  eventfeed_show_past:eventfeed_show_past,
       // security: eventFeed.security,
     };
     // console.log(eventFeed.class_pagination);
@@ -70,14 +65,14 @@ $(window).on( "load", function() {
     // console.log(categslug);
 
     $.post(eventFeed.ajaxurl, data, function () {
-   
+
       let paging_max_page = jQuery("input[name='eventfeed_max_page']").val();
       var result = PagingEventDislay(1, paging_max_page, "ecs-page-numbers", "ecs-page-disable");
       jQuery(".ecs-event-pagination").html(result);
-   //   console.log("run code");
-    //  $('.actionButton.single-pet').attr("style", "display: inline !important");
+      //   console.log("run code");
+      //  $('.actionButton.single-pet').attr("style", "display: inline !important");
       if (eventfeed_page == "numeric_pagination") {
-        var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page,event_filter_page_first,event_filter_page_last);
+        var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
       }
@@ -116,7 +111,7 @@ $(window).on( "load", function() {
 
       });
 
-   //   var mainClass = ".test123";
+      //   var mainClass = ".test123";
 
       var eventFeed = $(window)[0][`eventFeed${mainClass.substr(1, mainClass.length)}`];
 
@@ -138,13 +133,13 @@ $(window).on( "load", function() {
       let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
       let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
       let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
-      let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
       let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
       let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
       let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
+      let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
 
       let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
-      jQuery(mainClass +' #eventfeed_current_page').val("1");
+      jQuery(mainClass + ' #eventfeed_current_page').val("1");
 
       var data = {
         action: "filters_event_posts",
@@ -170,6 +165,7 @@ $(window).on( "load", function() {
         event_filter_address: event_filter_address,
         event_filter_order: event_filter_order,
         event_filter_status: event_filter_status,
+
         // security: eventFeed.security,
       };
 
@@ -180,56 +176,54 @@ $(window).on( "load", function() {
         if (eventfeed_page == "load_more") {
           var max_page = jQuery(mainClass + ' #page_max').val();
           jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
-          if(max_page == 1){
+          if (max_page == 1) {
             jQuery(mainClass + ' .event_ajax_load').hide();
-          }else{
+          } else {
             jQuery(mainClass + ' .event_ajax_load').show();
           }
         }
-        
-        if(eventfeed_page == "numeric_pagination") {
+
+        if (eventfeed_page == "numeric_pagination") {
           var eventfeed_max_page = jQuery(mainClass + ' #page_max').val();
           var eventfeed_current_pagination_pages = jQuery(mainClass + ' #current_page').val();
           jQuery(mainClass + ' #eventfeed_max_page').val(eventfeed_max_page);
           console.log(eventfeed_max_page, "max page numaric");
-          var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable",event_filter_page,event_filter_page_first,event_filter_page_last);
+          var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
           jQuery(mainClass + ' .ecs-event-pagination').html('');
           jQuery(mainClass + ' .ecs-event-pagination').append(result);
           jQuery(".dec-page-text-display").attr("style", "display: none !important");
           jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
-    
+
         }
-         
-    
+
+
         if (eventfeed_page == "paged") {
-    
+
           var max_page = jQuery(mainClass + ' #page_max').val();
           jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
-         
-          if(max_page == 1){
+
+          if (max_page == 1) {
             $(mainClass + ' .ecs-page_alignment_left').hide();
             $(mainClass + ' .ecs-page_alignment_right').hide();
-          }else{
+          } else {
             $(mainClass + ' .ecs-page_alignment_left').hide();
             $(mainClass + ' .ecs-page_alignment_right').show();
           }
-         
+
         }
-        
+
       });
     }
     event.stopPropagation();
   });
 
 
- 
 
-
-  $("input[name='dec_filter_category'], input[name='dec_filter_tag'], input[name='dec_filter_status'], input[name='dec_filter_venue'], input[name='dec_filter_organizer'], input[name='dec_filter_location'], input[name='dec_filter_days'], input[name='dec_filter_city'], input[name='dec_filter_state'], input[name='dec_filter_country'], input[name='dec_filter_months'], input[name='dec_filter_years'], .decm-filter-catrgory-list, .dec-years-list, .dec-tag-list, .dec-order-filter-list  ul li, .dec-organizer-list, .dec-venue-list, .dec-city-list, .dec-country-list, .dec-months-list, .dec-state-list,  .dec-status-list, .dec-days-list, .dec-time-list, .dec-location-list,  #dec-find-events, #dec-filter-remove, #eventCostslider .ui-slider-range, #eventCostslider > .ui-slider-handle, #reportrange, .dec-filter-label > button").on("click apply.daterangepicker cancel.daterangepicker'", function (event) {
+  $("input[name='dec_filter_category'], input[name='dec_filter_tag'],  input[name='dec_filter_status'], input[name='dec_filter_venue'], input[name='dec_filter_organizer'], input[name='dec_filter_location'], input[name='dec_filter_days'], input[name='dec_filter_city'], input[name='dec_filter_state'], input[name='dec_filter_country'], input[name='dec_filter_months'], input[name='dec_filter_years'], .decm-filter-catrgory-list, .dec-years-list, .dec-status-list, .dec-tag-list, .dec-order-filter-list  ul li, .dec-organizer-list, .dec-venue-list, .dec-city-list, .dec-country-list, .dec-months-list, .dec-state-list, .dec-days-list, .dec-time-list, .dec-location-list,  #dec-find-events, #dec-filter-remove, #eventCostslider .ui-slider-range, #eventCostslider > .ui-slider-handle, #reportrange, .dec-filter-label > button").on("click apply.daterangepicker cancel.daterangepicker'", function (event) {
 
     //  event.preventDefault();
 
-   let module_css_filter = jQuery("input[name='module-css-filter']").val();
+    let module_css_filter = jQuery("input[name='module-css-filter']").val();
 
     var mainClass = "";
 
@@ -247,7 +241,7 @@ $(window).on( "load", function() {
             mainClass = "." + item;
 
           }
-        }else if (item.match(/decm_event_display_/g)) {
+        } else if (item.match(/decm_event_display_/g)) {
           mainClass = "." + item;
           // console.log(mainClass);
         }
@@ -258,7 +252,7 @@ $(window).on( "load", function() {
 
     });
 
-   //   console.log(mainClass,'event filter');
+    //   console.log(mainClass,'event filter');
 
     var eventFeed = $(window)[0][`eventFeed${mainClass.substr(1, mainClass.length)}`];
 
@@ -277,20 +271,20 @@ $(window).on( "load", function() {
     let event_filter_day = jQuery(mainClass + " input[name='dec-eventfeed-day']").val();
     let event_filter_time = jQuery(mainClass + " input[name='dec-eventfeed-time']").val();
     let event_filter_search = jQuery(mainClass + " input[name='dec-filter-search']").val();
-    let filter_event_category = jQuery(mainClass +" input[name='dec-eventfeed-category']").val();
+    let filter_event_category = jQuery(mainClass + " input[name='dec-eventfeed-category']").val();
     let event_filter_organizer = jQuery(mainClass + " input[name='dec-eventfeed-organizer']").val();
     let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
-    let event_filter_venue = jQuery(mainClass +" input[name='dec-eventfeed-venue']").val();
+    let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
     let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
-    let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
     let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
-   //  console.log('event category ajax value');
-   //  console.log(filter_event_category,"class");
+    let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
+    //  console.log('event category ajax value');
+    //  console.log(filter_event_category,"class");
 
-      let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
-      jQuery(mainClass +' #eventfeed_current_page').val("1");
+    let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
+    jQuery(mainClass + ' #eventfeed_current_page').val("1");
 
 
     var data = {
@@ -325,44 +319,44 @@ $(window).on( "load", function() {
       jQuery(mainClass + ' .append_events').html('');
       jQuery(mainClass + ' .append_events').append(atts);
 
-    if (eventfeed_page == "load_more") {
-      var max_page = jQuery(mainClass + ' #page_max').val();
-      jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
-      if(max_page == 1){
-        jQuery(mainClass + ' .event_ajax_load').hide();
-      }else{
-        jQuery(mainClass + ' .event_ajax_load').show();
+      if (eventfeed_page == "load_more") {
+        var max_page = jQuery(mainClass + ' #page_max').val();
+        jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
+        if (max_page == 1) {
+          jQuery(mainClass + ' .event_ajax_load').hide();
+        } else {
+          jQuery(mainClass + ' .event_ajax_load').show();
+        }
       }
-    }
-    
-    if(eventfeed_page == "numeric_pagination") {
-      var eventfeed_max_page = jQuery(mainClass + ' #page_max').val();
-      var eventfeed_current_pagination_pages = jQuery(mainClass + ' #current_page').val();
-      jQuery(mainClass + ' #eventfeed_max_page').val(eventfeed_max_page);
-      console.log(eventfeed_max_page, "max page numaric");
-      var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable",event_filter_page,event_filter_page_first,event_filter_page_last);
-      jQuery(mainClass + ' .ecs-event-pagination').html('');
-      jQuery(mainClass + ' .ecs-event-pagination').append(result);
-      jQuery(".dec-page-text-display").attr("style", "display: none !important");
-      jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
-    }
-     
+      if (eventfeed_page == "numeric_pagination") {
+        var eventfeed_max_page = jQuery(mainClass + ' #page_max').val();
+        var eventfeed_current_pagination_pages = jQuery(mainClass + ' #current_page').val();
+        jQuery(mainClass + ' #eventfeed_max_page').val(eventfeed_max_page);
+        console.log(eventfeed_max_page, "max page numaric");
+        var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
+        jQuery(mainClass + ' .ecs-event-pagination').html('');
+        jQuery(mainClass + ' .ecs-event-pagination').append(result);
+        jQuery(".dec-page-text-display").attr("style", "display: none !important");
+        jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
-    if (eventfeed_page == "paged") {
-
-      var max_page = jQuery(mainClass + ' #page_max').val();
-      jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
-     
-      if(max_page == 1){
-        $(mainClass + ' .ecs-page_alignment_left').hide();
-        $(mainClass + ' .ecs-page_alignment_right').hide();
-      }else{
-        $(mainClass + ' .ecs-page_alignment_left').hide();
-        $(mainClass + ' .ecs-page_alignment_right').show();
       }
-     
-    }
+
+
+      if (eventfeed_page == "paged") {
+
+        var max_page = jQuery(mainClass + ' #page_max').val();
+        jQuery(mainClass + " input[name='eventfeed_max_page']").val(max_page);
+
+        if (max_page == 1) {
+          $(mainClass + ' .ecs-page_alignment_left').hide();
+          $(mainClass + ' .ecs-page_alignment_right').hide();
+        } else {
+          $(mainClass + ' .ecs-page_alignment_left').hide();
+          $(mainClass + ' .ecs-page_alignment_right').show();
+        }
+
+      }
 
     });
 
@@ -422,10 +416,10 @@ $(window).on( "load", function() {
     let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
     let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
     let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
-    let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
     let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
+    let event_filter_status = jQuery(mainClass + " input[name='dec-eventfeed-status']").val();
 
     //  console.log(filter_event_category,"class",mainClass);
 
@@ -478,8 +472,8 @@ $(window).on( "load", function() {
       event_filter_state: event_filter_state,
       event_filter_address: event_filter_address,
       event_filter_order: event_filter_order,
-      event_filter_status: event_filter_status,
       event_filter_page: event_filter_page,
+      event_filter_status: event_filter_status,
       // security: eventFeed.security,
     };
     // console.log(eventFeed.class_pagination);
@@ -514,7 +508,7 @@ $(window).on( "load", function() {
           jQuery(mainClass + ' .event_ajax_load').hide();
         }
       }
-      
+
       if (eventfeed_page == "paged") {
 
         jQuery(mainClass + ' #eventfeed_current_pagination_page').val(eventfeed_current_pagination_page);
@@ -556,7 +550,7 @@ $(window).on( "load", function() {
 
         jQuery(mainClass + ' .append_events').html(atts);
 
-        var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page,event_filter_page_first,event_filter_page_last);
+        var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
         jQuery(".dec-page-text-display").attr("style", "display: none !important");
@@ -570,30 +564,30 @@ $(window).on( "load", function() {
     // btn.prop('disabled', true);
   });
 
-  function PagingEventDislay(PageNumber, TotalRecords, ClassName, DisableClassName, event_filter_page,event_filter_page_first,event_filter_page_last) {
+  function PagingEventDislay(PageNumber, TotalRecords, ClassName, DisableClassName, event_filter_page, event_filter_page_first, event_filter_page_last) {
     var ReturnValue = "";
     var TotalPages = TotalRecords;
     var event_filter_page = jQuery(" input[name='dec-eventfeed-page-translation']").val();
     var event_filter_page_first = jQuery(" input[name='dec-eventfeed-first-translation']").val();
     var event_filter_page_last = jQuery(" input[name='dec-eventfeed-last-translation']").val();
 
-    ReturnValue = ReturnValue + "<span > <span class='dec-page-text-display'>Page</span> <span class='dec-page-text-display-none'>" + event_filter_page +"</span>" + PageNumber + " of " + TotalPages + "</span> ";
+    ReturnValue = ReturnValue + "<span > <span class='dec-page-text-display'>Page</span> <span class='dec-page-text-display-none'>" + event_filter_page + "</span>" + PageNumber + " of " + TotalPages + "</span> ";
 
     if (+PageNumber > 1) {
       if (+PageNumber == 2)
-        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class='dec-page-text-display " + ClassName + "'>« First</a>  <a href='' pn='" + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« "+event_filter_page_first+"</a>   ";
-        
+        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class='dec-page-text-display " + ClassName + "'>« First</a>  <a href='' pn='" + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
+
       else {
         ReturnValue = ReturnValue + "<a  href='' pn='";
         ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display " + ClassName + "'>« First</a>   ";
 
         ReturnValue = ReturnValue + "<a href='' pn='";
-        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« "+event_filter_page_first+"</a>   ";
+        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
 
       }
     }
     else
-      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class='dec-page-text-display " + DisableClassName + "'>« First</span> <span style='display:none;' pn='" + i + "' class='dec-page-text-display-none " + DisableClassName + "'>« "+event_filter_page_first+"</span>  ";
+      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class='dec-page-text-display " + DisableClassName + "'>« First</span> <span style='display:none;' pn='" + i + "' class='dec-page-text-display-none " + DisableClassName + "'>« " + event_filter_page_first + "</span>  ";
     if ((+PageNumber - 3) > 1)
       ReturnValue = ReturnValue + "<a href='' pn='1' class='" + ClassName + "'>1</a> ... ";
     for (var i = +PageNumber - 3; i <= +PageNumber; i++)
@@ -625,7 +619,7 @@ $(window).on( "load", function() {
       ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display " + ClassName + "'>Last »</a>";
 
       ReturnValue = ReturnValue + "   <a href='' pn='";
-      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display-none " + ClassName + "'>"+event_filter_page_last+" »</a>";
+      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display-none " + ClassName + "'>" + event_filter_page_last + " »</a>";
     }
     else
       ReturnValue = ReturnValue + "   <span style='display:none;' pn='" + i + "' class='ecs-page-numbers' class='" + DisableClassName + "'>Next</span>";
