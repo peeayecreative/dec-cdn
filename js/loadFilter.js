@@ -1,13 +1,18 @@
 
-jQuery(function ($) {	
+jQuery(function ($) {
+		var eventFilterHide = jQuery("input[name='filter-css-class_hide']").val();
+	var eventFilterShow = jQuery("input[name='filter-css-class_show']").val();
 
 	//$(".decm_event_filter_child").show();
 	//$("#dec-filter-remove").show();
 	// $(window).on('resize', function() {
 	// if ($(window).width() < 600) {
 	//	$(".dec-search-filter").addClass("decem-icon-filters");
-		$(".show_collapse_show").show();
-		$(".show_collapse_hide").hide();		
+		if ($(".dec-search-filter").is(':visible')) {
+			$(".dec_collapse_filters_events").html(eventFilterHide);
+		} else {
+			$(".dec_collapse_filters_events").html(eventFilterShow);
+		}		
 // 	}
 //    });
 	
