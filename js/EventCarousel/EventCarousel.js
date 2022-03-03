@@ -10,8 +10,10 @@
       var loopStatus = $(this).attr('loopstatus') == "1" ? true : false;
       var show_arrows = $(this).attr('show_arrows') == "on" ? true : false;
       var show_arrows_phone = "";
+      var show_arrows_tablet = "";
       var show_control_phone = "";
-      var show_more = $(this).attr('show_arrows_phone') == "" ? true : false;
+      var show_control_tablet = "";
+      //var show_more = $(this).attr('show_arrows_phone') == "" ? true : false;
       if ($(this).attr('show_arrows_phone') == "on" || $(this).attr('show_arrows_phone') == "" && $(this).attr('show_arrows') == "on") {
         show_arrows_phone = true;
       }
@@ -40,10 +42,10 @@
       //    show_arrows_phone=true;
       // }
       //var show_arrows_phone = $(this).attr('show_arrows_phone')=="on" || $(this).attr('show_arrows_phone')!="undefined" ? true:$(this).attr('show_arrows')=="off" && $(this).attr('show_arrows_phone') =="on" ?true:$(this).attr('show_arrows')=="on" || $(this).attr('show_arrows_phone') =="off"?false:true;
-      var show_arrows_tablet = $(this).attr('show_arrows_tablet') == "on" || $(this).attr('show_arrows_tablet') != "undefined" ? true : false;
+      //var show_arrows_tablet = $(this).attr('show_arrows_tablet') == "on" || $(this).attr('show_arrows_tablet') != "undefined" ? true : false;
       var show_control = $(this).attr('show_control') == "on" ? true : false;
-      var show_arrows_tablet = $(this).attr('show_arrows_tablet') == "on" || $(this).attr('show_arrows_tablet') != "undefined" ? true : false;
-      var show_control = $(this).attr('show_control') == "on" ? true : false;
+      // var show_arrows_tablet = $(this).attr('show_arrows_tablet') == "on" || $(this).attr('show_arrows_tablet') != "undefined" ? true : false;
+      // var show_control = $(this).attr('show_control') == "on" ? true : false;
       if ($(this).attr('show_control_phone') == "on" || $(this).attr('show_control_phone') == "" && $(this).attr('show_control') == "on") {
         show_control_phone = true;
       }
@@ -68,7 +70,7 @@
       if ($(this).attr('show_control') == "off" && $(this).attr('show_control_tablet') == "") {
         show_control_tablet = false;
       }
-      var show_control_tablet = $(this).attr('show_control_tablet') == "on" || $(this).attr('show_control_tablet') != "undefined" ? true : false;
+      // var show_control_tablet = $(this).attr('show_control_tablet') == "on" || $(this).attr('show_control_tablet') != "undefined" ? true : false;
 
       var autoplay = $(this).attr('data-autoplay') == "on" ? true : false;
       var hoverpause = $(this).attr('data-hoverpause') == "on" ? false : true;
@@ -106,7 +108,7 @@
         loop: loopStatus,
         merge: true,
         autoHeight: true,
-        nav: show_arrows,
+        //nav: false,
         dots: show_control,
 
         mouseDrag: mousedrag,
@@ -114,8 +116,9 @@
         autoplayTimeout: autoplay_speed,
 
         lazyLoad: true,
+        //  responsiveBaseElement: ".myCustomWrapper",
         responsive: {
-          980: {
+          768: {
             mergeFit: true,
             items: items,
             nav: show_arrows,
@@ -126,10 +129,10 @@
             autoHeight: true,
 
           },
-          767: {
+          480: {
             items: items,
             nav: show_arrows_tablet,
-            dots: show_control,
+            dots: show_control_tablet,
             autoplay: autoplay,
 
             mouseDrag: mousedrag,
@@ -137,6 +140,7 @@
           },
           0: {
             nav: show_arrows_phone,
+            dots: show_control_phone,
             items: itemsPhone,
             autoplay: autoplay,
           }
