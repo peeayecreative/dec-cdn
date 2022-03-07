@@ -2,7 +2,6 @@ let calendar_html;
 let calendar_view = "";
 let calendar_view_tablet = "";
 let calendar_view_phone = "";
-console.log(myAjax);
 //jQuery(".fc-widget-content").css('border', '0px solid');
 jQuery(document).ready(function ($) {
   jQuery(window).on('resize', function () {
