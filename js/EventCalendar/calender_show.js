@@ -129,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     },
     eventRender: function (info) {
+      console.log(calendar.view.title);
       //console.log(myAjax.show_week_view_button);
       // console.log(info.el.querySelector('tr.fc-list-item'));
       // var newCell = info.el.insertCell(0);
