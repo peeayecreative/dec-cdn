@@ -2,6 +2,75 @@
 jQuery(function ($) {
 	var eventFilterHide = jQuery("input[name='filter-css-class_hide']").val();
 	var eventFilterShow = jQuery("input[name='filter-css-class_show']").val();
+	.dec-recurring-filter-list,
+
+.dec-organizer-recurring-list ul,
+
+.dec-recurring-remove,
+
+	$('.dec-filter-event-inline li').on("click",function(){
+		$('li.active').removeClass('active');
+		$(this).addClass('active');
+		var dataId = $(this).data("id");
+		$('#dec-eventfeed-category').val(dataId);
+	});
+
+
+	$('.dec-recurring-list').on("click",function(){
+		$('.dec-recurring-filter-list').toggle();	
+	});
+
+	$('.decm-filter-catrgory-list').on("click",function(){
+		$('.dec-event-category-filter-list').toggle();	
+	});
+	$('.dec-tag-list').on("click",function(){
+		$('.dec-tag-filter-list').toggle();	
+	});
+	$('.dec-location-list').on("click",function(){
+		$('.dec-location-filter-list').toggle();	
+	});
+
+	$('.dec-time-list').on("click",function(){
+		$('.dec-time-filter-list').toggle();	
+	});
+
+	$('.dec-organizer-list').on("click",function(){
+		$('.dec-organizer-filter-list').toggle();	
+	});
+
+	$('.dec-venue-list').on("click",function(){
+		$('.dec-venue-filter-list').toggle();	
+	});
+
+
+	$('.dec-country-list').on("click",function(){
+		$('.dec-country-filter-list').toggle();	
+	});
+
+	$('.dec-city-list').on("click",function(){
+		$('.dec-city-filter-list').toggle();	
+	});
+	$('.dec-state-list').on("click",function(){
+		$('.dec-state-filter-list').toggle();	
+	});
+	$('.dec-years-list').on("click",function(){
+		$('.dec-year-filter-list').toggle();	
+	});
+
+	$('.dec-months-list').on("click",function(){
+		$('.dec-month-filter-list').toggle();	
+	});
+	$('.dec-days-list').on("click",function(){
+		$('.dec-day-filter-list').toggle();	
+	});
+
+	$('.dec-status-list').on("click",function(){
+		$('.dec-status-filter-list').toggle();	
+	});
+
+	$('.dec-order-list').on("click",function(){
+		$('.dec-order-filter-list').toggle();	
+	});
 	//$(".decm_event_filter_child").show();
 	//$("#dec-filter-remove").show();
 	// $(window).on('resize', function() {
