@@ -2,12 +2,7 @@
 jQuery(function ($) {
 	var eventFilterHide = jQuery("input[name='filter-css-class_hide']").val();
 	var eventFilterShow = jQuery("input[name='filter-css-class_show']").val();
-	.dec-recurring-filter-list,
-
-.dec-organizer-recurring-list ul,
-
-.dec-recurring-remove,
-
+	
 	$('.dec-filter-event-inline li').on("click",function(){
 		$('li.active').removeClass('active');
 		$(this).addClass('active');
