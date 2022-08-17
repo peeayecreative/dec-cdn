@@ -277,9 +277,9 @@ document.addEventListener("DOMContentLoaded", function () {
     //   //console.log(jQuery(".tooltip_main"));
       
     // },
-    dayClick: function(date, jsEvent, view) {
-      alert('Clicked on: ');
-    },
+//     dayClick: function(date, jsEvent, view) {
+//       alert('Clicked on: ');
+//     },
 
     loading: function(bool) {
      // console.log(e.target);
@@ -326,15 +326,15 @@ document.addEventListener("DOMContentLoaded", function () {
   //     // change the border color just for fun
   //     info.el.style.borderColor = 'red';
   //   },
-  eventClick: function(info) {
-    // alert('Event: ' + info.event.title);
-    // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-    // alert('View: ' + info.view.type);
-    console.log(jQuery('.fc-view-container').append(info.event.extendedProps.html));
-    jQuery('.fc-view-container').append(info.event.extendedProps.html);
-    // change the border color just for fun
-    info.el.style.borderColor = 'red';
-  },
+//   eventClick: function(info) {
+//     // alert('Event: ' + info.event.title);
+//     // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+//     // alert('View: ' + info.view.type);
+//     console.log(jQuery('.fc-view-container').append(info.event.extendedProps.html));
+//     jQuery('.fc-view-container').append(info.event.extendedProps.html);
+//     // change the border color just for fun
+//     info.el.style.borderColor = 'red';
+//   },
     eventRender: function (info) {
    //   console.log(info);
       //console.log(calendar.el.childNodes[1]);
