@@ -470,15 +470,33 @@ document.addEventListener("DOMContentLoaded", function () {
       var info = info;
       var nsfields = info.event.extendedProps;
 
-      if (myAjax.show_tooltip == "on") {
+if (myAjax.show_tooltip == "on" && screen.width >= 981) {
         var tooltip = new Tooltip(info.el, {
           title: nsfields.html,
           html: true,
           placement: "auto",
           trigger: "hover",
           container: "body"
+        });
 
+      }
+      if (myAjax.show_tooltip_tablet == "on" || (myAjax.show_tooltip_tablet == "" && myAjax.show_tooltip == "on") && screen.width <= 981 && screen.width >= 767) {
+        var tooltip = new Tooltip(info.el, {
+          title: nsfields.html,
+          html: true,
+          placement: "auto",
+          trigger: "hover",
+          container: "body"
+        });
 
+      }
+      if (myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on") && screen.width < 767) {
+        var tooltip = new Tooltip(info.el, {
+          title: nsfields.html,
+          html: true,
+          placement: "auto",
+          trigger: "hover",
+          container: "body"
         });
 
       }
@@ -491,8 +509,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       url: myAjax.ajaxurl + "?action=fetch_Events&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone + "&venue=" + myAjax.show_venue + "&location=" + myAjax.show_location + "&street=" + myAjax.show_address + "&locality=" + myAjax.show_locality + "&postal=" + myAjax.show_postal +
         "&country=" + myAjax.show_country + "&organizer=" + myAjax.show_organizer + "&categories=" +
-        myAjax.included_categories + "&show_tooltip="
-        + myAjax.show_tooltip + "&show_image=" + myAjax.show_image + "&thumbnail_width=" + myAjax.thumbnail_width
+        myAjax.included_categories + "&show_tooltip=" + myAjax.show_tooltip +"&show_tooltip_tablet="+ myAjax.show_tooltip_tablet+"&show_tooltip_phone="
+        + myAjax.show_tooltip_phone+ "&show_image=" + myAjax.show_image + "&thumbnail_width=" + myAjax.thumbnail_width
         + "&thumbnail_height=" + myAjax.thumbnail_height + "&show_icon_label=" + myAjax.show_icon_label + "&stack_label_icon=" + myAjax.stack_label_icon + "&show_colon=" + myAjax.show_colon + "&show_excerpt=" + myAjax.show_excerpt + "&show_price="
         + myAjax.show_price + "&show_title=" + myAjax.show_title + "&show_date=" + myAjax.show_date + "&show_time="
         + myAjax.show_time + "&calendar_eventorder=" + myAjax.calendar_eventorder + "&id=" + myAjax.id +
