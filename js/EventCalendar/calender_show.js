@@ -480,7 +480,7 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
         });
 
       }
-      if (myAjax.show_tooltip_tablet == "on" || (myAjax.show_tooltip_tablet == "" && myAjax.show_tooltip == "on") && screen.width <= 981 && screen.width >= 767) {
+      if ((myAjax.show_tooltip_tablet == "on" || (myAjax.show_tooltip_tablet == "" && myAjax.show_tooltip == "on")) && screen.width <= 981 && screen.width >= 767) {
         var tooltip = new Tooltip(info.el, {
           title: nsfields.html,
           html: true,
@@ -490,7 +490,7 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
         });
 
       }
-      if (myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on") && screen.width < 767) {
+      if ((myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on")) && screen.width < 767) {
         var tooltip = new Tooltip(info.el, {
           title: nsfields.html,
           html: true,
