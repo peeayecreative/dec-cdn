@@ -140,7 +140,7 @@ jQuery(function ($) {
 
       let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
       jQuery(mainClass + ' #eventfeed_current_page').val("1");
-      let event_selection_no = jQuery("input[name='event_selection_no']").val();
+      let search_search_criteria = jQuery("input[name='search_search_criteria']").val();
 
       var data = {
         action: "filters_event_posts",
@@ -166,7 +166,7 @@ jQuery(function ($) {
         event_filter_address: event_filter_address,
         event_filter_order: event_filter_order,
         event_filter_status: event_filter_status,
-         event_selection_no: event_selection_no,
+         search_search_criteria: search_search_criteria,
 
         // security: eventFeed.security,
       };
@@ -288,7 +288,7 @@ jQuery(function ($) {
 
     let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
     jQuery(mainClass + ' #eventfeed_current_page').val("1");
-     let event_selection_no = jQuery("input[name='event_selection_no']").val();
+     let search_search_criteria = jQuery("input[name='search_search_criteria']").val();
 
 
     var data = {
@@ -317,7 +317,7 @@ jQuery(function ($) {
       event_filter_order: event_filter_order,
       event_filter_status: event_filter_status,
       event_filter_recurring: event_filter_recurring,
-       event_selection_no: event_selection_no,
+      search_search_criteria: search_search_criteria,
       // security: eventFeed.security,
     };
 
