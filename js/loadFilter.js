@@ -107,8 +107,8 @@ jQuery(function ($) {
 	//console.log(mainClass,"main class");
 
 	$('.dec-filter-event-inline li').on("click", function () {
-		$('li.active').removeClass('active');
-		$(this).addClass('active');
+		$('li.dec-filter-select ').removeClass('dec-filter-select ');
+		$(this).addClass('dec-filter-select');
 		var dataId = $(this).data("id");
 		$(mainClass + ' #dec-eventfeed-category').val(dataId);
 	});
@@ -913,6 +913,7 @@ jQuery(function ($) {
 	});
 
 	jQuery('#dec-filter-remove').on("click", function () {
+		$('li.dec-filter-select ').removeClass('dec-filter-select ');
 		$(".dec-filter-label > button").hide();
 		$("input[name='dec_filter_venue']").prop('checked', false);
 		$("input[name='dec_filter_tag']").prop('checked', false);
