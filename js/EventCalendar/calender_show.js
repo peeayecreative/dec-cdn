@@ -21,7 +21,7 @@ jQuery(document).ready(function ($) {
   //   alert('nextis clicked, do something');
   // });
    jQuery('.fc-dayGridMonth-view, .fc-timeGridDay-view, .fc-timeGridWeek-view').addClass("ecs_is_loading_check");
-  console.log(calendar.view);
+  // console.log(calendar.view);
   jQuery(window).on('resize', function () {
 
     // var screenWidth = jQuery(this).width();
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     calendar_view += "timeGridDay,";
   }
   if (myAjax.show_list_view_button == 'on') {
-    calendar_view += "listWeek,";
+    calendar_view += myAjax.calendar_list_view_option;
   }
   var date1 = new Date();
   var date2 = new Date();
@@ -87,26 +87,12 @@ document.addEventListener("DOMContentLoaded", function () {
   get_end_month = new Date(date1.setMonth(date1.getMonth() + parseInt(get_end_month), 0));
   get_start_month = new Date(date2.setMonth(date2.getMonth() - parseInt(get_start_month), 1));
   // console.log(calendar.state.dateProfile.currentRange);
-  // console.log(get_start_month.getTime());
-  // var get_end_month_date = get_end_month.getTime();
-  // var get_start_month_date = get_start_month.getTime();
-
-  // if (calendar_current_date.getTime() > get_end_month.getTime()) {
-  //   jQuery(".fc-next-button").css("pointer-events", "none");
-
-  // }
-  // if (calendar_current_date.getTime() < get_end_month.getTime()) {
-  //   jQuery(".fc-next-button").css("display", "block");
-  // }
   jQuery('body').on('click', 'button.fc-prev-button', function () {
     jQuery(".fc-prev-button").addClass("ecs_next_class");
     // alert('prev is clicked, do something');
     // console.log(calendar.state.dateProfile.currentRange.);
     var calendar_current_date = new Date(calendar.view.title);
-    // console.log(calendar_current_date);
-    // console.log(get_start_month);
-    // //var calendar_current_date_time = calendar_current_date.getTime();
-    //  console.log(calendar.view.props.dateProfile.currentRange.start.getTime() > get_end_month.getTime() ? "jj" : "kk");
+
     if (calendar_current_date.getTime() < get_start_month.getTime()) {
       if (myAjax.hide_month_range == "disable") {
         jQuery(".fc-prev-button").css("pointer-events", "none");
@@ -142,12 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // alert('prev is clicked, do something');
     // console.log(calendar.state.dateProfile.currentRange.);
     var calendar_current_date = new Date(calendar.view.title);
-    // console.log(calendar.view.props.dateProfile.currentRange.end);
-    // console.log(get_end_month);
-    // //var calendar_current_date_time = calendar_current_date.getTime();
-    // console.log(calendar_current_date);
-    // console.log(calendar.view.props.dateProfile.currentRange.end.getTime() > get_end_month.getTime() ? "jj" : "kk");
-    // if (calendar_current_date.getTime() < get_start_month.getTime()) {
+
        jQuery(".fc-next-button").addClass("ecs_next_class");
 
     // }
@@ -199,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
     calendar_view_tablet += "timeGridDay,";
   }
   if (myAjax.show_list_view_button_tablet == 'on' || (myAjax.show_list_view_button_tablet == "" && myAjax.show_list_view_button=="on")) {
-    calendar_view_tablet += "listWeek,";
+    calendar_view_tablet += myAjax.calendar_list_view_option;
   }
 
 
@@ -215,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
     calendar_view_phone += "timeGridDay,";
   }
   if (myAjax.show_list_view_button_phone == 'on' || (myAjax.show_list_view_button_phone == "" && myAjax.show_list_view_button=="on")) {
-    calendar_view_phone += "listWeek,";
+    calendar_view_phone += myAjax.calendar_list_view_option;
   }
   var week_start_on = "";
   if (myAjax.week_start_on == "Sunday") { week_start_on = 0 } if (myAjax.week_start_on == "Monday") { week_start_on = 1 } if (myAjax.week_start_on == "Tuesday") { week_start_on = 2 }
@@ -223,12 +204,9 @@ document.addEventListener("DOMContentLoaded", function () {
   calendar_view = calendar_view.slice(0, -1);
   calendar_view_tablet = calendar_view_tablet.slice(0, -1);
   calendar_view_phone = calendar_view_phone.slice(0, -1);
-  //console.log(calendar_view.substr(0,-1));
+  //  console.log(calendar_view);
   // console.log(myAjax.button_classes);
-  // console.log(calendar_view, "=>dektop");
-  // console.log(calendar_view_tablet, "=>tablet");
-  // console.log(calendar_view_phone, "=>phone");
-  // console.log( myAjax.show_day_view_button_phone==""?"k":"j");
+
   var hide_past_event = myAjax.hide_past_event == "on" ? new Date() : "";
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -250,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
       right: screen.width <= 981 && screen.width >= 767 ? calendar_view_tablet : screen.width <= 766 ? calendar_view_phone : calendar_view,
 
     },
+    
     hiddenDays: myAjax.hidden_day,
 
     firstDay: week_start_on,
@@ -268,32 +247,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // other view-specific options here
       }
     },
-    // navLinkDayClick: function(date, jsEvent,info) {
-    //   alert('Clicked ' + jsEvent);
-    //  // console.log(window.info);
-    //   // console.log(jsEvent.path[6].innerText);
-    //   // return jsEvent;
-    //   //console.log(jQuery(".tooltip_main"));
-      
-    // },
-//     dayClick: function(date, jsEvent, view) {
-//       alert('Clicked on: ');
-//     },
+
 
     loading: function(bool) {
      // console.log(e.target);
       if (bool==true) {
      // jQuery('.fc-view-container').append("<div class='fc-list-empty-wrap2'><div class='fc-list-empty-wrap1'><div class='fc-list-empty'>Sorry, there are no more events at this time</div></div></div>");
       }
-      // jQuery('body').on('click', 'button.fc-next-button', function (e) {
-      //   if (e.target) {
-      //       console.log(e.target);
             if(bool==false){ 
-        // if(jQuery('.button.fc-prev-button').hasClass("ecs_prev_class")){
-        //   alert("joshi");
-                                    
-        //       // });
-        // }
+
         if(jQuery('button').hasClass("ecs_next_class")){
         //  alert("joshi");
                                   
@@ -317,34 +279,11 @@ document.addEventListener("DOMContentLoaded", function () {
     windowResize: function (view) {
 
     },
-  //   eventClick: function(info) {
-  //   //s  alert('Event: ' + info.event.title);
-  //     //alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-  //    // alert('View: ' + info.view.type);
-  // console.log(info);
-  //     // change the border color just for fun
-  //     info.el.style.borderColor = 'red';
-  //   },
-//   eventClick: function(info) {
-//     // alert('Event: ' + info.event.title);
-//     // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-//     // alert('View: ' + info.view.type);
-//     console.log(jQuery('.fc-view-container').append(info.event.extendedProps.html));
-//     jQuery('.fc-view-container').append(info.event.extendedProps.html);
-//     // change the border color just for fun
-//     info.el.style.borderColor = 'red';
-//   },
+
     eventRender: function (info) {
-   //   console.log(info);
-      //console.log(calendar.el.childNodes[1]);
-      //  console.log(myAjax.hidden_day);
-      // console.log(info.el.querySelector('tr.fc-list-item'));
-      // var newCell = info.el.insertCell(0);
-      // var newText = document.createTextNode('Hello');
-      // newCell.appendChild(newText);
-      // jani=info.event.extendedProps.joshi.slice(2,3);
-      //var nextMonth = new FullCalendar.Calendar();
-      // console.log(GetCalendarDateRange());
+      let show_calendar_thumbnail= myAjax.show_calendar_thumbnail=="on" &&info.event.extendedProps.event_end_date==""?info.event.extendedProps.feature_image_calendar:"";
+ 
+  
       var date1 = new Date();
       var date2 = new Date();
       // var get_end_month = myAjax.event_end_date;
@@ -353,35 +292,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // // console.log(myAjax.event_end_date);
       get_end_month = new Date(date1.setMonth(date1.getMonth() + parseInt(get_end_month), 0));
       get_start_month = new Date(date2.setMonth(date2.getMonth() - parseInt(get_start_month), 1));
-      //  console.log(calendar.state.dateProfile.currentRange);
-      // console.log(get_start_month.getTime());
-      // var get_end_month_date = get_end_month.getTime();
-      // var get_start_month_date = get_start_month.getTime();
-      // var calendar_current_date = new Date(calendar.view.title);
-      // console.log(calendar_current_date);
-      // var calendar_current_date_time = calendar_current_date.getTime();
-      // console.log(calendar_current_date.getTime() > get_end_month.getTime() ? "jj" : "kk");
-      // if (calendar_current_date.getTime() < get_start_month.getTime()) {
-      //   jQuery(".fc-prev-button").css("pointer-events", "none");
 
-      // }
-      // if (calendar_current_date.getTime() > get_start_month.getTime()) {
-      //   jQuery(".fc-prev-button").css("pointer-events", "visible");
-      // }
-      // if (calendar_current_date.getTime() > get_end_month.getTime()) {
-      //   jQuery(".fc-next-button").css("pointer-events", "none");
+      //  console.log(myAjax.hide_calendar_event_multi_days);
 
-      // }
-      // if (calendar_current_date.getTime() < get_end_month.getTime()) {
-      //   jQuery(".fc-next-button").css("display", "block");
-      // }
-
-      // if (jQuery('.fc-dayGridMonth-view').has('.fc-event').length === 0) {
-      //   jQuery(".fc-prev-button").css("background", "red");
-      // } else {
-      //   //  hideEmptyCalendarMessage();
-      // }
-      //console.log(jQuery('.fc-dayGridMonth-view').has('.fc-event'));
       if (jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_4") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_5") == true || jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_6") == true || screen.width < 767 && calendar.view.type != 'timeGridDay') {
         jQuery(info.el).children(".fc-content").css("visibility", "hidden").css("width", "10px").css("height", "10px");
       }
@@ -392,54 +305,94 @@ document.addEventListener("DOMContentLoaded", function () {
       else { jQuery(info.el).children(".fc-content").css("visibility", "visible").css("width", "auto").css("height", "auto"); }
       if (calendar.view.type == 'dayGridMonth' || calendar.view.type == 'timeGridWeek' || calendar.view.type == 'timeGridDay') {
         if (info.event.extendedProps.event_start_time == null) {
-          if (myAjax.show_calendar_event_date_tablet == "on" || myAjax.show_calendar_event_date_tablet == "") {
-            info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date_tablet == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          // if (myAjax.show_calendar_event_date_tablet == "on" || myAjax.show_calendar_event_date_tablet == "") {
+          //   info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date_tablet == "on" ? show_calendar_thumbnail+'<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          // }
+          // if (myAjax.show_calendar_event_date_phone == "on" || myAjax.show_calendar_event_date_phone == "") {
+          //   info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date_phone == "on" ? show_calendar_thumbnail+'<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          // }
+          if (myAjax.hide_calendar_event_all_day == "on" ) {
+            //info.el.querySelector('.fc-title').innerHTML =show_calendar_thumbnail+ '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>";
+            info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
           }
-          if (myAjax.show_calendar_event_date_phone == "on" || myAjax.show_calendar_event_date_phone == "") {
-            info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date_phone == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
-          }
-          if (myAjax.show_calendar_event_date == "on" ) {
-            info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+          else{
+            info.el.querySelector('.fc-title').innerHTML =show_calendar_thumbnail+ '<span class="fc-calendar-time">' + info.event.extendedProps.allDayEvent + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>";
+           // info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
           }
         }
+if((info.event.extendedProps.event_start_time !=null)){
 
-        else {
-          info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date == "on" ? '<span class="fc-calendar-time">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
-        }
+  if (myAjax.hide_calendar_event_multi_days == "on" && info.event.extendedProps.event_end_date!=""  ) {
+    info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
+//  info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+'<span class="fc-calendar-time">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>";
+  }
+  else if (myAjax.hide_calendar_event_multi_days == "off" && info.event.extendedProps.event_end_date!=""  ) {
+    info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+'<span class="fc-calendar-time">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>";
+   // info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
+  }
+  if (myAjax.show_calendar_event_date == "off" && info.event.extendedProps.event_end_date==""  ) {
+    info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
+  }
+  else if (myAjax.show_calendar_event_date == "on" && info.event.extendedProps.event_end_date==""  ) {
+    info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+'<span class="fc-calendar-time">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>";
+   // info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
+  }
+}
+        // else {
+        //   info.el.querySelector('.fc-title').innerHTML = myAjax.show_calendar_event_date == "on" ? show_calendar_thumbnail+'<span class="fc-calendar-time">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>" : '<span class="fc-calendar-title">' + info.event.title + "</span>";
+        // }
       }
 
       // if(calendar.view.type=='timeGridWeek'||calendar.view.type=='timeGridDay'){
       //   jQuery("td").first(".fc-widget-content").css('border', 'none');
       // }
-      if (calendar.view.type == 'listWeek') {
+      if (calendar.view.type == 'listWeek'||calendar.view.type == 'listMonth'||calendar.view.type == 'listYear') {
         //info.el.querySelector('.fc-list-item').innerHTML=info.event.title;
         if (info.event.extendedProps.event_start_time == null) {
-          if (myAjax.show_calendar_event_date_tablet == "on" || (myAjax.show_calendar_event_date_tablet == "" && myAjax.show_calendar_event_date == "on") && screen.width <= 981 && screen.width >= 767) {
-            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.calallday + '</td>');
+          if (myAjax.hide_calendar_event_all_day == "off" ) {
+            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' +show_calendar_thumbnail+ info.event.extendedProps.calallday + '</td>');
           }
-          if (myAjax.show_calendar_event_date == "on" && screen.width >= 981) {
-            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.calallday + '</td>');
-          }
-          if (myAjax.show_calendar_event_date_phone == "on" || (myAjax.show_calendar_event_date_phone == "" && myAjax.show_calendar_event_date == "on") && screen.width < 767) {
-            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.calallday + '</td>');
-          }
+          // if (myAjax.show_calendar_event_date_tablet == "on" || (myAjax.show_calendar_event_date_tablet == "" && myAjax.show_calendar_event_date == "on") && screen.width <= 981 && screen.width >= 767) {
+          //   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' +show_calendar_thumbnail+ info.event.extendedProps.calallday + '</td>');
+          // }
+          // if (myAjax.show_calendar_event_date == "on" && screen.width >= 981) {
+          //   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' +show_calendar_thumbnail+ info.event.extendedProps.calallday + '</td>');
+          // }
+          // if (myAjax.show_calendar_event_date_phone == "on" || (myAjax.show_calendar_event_date_phone == "" && myAjax.show_calendar_event_date == "on") && screen.width < 767) {
+          //   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' +show_calendar_thumbnail+ info.event.extendedProps.calallday + '</td>');
+          // }
           else {
             jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content"> </td>');
           }
         }
-        else {
-          if (myAjax.show_calendar_event_date_tablet == "on" || (myAjax.show_calendar_event_date_tablet == "" && myAjax.show_calendar_event_date == "on") && screen.width <= 981 && screen.width >= 767) {
-            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
-          }
-          if (myAjax.show_calendar_event_date_phone == "on" || (myAjax.show_calendar_event_date_phone == "" && myAjax.show_calendar_event_date == "on") && screen.width < 767) {
-            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
-          }
-          if (myAjax.show_calendar_event_date == "on" && screen.width >= 981) {
-            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
-          }
-          else {
+        if((info.event.extendedProps.event_start_time !=null)){
+          if (myAjax.hide_calendar_event_multi_days == "on" && info.event.extendedProps.event_end_date!=""  ) {
             jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content"> </td>');
+        //  info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+'<span class="fc-calendar-time">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</span></br><span class="fc-calendar-title">' + info.event.title + "</span>";
           }
+          else if (myAjax.hide_calendar_event_multi_days == "off" && info.event.extendedProps.event_end_date!=""  ) {
+            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' +show_calendar_thumbnail+ info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
+           // info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
+          }
+          if (myAjax.show_calendar_event_date == "off" && info.event.extendedProps.event_end_date==""  ) {
+            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">'+show_calendar_thumbnail+' </td>');
+          }
+          else if (myAjax.show_calendar_event_date == "on" && info.event.extendedProps.event_end_date==""  ) {
+            jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' +show_calendar_thumbnail+ info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
+           // info.el.querySelector('.fc-title').innerHTML = show_calendar_thumbnail+ '<span class="fc-calendar-title">' + info.event.title + "</span>" ;
+          }
+          // if (myAjax.show_calendar_event_date_tablet == "on" || (myAjax.show_calendar_event_date_tablet == "" && myAjax.show_calendar_event_date == "on") && screen.width <= 981 && screen.width >= 767) {
+          //   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
+          // }
+          // if (myAjax.show_calendar_event_date_phone == "on" || (myAjax.show_calendar_event_date_phone == "" && myAjax.show_calendar_event_date == "on") && screen.width < 767) {
+          //   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
+          // }
+          // if (myAjax.show_calendar_event_date == "on" && screen.width >= 981) {
+          //   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content">' + info.event.extendedProps.event_start_time + info.event.extendedProps.event_end_time + '</td>');
+          // }
+          // else {
+          //   jQuery(info.el).prepend('<td class="fc-list-item-time fc-widget-content"> </td>');
+          // }
         }
         info.el.querySelector('.fc-list-item-title').innerHTML = info.event.title;
       }
@@ -456,17 +409,9 @@ document.addEventListener("DOMContentLoaded", function () {
       //  jQuery(info.el).addClass("fc-event-dot");
       if (info.event.extendedProps.featured_class !== "") {
         jQuery(info.el).addClass(info.event.extendedProps.featured_class);
-        // console.log( jQuery(info.el).addClass(info.event.extendedProps.featured_class));
-        // for(let i = 0; i < info.event.extendedProps.featured_class.length; i++){ 
-        //   jQuery(info.el).addClass(info.event.extendedProps.featured_class[i].slug);
-        //   console.log( jQuery(info.el).addClass(info.event.extendedProps.featured_class[i].slug));
-        // }
+
       }
-    //  console.log(nsfields.html);
-      // var view = calendar.view;
-      // console.log(view.type);
-      // alert("The view's title is " + view.title);
-      // jQuery(info.el).children(".fc-content").addClass(info.event.extendedProps.cat[0]);
+
       var info = info;
       var nsfields = info.event.extendedProps;
 
@@ -508,10 +453,10 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
       // allDay:false,
 
       url: myAjax.ajaxurl + "?action=fetch_Events&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone + "&venue=" + myAjax.show_venue + "&location=" + myAjax.show_location + "&street=" + myAjax.show_address + "&locality=" + myAjax.show_locality + "&postal=" + myAjax.show_postal +
-        "&country=" + myAjax.show_country + "&organizer=" + myAjax.show_organizer + "&categories=" +
+        "&country=" + myAjax.show_country+ "&street_comma=" + myAjax.show_address_comma +"&state_comma=" + myAjax.show_state_comma+ "&locality_comma=" + myAjax.show_locality_comma + "&postal_comma=" + myAjax.show_postal_comma +
+        "&country_comma=" + myAjax.show_country_comma+"&show_postal_code_before_locality="+myAjax.show_postal_code_before_locality + "&organizer=" + myAjax.show_organizer + "&categories=" +
         myAjax.included_categories + "&show_tooltip=" + myAjax.show_tooltip +"&show_tooltip_tablet="+ myAjax.show_tooltip_tablet+"&show_tooltip_phone="
-        + myAjax.show_tooltip_phone+ "&show_image=" + myAjax.show_image + "&thumbnail_width=" + myAjax.thumbnail_width
-        + "&thumbnail_height=" + myAjax.thumbnail_height + "&show_icon_label=" + myAjax.show_icon_label + "&stack_label_icon=" + myAjax.stack_label_icon + "&show_colon=" + myAjax.show_colon + "&show_excerpt=" + myAjax.show_excerpt + "&show_price="
+        + myAjax.show_tooltip_phone+ "&show_image=" + myAjax.show_image + "&show_icon_label=" + myAjax.show_icon_label + "&stack_label_icon=" + myAjax.stack_label_icon + "&show_colon=" + myAjax.show_colon + "&show_excerpt=" + myAjax.show_excerpt + "&show_price="
         + myAjax.show_price + "&show_title=" + myAjax.show_title + "&show_date=" + myAjax.show_date + "&show_time="
         + myAjax.show_time + "&calendar_eventorder=" + myAjax.calendar_eventorder + "&id=" + myAjax.id +
         "&show_month_view_button=" + myAjax.show_month_view_button + "&show_list_view_button=" + myAjax.show_list_view_button + "&show_week_view_button=" + myAjax.show_week_view_button + "&show_day_view_button="
@@ -526,7 +471,7 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
         + "&show_tooltip_weburl=" + myAjax.show_tooltip_weburl + "&hidden_day=" + myAjax.hidden_day + "&week_start_on=" + myAjax.week_start_on + "start="
         + myAjax.start + "&show_calendar_event_date=" + myAjax.show_calendar_event_date + "&calendar_default_view=" +
         myAjax.calendar_default_view + "&calendar_default_view_tablet=" + myAjax.calendar_default_view_tablet +
-        "&calendar_default_view_phone=" + myAjax.calendar_default_view_phone + "&show_recurring_event=" +
+        "&calendar_default_view_phone=" + myAjax.calendar_default_view_phone +"&calendar_list_view_option="+myAjax.calendar_list_view_option+ "&show_recurring_event=" +
         myAjax.show_recurring_event + '&hide_past_event=' + myAjax.hide_past_event + "&event_start_date=" + myAjax.event_start_date + "&event_end_date="
         + myAjax.event_end_date + "&day_of_the_week_name=" + myAjax.day_of_the_week_name +
         "&single_event_page_link=" + myAjax.single_event_page_link + "&disable_event_title_link="
@@ -543,7 +488,8 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
         "&organizer_id=" + myAjax.organizer_id + "&event_selection=" + myAjax.event_selection + "&show_postponed_canceled_event=" +
         myAjax.show_postponed_canceled_event + "&show_virtual_event=" + myAjax.show_virtual_event+ "&show_virtual_event=" + myAjax.show_virtual_event + "&show_hybrid_event=" + myAjax.show_hybrid_event + "&limit_event=" + myAjax.limit_event + "&hide_month_range=" + myAjax.hide_month_range + "&day_of_the_week_name_tablet=" + myAjax.day_of_the_week_name_tablet + "&button_classes=" + myAjax.button_classes + "&disable_event_button_link=" + myAjax.disable_event_button_link
         + "&custom_icon=" + myAjax.custom_icon + "&custom_icon_tablet=" + myAjax.custom_icon_tablet + "&custom_icon_phone=" + myAjax.custom_icon_phone + "&view_more_text=" + myAjax.view_more_text+"&button_classes="+myAjax.button_classes+"&custom_icon="+myAjax.custom_icon+"&custom_icon_tablet="+myAjax.custom_icon_tablet+"&custom_icon_phone="+myAjax.custom_icon_phone
-        +"&view_more_text="+myAjax.view_more_text+"&module_class="+myAjax.module_class,
+        +"&view_more_text="+myAjax.view_more_text+"&module_class="+myAjax.module_class+'&event_time_format='+myAjax.event_time_format+'&show_calendar_thumbnail='+myAjax.show_calendar_thumbnail+
+        "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day,
 
       type: 'POST',
       // extraParams: function() {
@@ -562,19 +508,11 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
       },
 
     },
-    // dateClick: function(info) {
-    //   alert('clicked ' + info.dateStr);
-    // },
-    // select: function(info) {
-    //   alert('selected ' + info.startStr + ' to ' + info.endStr);
-    // },
+
 
   });
 
-  // if(jQuery(".decm_divi_event_calendar").parent().hasClass("et_pb_column_1_3") == true){
-  //   jQuery(".fc-content").css("visibility","hidden"). css("width","10px").css("height","10px");
-  //   console.log("hhh");
-  // }
+
   
   calendar.render();
   calendar.setOption('locale', language);
