@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var date1 = new Date();
   var date2 = new Date();
   // var get_end_month = myAjax.event_end_date;
+  if(myAjax.limit_event=="on"){
   var get_end_month = parseInt(myAjax.event_end_date) + 1;
   var get_start_month = parseInt(myAjax.event_start_date);
   // // console.log(myAjax.event_end_date);
@@ -165,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-
+  }
 
 
   if (myAjax.show_month_view_button_tablet == 'on' || (myAjax.show_month_view_button_tablet == "" && myAjax.show_month_view_button=="on")) {
