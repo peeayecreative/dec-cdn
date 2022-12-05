@@ -231,14 +231,14 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     
     hiddenDays: myAjax.hidden_day,
-nextDayThreshold:myAjax.multidaycutoff,
+
     firstDay: week_start_on,
     locales: language,
     // validRange: {
     //   start: hide_past_event,
     //   end: "",
     // },
-    
+    nextDayThreshold:myAjax.multidaycutoff,
     views: {
       dayGridMonth: { // name of view
         columnHeaderFormat: {
