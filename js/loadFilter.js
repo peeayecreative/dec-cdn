@@ -1,4 +1,3 @@
-
 jQuery(function ($) {
 	var eventFilterHide = jQuery("input[name='filter-css-class_hide']").val();
 	var eventFilterShow = jQuery("input[name='filter-css-class_show']").val();
@@ -158,17 +157,28 @@ jQuery(function ($) {
 	});
 
 
+	var Today = jQuery("input[name='dec-daterange-today-text']").val();
+	var Tomorrow = jQuery("input[name='dec-daterange-tomorrow-text']").val();
+	var Next_7_days = jQuery("input[name='dec-daterange-next-7-days-text']").val();
+	var Next_30_days = jQuery("input[name='dec-daterange-next-30-days-text']").val();
+	var This_month = jQuery("input[name='dec-daterange-this-month-text']").val();
+	var Next_month = jQuery("input[name='dec-daterange-next-month-text']").val();
+	var Custom_range = jQuery("input[name='dec-daterange-custom-range-text']").val();
+	
+
 	$('#reportrange').daterangepicker({
 		autoUpdateInput: false,
 		ranges: {
-			'Today': [moment(), moment()],
-			'Tomorrow': [moment().add(1, 'days'), moment().add(1, 'days')],
-			'Next 7 Days': [moment(), moment().add(6, 'days')],
-			'Next 30 Days': [moment(), moment().add(29, 'days')],
-			'This Month': [moment().startOf('month'), moment().endOf('month')],
-			'Next Month': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')]
+			[Today] : [moment(), moment()],
+			[Tomorrow] : [moment().add(1, 'days'), moment().add(1, 'days')],
+			[Next_7_days] : [moment(), moment().add(6, 'days')],
+			[Next_30_days] : [moment(), moment().add(29, 'days')],
+			[This_month] : [moment().startOf('month'), moment().endOf('month')],
+			[Next_month] : [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')]
 		}
 	});
+
+	jQuery('[data-range-key="Custom Range"]').text(Custom_range);
 
 
 	$('#reportrange').on('apply.daterangepicker', function (ev, picker) {
