@@ -2,7 +2,7 @@ let calendar_html;
 let calendar_view = "";
 let calendar_view_tablet = "";
 let calendar_view_phone = "";
-
+var tooltip = null;
 //jQuery(".fc-widget-content").css('border', '0px solid');
 // function GetCalendarDateRange() {
 //   var calendar = $('#calendar').fullCalendar('getCalendar');
@@ -413,11 +413,16 @@ if((info.event.extendedProps.event_start_time !=null)){
 
       }
 
+
+
+
+    },
+    eventMouseEnter: function(info) {
       var info = info;
       var nsfields = info.event.extendedProps;
 
 if (myAjax.show_tooltip == "on" && screen.width >= 981) {
-        var tooltip = new Tooltip(info.el, {
+        tooltip = new Tooltip(info.el, {
           title: nsfields.html,
           html: true,
           placement: "auto",
@@ -427,7 +432,7 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
 
       }
       if ((myAjax.show_tooltip_tablet == "on" || (myAjax.show_tooltip_tablet == "" && myAjax.show_tooltip == "on")) && screen.width <= 981 && screen.width >= 767) {
-        var tooltip = new Tooltip(info.el, {
+        tooltip = new Tooltip(info.el, {
           title: nsfields.html,
           html: true,
           placement: "auto",
@@ -437,7 +442,7 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
 
       }
       if ((myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on")) && screen.width < 767) {
-        var tooltip = new Tooltip(info.el, {
+        tooltip = new Tooltip(info.el, {
           title: nsfields.html,
           html: true,
           placement: "auto",
@@ -446,8 +451,11 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
         });
 
       }
-
-
+    },
+    eventMouseLeave:  function(info) {
+      if (tooltip) {
+        tooltip.dispose();
+      }
     },
     events: {
       // nextDayThreshold: '11:59:00',
