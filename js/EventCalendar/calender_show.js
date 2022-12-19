@@ -417,14 +417,18 @@ if((info.event.extendedProps.event_start_time !=null)){
 
 
     },
-    eventMouseEnter: function(info) {
+eventMouseEnter: function(info) {
       var info = info;
       var nsfields = info.event.extendedProps;
-
-if (myAjax.show_tooltip == "on" && screen.width >= 981) {
+      if (tooltip) {
+            console.log(tooltip);
+           tooltip.dispose();
+          }
+      if (myAjax.show_tooltip == "on" && screen.width >= 981) {
         tooltip = new Tooltip(info.el, {
           title: nsfields.html,
           html: true,
+          delay:10,
           placement: "auto",
           trigger: "hover",
           container: "body"
@@ -434,6 +438,7 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
       if ((myAjax.show_tooltip_tablet == "on" || (myAjax.show_tooltip_tablet == "" && myAjax.show_tooltip == "on")) && screen.width <= 981 && screen.width >= 767) {
         tooltip = new Tooltip(info.el, {
           title: nsfields.html,
+          delay:10,
           html: true,
           placement: "auto",
           trigger: "hover",
@@ -444,17 +449,13 @@ if (myAjax.show_tooltip == "on" && screen.width >= 981) {
       if ((myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on")) && screen.width < 767) {
         tooltip = new Tooltip(info.el, {
           title: nsfields.html,
+         delay:10,
           html: true,
           placement: "auto",
           trigger: "hover",
           container: "body"
         });
 
-      }
-    },
-    eventMouseLeave:  function(info) {
-      if (tooltip) {
-        tooltip.dispose();
       }
     },
     events: {
