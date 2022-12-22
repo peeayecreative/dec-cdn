@@ -256,7 +256,8 @@ document.addEventListener("DOMContentLoaded", function () {
      // jQuery('.fc-view-container').append("<div class='fc-list-empty-wrap2'><div class='fc-list-empty-wrap1'><div class='fc-list-empty'>Sorry, there are no more events at this time</div></div></div>");
       }
             if(bool==false){ 
-
+              jQuery('.fc-list-empty-wrap2').remove();
+              jQuery('.fc-dayGridMonth-view, .fc-timeGridDay-view, .fc-timeGridWeek-view').removeClass("ecs_is_loading_check");
         if(jQuery('button').hasClass("ecs_next_class")){
         //  alert("joshi");
                                   
