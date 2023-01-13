@@ -3,6 +3,10 @@ let calendar_view = "";
 let calendar_view_tablet = "";
 let calendar_view_phone = "";
 var tooltip = null;
+console.log(myAjax.number_event_day);
+let number_event_day=3;
+number_event_day=myAjax.number_event_day=="1"?1:myAjax.number_event_day=="2"?2:myAjax.number_event_day=="3"?3:myAjax.number_event_day=="4"?4:myAjax.number_event_day=="5"?5:myAjax.number_event_day=="6"?6:myAjax.number_event_day=="7"?7:myAjax.number_event_day=="8"?8:myAjax.number_event_day=="9"?9:myAjax.number_event_day=="10"?10:myAjax.number_event_day=="default"?false:"";
+console.log(number_event_day);
 //jQuery(".fc-widget-content").css('border', '0px solid');
 // function GetCalendarDateRange() {
 //   var calendar = $('#calendar').fullCalendar('getCalendar');
@@ -95,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var calendar_current_date = new Date(calendar.view.title);
 
     if (calendar_current_date.getTime() < get_start_month.getTime()) {
-      if (myAjax.hide_month_range == "disable") {
+      if (myAjax.hide_month_range == "disable" ) {
         jQuery(".fc-prev-button").css("pointer-events", "none");
       }
     }
@@ -238,6 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //   start: hide_past_event,
     //   end: "",
     // },
+    eventLimit:number_event_day,
     nextDayThreshold:myAjax.multidaycutoff,
     views: {
       dayGridMonth: { // name of view
@@ -416,9 +421,14 @@ if((info.event.extendedProps.event_start_time !=null)){
 
 
 
+      // if (tooltip) {
+      //   console.log(tooltip);
+      //   tooltip.dispose();
+      // }
+
 
     },
-eventMouseEnter: function(info) {
+    eventMouseEnter: function(info) {
       var info = info;
       var nsfields = info.event.extendedProps;
       if (tooltip) {
@@ -432,7 +442,7 @@ eventMouseEnter: function(info) {
           delay:10,
           placement: "auto",
           trigger: "hover",
-          container: "body"
+          container: "tbody"
         });
 
       }
@@ -443,7 +453,7 @@ eventMouseEnter: function(info) {
           html: true,
           placement: "auto",
           trigger: "hover",
-          container: "body"
+          container: "tbody"
         });
 
       }
@@ -454,11 +464,17 @@ eventMouseEnter: function(info) {
           html: true,
           placement: "auto",
           trigger: "hover",
-          container: "body"
+          container: "tbody"
         });
 
       }
     },
+    // eventMouseLeave:  function(info) {
+    //   if (tooltip.options.delay==10) {
+    //     console.log(tooltip);
+    //     tooltip.dispose();
+    //   }
+    // },
     events: {
       // nextDayThreshold: '11:59:00',
       // allDay:false,
@@ -497,7 +513,8 @@ eventMouseEnter: function(info) {
         myAjax.custom_organizer_link_target + "&enable_venue_link=" + myAjax.enable_venue_link + "&custom_venue_link_target=" +
         myAjax.custom_venue_link_target + "&state=" + myAjax.show_state + "&venue_id=" + myAjax.venue_id +
         "&organizer_id=" + myAjax.organizer_id + "&event_selection=" + myAjax.event_selection + "&show_postponed_canceled_event=" +
-        myAjax.show_postponed_canceled_event + "&show_virtual_event=" + myAjax.show_virtual_event+ "&show_virtual_event=" + myAjax.show_virtual_event + "&show_hybrid_event=" + myAjax.show_hybrid_event + "&limit_event=" + myAjax.limit_event + "&hide_month_range=" + myAjax.hide_month_range + "&day_of_the_week_name_tablet=" + myAjax.day_of_the_week_name_tablet + "&button_classes=" + myAjax.button_classes + "&disable_event_button_link=" + myAjax.disable_event_button_link
+        myAjax.show_postponed_canceled_event + "&show_virtual_event=" + myAjax.show_virtual_event+ "&show_virtual_event=" + myAjax.show_virtual_event + "&show_hybrid_event=" + myAjax.show_hybrid_event 
+        +"&number_event_day="+myAjax.number_event_day+ "&limit_event=" + myAjax.limit_event + "&hide_month_range=" + myAjax.hide_month_range + "&day_of_the_week_name_tablet=" + myAjax.day_of_the_week_name_tablet + "&button_classes=" + myAjax.button_classes + "&disable_event_button_link=" + myAjax.disable_event_button_link
         + "&custom_icon=" + myAjax.custom_icon + "&custom_icon_tablet=" + myAjax.custom_icon_tablet + "&custom_icon_phone=" + myAjax.custom_icon_phone + "&view_more_text=" + myAjax.view_more_text+"&button_classes="+myAjax.button_classes+"&custom_icon="+myAjax.custom_icon+"&custom_icon_tablet="+myAjax.custom_icon_tablet+"&custom_icon_phone="+myAjax.custom_icon_phone
         +"&view_more_text="+myAjax.view_more_text+"&module_class="+myAjax.module_class+'&event_time_format='+myAjax.event_time_format+'&show_calendar_thumbnail='+myAjax.show_calendar_thumbnail+
         "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day+"&multdaycutoff="+myAjax.multidaycutoff,
