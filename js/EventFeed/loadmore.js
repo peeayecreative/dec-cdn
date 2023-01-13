@@ -140,7 +140,6 @@ jQuery(function ($) {
 
       let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
       jQuery(mainClass + ' #eventfeed_current_page').val("1");
-      let search_search_criteria = jQuery("input[name='search_search_criteria']").val();
 
       var data = {
         action: "filters_event_posts",
@@ -166,7 +165,6 @@ jQuery(function ($) {
         event_filter_address: event_filter_address,
         event_filter_order: event_filter_order,
         event_filter_status: event_filter_status,
-         search_search_criteria: search_search_criteria,
 
         // security: eventFeed.security,
       };
@@ -288,7 +286,6 @@ jQuery(function ($) {
 
     let eventfeed_page = jQuery(mainClass + " input[name='eventfeed_page']").val();
     jQuery(mainClass + ' #eventfeed_current_page').val("1");
-     let search_search_criteria = jQuery("input[name='search_search_criteria']").val();
 
 
     var data = {
@@ -317,7 +314,6 @@ jQuery(function ($) {
       event_filter_order: event_filter_order,
       event_filter_status: event_filter_status,
       event_filter_recurring: event_filter_recurring,
-      search_search_criteria: search_search_criteria,
       // security: eventFeed.security,
     };
 
@@ -583,19 +579,19 @@ jQuery(function ($) {
 
     if (+PageNumber > 1) {
       if (+PageNumber == 2)
-        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class='dec-page-text-display " + ClassName + "'>« First</a>  <a href='' pn='" + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
+        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class=' dec-page-text-first dec-page-text-display " + ClassName + "'>« First</a>  <a href='' pn='" + (1) + "' class=' dec-page-text-first dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
 
       else {
         ReturnValue = ReturnValue + "<a  href='' pn='";
-        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display " + ClassName + "'>« First</a>   ";
+        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-first dec-page-text-display " + ClassName + "'>« First</a>   ";
 
         ReturnValue = ReturnValue + "<a href='' pn='";
-        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
+        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-first  dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
 
       }
     }
     else
-      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class='dec-page-text-display " + DisableClassName + "'>« First</span> <span style='display:none;' pn='" + i + "' class='dec-page-text-display-none " + DisableClassName + "'>« " + event_filter_page_first + "</span>  ";
+      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class=' dec-page-text-first dec-page-text-display " + DisableClassName + "'>« First</span> <span style='display:none;' pn='" + i + "' class=' dec-page-text-first dec-page-text-display-none " + DisableClassName + "'>« " + event_filter_page_first + "</span>  ";
     if ((+PageNumber - 3) > 1)
       ReturnValue = ReturnValue + "<a href='' pn='1' class='" + ClassName + "'>1</a> ... ";
     for (var i = +PageNumber - 3; i <= +PageNumber; i++)
@@ -624,10 +620,10 @@ jQuery(function ($) {
     }
     if (+PageNumber < TotalPages) {
       ReturnValue = ReturnValue + "   <a href='' pn='";
-      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display " + ClassName + "'>Last »</a>";
+      ReturnValue = ReturnValue + TotalPages + "' class=' dec-page-text-last dec-page-text-display " + ClassName + "'>Last »</a>";
 
       ReturnValue = ReturnValue + "   <a href='' pn='";
-      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display-none " + ClassName + "'>" + event_filter_page_last + " »</a>";
+      ReturnValue = ReturnValue + TotalPages + "' class=' dec-page-text-last  dec-page-text-display-none " + ClassName + "'>" + event_filter_page_last + " »</a>";
     }
     else
       ReturnValue = ReturnValue + "   <span style='display:none;' pn='" + i + "' class='ecs-page-numbers' class='" + DisableClassName + "'>Next</span>";
