@@ -68,7 +68,9 @@ jQuery(function ($) {
 	$('.dec-order-list').on("click", function () {
 		$('.dec-order-filter-list').toggle();
 	});
-
+	$('.dec-future-past-list').on("click", function () {
+		$('.dec-future-past-filter-list').toggle();
+	});
 	$(".show_collapse_show").show();
 	$(".show_collapse_hide").hide();
 	// 	}
@@ -145,7 +147,7 @@ jQuery(function ($) {
 		container.push($('.dec-order-filter-list'));
 		container.push($('.dec-recurring-filter-list'));
 		container.push($('.dec-status-filter-list'));
-
+		container.push($('.dec-future-past-filter-list'));
 
 		$.each(container, function (key, value) {
 			if (!$(value).is(e.target)
@@ -480,8 +482,8 @@ jQuery(function ($) {
 			$('.dec-city-remove').css({ "display": "initial" });
 		} else if (jQuery(this).text() != '') {
 			var text = jQuery(this).text();
-			//	var dataId = $(this).data("id");
-			$(mainClass + ' #dec-eventfeed-city').val(text);
+				var dataId = $(this).data("id");
+			$(mainClass + ' #dec-eventfeed-city').val(dataId);
 			$('#dec-city-current-select').html(": " + text);
 			$('#dec-city-current-select').parent().addClass("dec-filter-select");
 			$('.dec-city-remove').css({ "display": "initial" });
@@ -644,7 +646,35 @@ jQuery(function ($) {
 
 	});
 
+	jQuery('input[name=\'dec_filter_future_past\'], .dec-future-past-list').on("click", function () {
 
+		var selectedStatus = new Array();
+		var selectedStatusId = new Array();
+		$("input[name='dec_filter_future_past']:checked").each(function () {
+			selectedStatus.push(" " + this.value);
+			selectedStatusId.push(this.id);
+		});
+
+		if (selectedStatus.length > 0) {
+			$(mainClass + ' #dec-eventfeed-future-past').val(selectedStatusId);
+			$('#dec-future-past-current-select').html(": " + selectedStatus);
+			$('#dec-future-past-current-select').parent().addClass("dec-filter-select");
+			$('.dec-future-past-remove').css({ "display": "initial" });
+		} else if (jQuery(this).text() != '') {
+			var text = jQuery(this).text();
+			var dataId = $(this).data("id");
+			$(mainClass + ' #dec-eventfeed-future-past').val(dataId);
+			$('#dec-future-past-current-select').html(": " + text);
+			$('#dec-future-past-current-select').parent().addClass("dec-filter-select");
+			$('.dec-future-past-remove').css({ "display": "initial" });
+		} else {
+			$(mainClass + ' #dec-eventfeed-future-past').val("");
+			$('#dec-future-past-current-select').html("");
+			$('#dec-future-past-current-select').parent().removeClass("dec-filter-select");
+			$('.dec-future-past-remove').css({ "display": "none" });
+		}
+		//$('.dec-month-filter-selection-list' ).html("<span class='venue-filter-selection'>"+ text +"</span>");
+	});
 	jQuery('input[name=\'dec_filter_years\'], .dec-years-list').on("click", function () {
 		var selectedYear = new Array();
 		var selectedYearId = new Array();
@@ -723,7 +753,10 @@ jQuery(function ($) {
 	$('.dec-filter-month').on("click", function () {
 		$('.dec-month-filter-list').toggle();
 	});
+	$('.dec-filter-future-past-by').on("click", function () {
+		$('.dec-future-past-filter-list').toggle();
 
+	});
 
 	$('.dec-filter-location').on("click", function () {
 		$('.dec-location-filter-list').toggle();
@@ -903,7 +936,14 @@ jQuery(function ($) {
 		$('#dec-order-current-select').parent().removeClass("dec-filter-select");
 		$('.dec-order-category-filter-list').hide();
 	});
-
+	jQuery('.dec-future-past-remove').on("click", function () {
+		$("input[name='dec_filter_future_past']").prop('checked', false);
+		$('#dec-future-past-current-select').html("");
+		$(mainClass + ' #dec-eventfeed-future-past').val("");
+		$(this).css({ "display": "none" });
+		$('#dec-future-past-current-select').parent().removeClass("dec-filter-select");
+		$('.dec-future-past-category-filter-list').hide();
+	});
 	jQuery('.dec-status-remove').on("click", function () {
 		$("input[name='dec_filter_status']").prop('checked', false);
 		$('#dec-status-current-select').html("");
@@ -928,6 +968,7 @@ jQuery(function ($) {
 		$("input[name='dec_filter_venue']").prop('checked', false);
 		$("input[name='dec_filter_tag']").prop('checked', false);
 		$("input[name='dec_filter_city']").prop('checked', false);
+		$("input[name='dec_filter_future_past']").prop('checked', false);
 		$("input[name='dec_filter_country']").prop('checked', false);
 		$("input[name='dec_filter_location']").prop('checked', false);
 		$("input[name='dec_filter_category']").prop('checked', false);
@@ -977,6 +1018,7 @@ jQuery(function ($) {
 		$(mainClass + ' #dec-eventfeed-status').val("");
 		$(mainClass + ' #dec-eventfeed-recurring').val("");
 		//	$(mainClass +' #eventfeed_current_page').val("0");
+		
 		$('#dec-date-current-select').html("<span>Date Range</span>");
 		$('#dec-event-current-select').parent().removeClass("dec-filter-select");
 		$('#dec-tag-current-select').parent().removeClass("dec-filter-select");
