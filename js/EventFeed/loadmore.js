@@ -76,8 +76,8 @@ jQuery(function ($) {
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
       }
-      jQuery(".dec-page-text-display").attr("style", "display: none !important");
-      jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+     // jQuery(".dec-page-text-display").attr("style", "display: none !important");
+      //jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
     });
 
   });
@@ -133,6 +133,7 @@ jQuery(function ($) {
       let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
       let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
       let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
+      let event_filter_future_past = jQuery(mainClass + " input[name='dec-eventfeed-future-past']").val();
       let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
       let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
       let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
@@ -164,6 +165,7 @@ jQuery(function ($) {
         event_filter_state: event_filter_state,
         event_filter_address: event_filter_address,
         event_filter_order: event_filter_order,
+        event_filter_future_past: event_filter_future_past, 
         event_filter_status: event_filter_status,
 
         // security: eventFeed.security,
@@ -191,8 +193,8 @@ jQuery(function ($) {
           var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
           jQuery(mainClass + ' .ecs-event-pagination').html('');
           jQuery(mainClass + ' .ecs-event-pagination').append(result);
-          jQuery(".dec-page-text-display").attr("style", "display: none !important");
-          jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+        //  jQuery(".dec-page-text-display").attr("style", "display: none !important");
+          //jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
         }
 
@@ -219,8 +221,7 @@ jQuery(function ($) {
 
 
 
-  $("input[name='dec_filter_category'], input[name='dec_filter_tag'],  input[name='dec_filter_status'], input[name='dec_filter_venue'], input[name='dec_filter_organizer'], input[name='dec_filter_location'], input[name='dec_filter_days'], input[name='dec_filter_city'], input[name='dec_filter_state'], input[name='dec_filter_country'], input[name='dec_filter_months'], input[name='dec_filter_years'], .decm-filter-catrgory-list, .dec-years-list, .dec-status-list, .dec-tag-list, .dec-order-filter-list  ul li, .dec-organizer-list, .dec-venue-list, .dec-city-list, .dec-country-list, .dec-months-list, .dec-state-list, .dec-days-list, .dec-recurring-filter-list  ul li, .dec-filter-event-category-inline, .dec-time-list, .dec-location-list,  #dec-find-events, #dec-filter-remove, #eventCostslider .ui-slider-range, #eventCostslider > .ui-slider-handle, #reportrange, .dec-filter-label > button").on("click apply.daterangepicker cancel.daterangepicker'", function (event) {
-
+  $("input[name='dec_filter_category'], input[name='dec_filter_tag'],  input[name='dec_filter_future_past'], input[name='dec_filter_status'], input[name='dec_filter_venue'], input[name='dec_filter_organizer'], input[name='dec_filter_location'], input[name='dec_filter_days'], input[name='dec_filter_city'], input[name='dec_filter_state'], input[name='dec_filter_country'], input[name='dec_filter_months'], input[name='dec_filter_years'], .decm-filter-catrgory-list, .dec-years-list, .dec-status-list, .dec-tag-list, .dec-future-past-list, .dec-order-filter-list  ul li, .dec-organizer-list, .dec-venue-list, .dec-city-list, .dec-country-list, .dec-months-list, .dec-state-list, .dec-days-list, .dec-recurring-filter-list  ul li, .dec-filter-event-category-inline, .dec-time-list, .dec-location-list,  #dec-find-events, #dec-filter-remove, #eventCostslider .ui-slider-range, #eventCostslider > .ui-slider-handle, #reportrange, .dec-filter-label > button").on("click apply.daterangepicker cancel.daterangepicker'", function (event) {
     //  event.preventDefault();
 
     let module_css_filter = jQuery("input[name='module-css-filter']").val();
@@ -276,6 +277,7 @@ jQuery(function ($) {
     let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
     let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
     let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
+    let event_filter_future_past = jQuery(mainClass + " input[name='dec-eventfeed-future-past']").val();
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
     let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
@@ -312,6 +314,7 @@ jQuery(function ($) {
       event_filter_address: event_filter_address,
       event_filter_page: event_filter_page,
       event_filter_order: event_filter_order,
+      event_filter_future_past: event_filter_future_past, 
       event_filter_status: event_filter_status,
       event_filter_recurring: event_filter_recurring,
       // security: eventFeed.security,
@@ -339,8 +342,8 @@ jQuery(function ($) {
         var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
-        jQuery(".dec-page-text-display").attr("style", "display: none !important");
-        jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+      //  jQuery(".dec-page-text-display").attr("style", "display: none !important");
+        //jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
       }
 
@@ -418,6 +421,7 @@ jQuery(function ($) {
     let event_filter_tag = jQuery(mainClass + " input[name='dec-eventfeed-tag']").val();
     let event_filter_venue = jQuery(mainClass + " input[name='dec-eventfeed-venue']").val();
     let event_filter_order = jQuery(mainClass + " input[name='dec-eventfeed-order']").val();
+    let event_filter_future_past = jQuery(mainClass + " input[name='dec-eventfeed-future-past']").val();
     let event_filter_page = jQuery(mainClass + " input[name='dec-eventfeed-page-translation']").val();
     let event_filter_page_first = jQuery(mainClass + " input[name='dec-eventfeed-first-translation']").val();
     let event_filter_page_last = jQuery(mainClass + " input[name='dec-eventfeed-last-translation']").val();
@@ -475,6 +479,7 @@ jQuery(function ($) {
       event_filter_state: event_filter_state,
       event_filter_address: event_filter_address,
       event_filter_order: event_filter_order,
+      event_filter_future_past: event_filter_future_past, 
       event_filter_page: event_filter_page,
       event_filter_status: event_filter_status,
       event_filter_recurring: event_filter_recurring,
@@ -557,8 +562,8 @@ jQuery(function ($) {
         var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
-        jQuery(".dec-page-text-display").attr("style", "display: none !important");
-        jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+       // jQuery(".dec-page-text-display").attr("style", "display: none !important");
+        //jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
         //  event.preventDefault();
       }
