@@ -3,10 +3,11 @@ let calendar_view = "";
 let calendar_view_tablet = "";
 let calendar_view_phone = "";
 var tooltip = null;
-console.log(myAjax.number_event_day);
+//console.log(myAjax.number_event_day);
 let number_event_day=3;
 number_event_day=myAjax.number_event_day=="1"?1:myAjax.number_event_day=="2"?2:myAjax.number_event_day=="3"?3:myAjax.number_event_day=="4"?4:myAjax.number_event_day=="5"?5:myAjax.number_event_day=="6"?6:myAjax.number_event_day=="7"?7:myAjax.number_event_day=="8"?8:myAjax.number_event_day=="9"?9:myAjax.number_event_day=="10"?10:myAjax.number_event_day=="default"?false:"";
-console.log(number_event_day);
+//console.log(number_event_day);
+
 //jQuery(".fc-widget-content").css('border', '0px solid');
 // function GetCalendarDateRange() {
 //   var calendar = $('#calendar').fullCalendar('getCalendar');
@@ -288,9 +289,10 @@ document.addEventListener("DOMContentLoaded", function () {
     },
 
     eventRender: function (info) {
+      
       let show_calendar_thumbnail= myAjax.show_calendar_thumbnail=="on" &&info.event.extendedProps.event_end_date==""?info.event.extendedProps.feature_image_calendar:"";
  
-  
+
       var date1 = new Date();
       var date2 = new Date();
       // var get_end_month = myAjax.event_end_date;
@@ -429,10 +431,11 @@ if((info.event.extendedProps.event_start_time !=null)){
 
     },
     eventMouseEnter: function(info) {
+      
       var info = info;
       var nsfields = info.event.extendedProps;
       if (tooltip) {
-            console.log(tooltip);
+           // console.log(tooltip);
            tooltip.dispose();
           }
       if (myAjax.show_tooltip == "on" && screen.width >= 981) {
@@ -483,7 +486,7 @@ if((info.event.extendedProps.event_start_time !=null)){
         "&country=" + myAjax.show_country+ "&street_comma=" + myAjax.show_address_comma +"&state_comma=" + myAjax.show_state_comma+ "&locality_comma=" + myAjax.show_locality_comma + "&postal_comma=" + myAjax.show_postal_comma +
         "&country_comma=" + myAjax.show_country_comma+"&show_postal_code_before_locality="+myAjax.show_postal_code_before_locality + "&organizer=" + myAjax.show_organizer + "&categories=" +
         myAjax.included_categories + "&show_tooltip=" + myAjax.show_tooltip +"&show_tooltip_tablet="+ myAjax.show_tooltip_tablet+"&show_tooltip_phone="
-        + myAjax.show_tooltip_phone+ "&show_image=" + myAjax.show_image + "&show_icon_label=" + myAjax.show_icon_label + "&stack_label_icon=" + myAjax.stack_label_icon + "&show_colon=" + myAjax.show_colon + "&show_excerpt=" + myAjax.show_excerpt + "&show_price="
+        + myAjax.show_tooltip_phone+ "&show_image=" + myAjax.show_image +"&show_image_tablet=" + myAjax.show_image_tablet +"&show_image_phone=" + myAjax.show_image_phone + "&show_icon_label=" + myAjax.show_icon_label + "&stack_label_icon=" + myAjax.stack_label_icon + "&show_colon=" + myAjax.show_colon + "&show_excerpt=" + myAjax.show_excerpt + "&show_price="
         + myAjax.show_price + "&show_title=" + myAjax.show_title + "&show_date=" + myAjax.show_date + "&show_time="
         + myAjax.show_time + "&calendar_eventorder=" + myAjax.calendar_eventorder + "&id=" + myAjax.id +
         "&show_month_view_button=" + myAjax.show_month_view_button + "&show_list_view_button=" + myAjax.show_list_view_button + "&show_week_view_button=" + myAjax.show_week_view_button + "&show_day_view_button="
