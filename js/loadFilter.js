@@ -982,6 +982,7 @@ jQuery(function ($) {
 		$("input[name='dec_filter_state']").prop('checked', false);
 		$('#dec-tag-current-select').html("");
 		$('#dec-order-current-select').html("");
+		$('#dec-future-past-current-select').html("");
 		$('#dec-venue-current-select').html("");
 		$('#dec-event-current-select').html("");
 		$('#dec-organizer-current-select').html("");
