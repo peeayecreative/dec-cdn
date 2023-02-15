@@ -443,7 +443,7 @@ if((info.event.extendedProps.event_start_time !=null)){
           title: nsfields.html,
           html: true,
           delay:10,
-          placement: "auto",
+          placement: "left",
           trigger: "hover",
           container: "tbody"
         });
@@ -454,7 +454,7 @@ if((info.event.extendedProps.event_start_time !=null)){
           title: nsfields.html,
           delay:10,
           html: true,
-          placement: "auto",
+          placement: "left",
           trigger: "hover",
           container: "tbody"
         });
@@ -465,7 +465,7 @@ if((info.event.extendedProps.event_start_time !=null)){
           title: nsfields.html,
          delay:10,
           html: true,
-          placement: "auto",
+          placement: "left",
           trigger: "hover",
           container: "tbody"
         });
