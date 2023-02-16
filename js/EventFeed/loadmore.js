@@ -76,8 +76,8 @@ jQuery(function ($) {
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
       }
-      jQuery(".dec-page-text-display").attr("style", "display: none !important");
-      jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+      // jQuery(".dec-page-text-display").attr("style", "display: none !important");
+      // jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
     });
 
   });
@@ -193,8 +193,8 @@ jQuery(function ($) {
           var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
           jQuery(mainClass + ' .ecs-event-pagination').html('');
           jQuery(mainClass + ' .ecs-event-pagination').append(result);
-          jQuery(".dec-page-text-display").attr("style", "display: none !important");
-          jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+          // jQuery(".dec-page-text-display").attr("style", "display: none !important");
+          // jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
         }
 
@@ -343,8 +343,8 @@ jQuery(function ($) {
         var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
-        jQuery(".dec-page-text-display").attr("style", "display: none !important");
-        jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+        // jQuery(".dec-page-text-display").attr("style", "display: none !important");
+        // jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
       }
 
@@ -561,8 +561,8 @@ jQuery(function ($) {
         var result = PagingEventDislay(eventfeed_current_pagination_pages, eventfeed_max_page, "ecs-page-numbers", "ecs-page-disable", event_filter_page, event_filter_page_first, event_filter_page_last);
         jQuery(mainClass + ' .ecs-event-pagination').html('');
         jQuery(mainClass + ' .ecs-event-pagination').append(result);
-        jQuery(".dec-page-text-display").attr("style", "display: none !important");
-        jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
+        // jQuery(".dec-page-text-display").attr("style", "display: none !important");
+        // jQuery(".dec-page-text-display-none").attr("style", "display: inline !important");
 
         //  event.preventDefault();
       }
