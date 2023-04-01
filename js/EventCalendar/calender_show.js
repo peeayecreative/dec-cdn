@@ -482,7 +482,7 @@ if((info.event.extendedProps.event_start_time !=null)){
       // nextDayThreshold: '11:59:00',
       // allDay:false,
 
-      url: myAjax.ajaxurl + "?action=fetch_Events&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone + "&venue=" + myAjax.show_venue + "&location=" + myAjax.show_location + "&street=" + myAjax.show_address + "&locality=" + myAjax.show_locality + "&postal=" + myAjax.show_postal +
+      url: myAjax.ajaxurl + "?action=fetch_Events&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone+ "&timezone_abb=" + myAjax.show_time_zone_abb + "&venue=" + myAjax.show_venue + "&location=" + myAjax.show_location + "&street=" + myAjax.show_address + "&locality=" + myAjax.show_locality + "&postal=" + myAjax.show_postal +
         "&country=" + myAjax.show_country+ "&street_comma=" + myAjax.show_address_comma +"&state_comma=" + myAjax.show_state_comma+ "&locality_comma=" + myAjax.show_locality_comma + "&postal_comma=" + myAjax.show_postal_comma +
         "&country_comma=" + myAjax.show_country_comma+"&show_postal_code_before_locality="+myAjax.show_postal_code_before_locality + "&organizer=" + myAjax.show_organizer + "&categories=" +
         myAjax.included_categories + "&show_tooltip=" + myAjax.show_tooltip +"&show_tooltip_tablet="+ myAjax.show_tooltip_tablet+"&show_tooltip_phone="
