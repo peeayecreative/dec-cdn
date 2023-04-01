@@ -1,6 +1,6 @@
 jQuery(function ($) {
 
-  $(window).on("load", function () {
+  jQuery(window).on("load", function () {
 
     let module_css_filter = jQuery("input[name='module-css-filter']").val();
     if (module_css_filter != "") {
