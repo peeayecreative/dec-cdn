@@ -1,4 +1,11 @@
 jQuery(function ($) {
+		$('#dec-filter-search__input').on('keyup', function () {
+		if( $(this).val() ) {
+		$(".close-icon").css({ "display": "block" });
+	  }else{
+		$(".close-icon").css({ "display": "none" });
+	  }
+	});
 	var eventFilterHide = jQuery("input[name='filter-css-class_hide']").val();
 	var eventFilterShow = jQuery("input[name='filter-css-class_show']").val();
 	//$(".decm_event_filter_child").show();
