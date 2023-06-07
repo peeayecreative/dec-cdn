@@ -575,19 +575,19 @@ jQuery(function ($) {
   function PagingEventDislay(PageNumber, TotalRecords, ClassName, DisableClassName, event_filter_page, event_filter_page_first, event_filter_page_last) {
     var ReturnValue = "";
     var TotalPages = TotalRecords;
-    var event_filter_page = jQuery(" input[name='dec-eventfeed-page-translation']").val();
+    var event_filter_page = jQuery("input[name='dec-eventfeed-page-translation']").val();
     var event_filter_page_first = jQuery(" input[name='dec-eventfeed-first-translation']").val();
     var event_filter_page_last = jQuery(" input[name='dec-eventfeed-last-translation']").val();
 
-    ReturnValue = ReturnValue + "<span class='dec-page-text-container' > <span class='dec-page-text-display'>Page</span> <span class='dec-page-text-display-none'>" + event_filter_page + "</span>" + PageNumber + " of " + TotalPages + "</span> ";
+    ReturnValue = ReturnValue + "<span class='dec-page-text-container' > <span class='dec-page-text-display'>"+ event_filter_page +"</span> <span class='dec-page-text-display-none'>" + event_filter_page + "</span>" + PageNumber + " of " + TotalPages + "</span> ";
 
     if (+PageNumber > 1) {
       if (+PageNumber == 2)
-        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class='dec-page-text-display " + ClassName + "'>« First</a>  <a href='' pn='" + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
+        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class='dec-page-text-display " + ClassName + "'>« "+ event_filter_page_first +"</a>  <a href='' pn='" + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
 
       else {
         ReturnValue = ReturnValue + "<a  href='' pn='";
-        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display " + ClassName + "'>« First</a>   ";
+        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display " + ClassName + "'>« "+ event_filter_page_first +"</a>   ";
 
         ReturnValue = ReturnValue + "<a href='' pn='";
         ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
@@ -595,7 +595,7 @@ jQuery(function ($) {
       }
     }
     else
-      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class='dec-page-text-display " + DisableClassName + "'>« First</span> <span style='display:none;' pn='" + i + "' class='dec-page-text-display-none " + DisableClassName + "'>« " + event_filter_page_first + "</span>  ";
+      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class='dec-page-text-display " + DisableClassName + "'>« "+ event_filter_page_first +"</span> <span style='display:none;' pn='" + i + "' class='dec-page-text-display-none " + DisableClassName + "'>« " + event_filter_page_first + "</span>  ";
     if ((+PageNumber - 3) > 1)
       ReturnValue = ReturnValue + "<a href='' pn='1' class='" + ClassName + "'>1</a> ... ";
     for (var i = +PageNumber - 3; i <= +PageNumber; i++)
@@ -624,7 +624,7 @@ jQuery(function ($) {
     }
     if (+PageNumber < TotalPages) {
       ReturnValue = ReturnValue + "   <a href='' pn='";
-      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display " + ClassName + "'>Last »</a>";
+      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display " + ClassName + "'>"+event_filter_page_last+" »</a>";
 
       ReturnValue = ReturnValue + "   <a href='' pn='";
       ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display-none " + ClassName + "'>" + event_filter_page_last + " »</a>";
