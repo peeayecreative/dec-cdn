@@ -1,11 +1,12 @@
 jQuery(function ($) {
-		$('#dec-filter-search__input').on('keyup', function () {
+	$('#dec-filter-search__input').on('keyup', function () {
 		if( $(this).val() ) {
 		$(".close-icon").css({ "display": "block" });
 	  }else{
 		$(".close-icon").css({ "display": "none" });
 	  }
 	});
+	
 	var eventFilterHide = jQuery("input[name='filter-css-class_hide']").val();
 	var eventFilterShow = jQuery("input[name='filter-css-class_show']").val();
 	//$(".decm_event_filter_child").show();
@@ -173,9 +174,75 @@ jQuery(function ($) {
 	var This_month = jQuery("input[name='dec-daterange-this-month-text']").val();
 	var Next_month = jQuery("input[name='dec-daterange-next-month-text']").val();
 	var Custom_range = jQuery("input[name='dec-daterange-custom-range-text']").val();
+//	var Custom = jQuery("input[name='dec-daterange-custom-range-text']").val();
+
+	var dec_month_january = jQuery("input[name='dec-month-january-text']").val();
+	var dec_month_february = jQuery("input[name='dec-month-february-text']").val();
+	var dec_month_march = jQuery("input[name='dec-month-march-text']").val();
+	var dec_month_april = jQuery("input[name='dec-month-april-text']").val();
+	var dec_month_may = jQuery("input[name='dec-month-may-text']").val();
+	var dec_month_june = jQuery("input[name='dec-month-june-text']").val();
+	var dec_month_july = jQuery("input[name='dec-month-july-text']").val();
+	var dec_month_august = jQuery("input[name='dec-month-august-text']").val();
+	var dec_month_september = jQuery("input[name='dec-month-september-text']").val();
+	var dec_month_october = jQuery("input[name='dec-month-october-text']").val();
+	var dec_month_november = jQuery("input[name='dec-month-november-text']").val();
+	var dec_month_december = jQuery("input[name='dec-month-december-text']").val();
+
+	var dec_day_sunday = jQuery("input[name='dec-day-sunday-text']").val();
+	var dec_day_monday = jQuery("input[name='dec-day-monday-text']").val();
+	var dec_day_tuesday = jQuery("input[name='dec-day-tuesday-text']").val();
+	var dec_day_wednesday = jQuery("input[name='dec-day-wednesday-text']").val();
+	var dec_day_thursday = jQuery("input[name='dec-day-thursday-text']").val();
+	var dec_day_friday = jQuery("input[name='dec-day-friday-text']").val();
+	var dec_day_saturday = jQuery("input[name='dec-day-saturday-text']").val();
+
+
+	moment.updateLocale("de", {
+		months : [
+			dec_month_january,
+			dec_month_february,
+			dec_month_march,
+			dec_month_april,
+			dec_month_may,
+			dec_month_june,
+			dec_month_july,
+			dec_month_august,
+			dec_month_september,
+			dec_month_october,
+			dec_month_november,
+			dec_month_december
+		],	
+	//	monthsShort : ['Jan', 'Feb', 'März', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez']
+	});
 	
 
 	$('#reportrange').daterangepicker({
+		"locale": {
+			"daysOfWeek": [
+				dec_day_sunday,
+				dec_day_monday,
+				dec_day_tuesday,
+				dec_day_wednesday,
+				dec_day_thursday,
+				dec_day_friday,
+				dec_day_saturday
+			],
+			"monthNames": [
+				dec_month_january,
+				dec_month_february,
+				dec_month_march,
+				dec_month_april,
+				dec_month_may,
+				dec_month_june,
+				dec_month_july,
+				dec_month_august,
+				dec_month_september,
+				dec_month_october,
+				dec_month_november,
+				dec_month_december
+			],	
+		},
 		autoUpdateInput: false,
 		ranges: {
 			[Today] : [moment(), moment()],
