@@ -512,7 +512,8 @@ if((info.event.extendedProps.event_start_time !=null)){
         + myAjax.custom_website_link_text + "&custom_website_link_target=" + myAjax.custom_website_link_target +
         "&show_end_time=" + myAjax.show_end_time + "&included_organizer=" + myAjax.included_organizer + "&included_organizer_check="
         + myAjax.included_organizer_check + "&included_venue=" + myAjax.included_venue + "&included_venue_check="
-        + myAjax.included_venue_check + "&enable_organizer_link=" + myAjax.enable_organizer_link + "&custom_organizer_link_target=" +
+        + myAjax.included_venue_check + "&included_series=" + myAjax.included_series + "&included_series_check="
+        + myAjax.included_series_check+ "&enable_organizer_link=" + myAjax.enable_organizer_link + "&custom_organizer_link_target=" +
         myAjax.custom_organizer_link_target + "&enable_venue_link=" + myAjax.enable_venue_link + "&custom_venue_link_target=" +
         myAjax.custom_venue_link_target + "&state=" + myAjax.show_state + "&venue_id=" + myAjax.venue_id +
         "&organizer_id=" + myAjax.organizer_id + "&event_selection=" + myAjax.event_selection + "&show_postponed_canceled_event=" +
