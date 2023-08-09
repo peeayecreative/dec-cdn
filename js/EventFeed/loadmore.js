@@ -44,6 +44,7 @@ jQuery(function ($) {
 
     let eventfeed_prev_page = jQuery(mainClass + " input[name='eventfeed_prev_page']").val();
     let eventfeed_max_page = jQuery(mainClass + " input[name='eventfeed_max_page']").val();
+  	let event_filter_search = jQuery(mainClass + " input[name='dec-filter-search']").val();
     //  let eventfeed_show_past = jQuery(mainClass + " input[name='dec-eventfeed-past-event']").val();
 
     var data = {
@@ -55,6 +56,7 @@ jQuery(function ($) {
       eventfeed_page: eventfeed_page,
       eventfeed_prev_page: eventfeed_prev_page,
       eventfeed_current_pagination_page: eventfeed_current_pagination_pages,
+	    event_filter_search: event_filter_search,
       pagination_type: eventFeed.pagination_type,
       class_pagination: eventFeed.class_pagination,
       //  eventfeed_show_past:eventfeed_show_past,
@@ -166,7 +168,7 @@ jQuery(function ($) {
         event_filter_address: event_filter_address,
         event_filter_order: event_filter_order,
         event_filter_status: event_filter_status,
-         search_search_criteria: search_search_criteria,
+        search_search_criteria: search_search_criteria,
 
         // security: eventFeed.security,
       };
@@ -444,6 +446,8 @@ jQuery(function ($) {
       eventfeed_current_page = eventfeed_prev_page - 1;
     }
     jQuery(mainClass + " .event_ajax_load").append(event_image);
+	  
+	   let search_search_criteria = jQuery("input[name='search_search_criteria']").val();
 
     // debugger;
 
@@ -482,6 +486,7 @@ jQuery(function ($) {
       event_filter_page: event_filter_page,
       event_filter_status: event_filter_status,
       event_filter_recurring: event_filter_recurring,
+	  search_search_criteria: search_search_criteria,
       // security: eventFeed.security,
     };
     // console.log(eventFeed.class_pagination);
@@ -583,19 +588,19 @@ jQuery(function ($) {
 
     if (+PageNumber > 1) {
       if (+PageNumber == 2)
-        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class='dec-page-text-display " + ClassName + "'>« "+ event_filter_page_first +"</a>  <a href='' pn='" + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
+        ReturnValue = ReturnValue + "<a href='' pn='" + (1) + "' class='dec-page-text-display " + ClassName + "'>Â« "+ event_filter_page_first +"</a>  <a href='' pn='" + (1) + "' class='dec-page-text-display-none " + ClassName + "'>Â« " + event_filter_page_first + "</a>   ";
 
       else {
         ReturnValue = ReturnValue + "<a  href='' pn='";
-        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display " + ClassName + "'>« "+ event_filter_page_first +"</a>   ";
+        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display " + ClassName + "'>Â« "+ event_filter_page_first +"</a>   ";
 
         ReturnValue = ReturnValue + "<a href='' pn='";
-        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display-none " + ClassName + "'>« " + event_filter_page_first + "</a>   ";
+        ReturnValue = ReturnValue + (1) + "' class='dec-page-text-display-none " + ClassName + "'>Â« " + event_filter_page_first + "</a>   ";
 
       }
     }
     else
-      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class='dec-page-text-display " + DisableClassName + "'>« "+ event_filter_page_first +"</span> <span style='display:none;' pn='" + i + "' class='dec-page-text-display-none " + DisableClassName + "'>« " + event_filter_page_first + "</span>  ";
+      ReturnValue = ReturnValue + "<span style='display:none;' pn='" + i + "' class='dec-page-text-display " + DisableClassName + "'>Â« "+ event_filter_page_first +"</span> <span style='display:none;' pn='" + i + "' class='dec-page-text-display-none " + DisableClassName + "'>Â« " + event_filter_page_first + "</span>  ";
     if ((+PageNumber - 3) > 1)
       ReturnValue = ReturnValue + "<a href='' pn='1' class='" + ClassName + "'>1</a> ... ";
     for (var i = +PageNumber - 3; i <= +PageNumber; i++)
@@ -624,10 +629,10 @@ jQuery(function ($) {
     }
     if (+PageNumber < TotalPages) {
       ReturnValue = ReturnValue + "   <a href='' pn='";
-      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display " + ClassName + "'>"+event_filter_page_last+" »</a>";
+      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display " + ClassName + "'>"+event_filter_page_last+" Â»</a>";
 
       ReturnValue = ReturnValue + "   <a href='' pn='";
-      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display-none " + ClassName + "'>" + event_filter_page_last + " »</a>";
+      ReturnValue = ReturnValue + TotalPages + "' class='dec-page-text-display-none " + ClassName + "'>" + event_filter_page_last + " Â»</a>";
     }
     else
       ReturnValue = ReturnValue + "   <span style='display:none;' pn='" + i + "' class='ecs-page-numbers' class='" + DisableClassName + "'>Next</span>";
