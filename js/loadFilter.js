@@ -197,7 +197,12 @@ jQuery(function ($) {
 	var dec_day_friday = jQuery("input[name='dec-day-friday-text']").val();
 	var dec_day_saturday = jQuery("input[name='dec-day-saturday-text']").val();
 
-
+	var decCancelButton = jQuery("input[name='dec-cancel-button-text']").val();
+	var decApplyButton = jQuery("input[name='dec-apply-button-text']").val();
+	var decDateRange = jQuery("input[name='dec-date-range-text']").val();
+	var decDateRangeFormat = jQuery("input[name='dec-date-range-format']").val();
+	
+	
 	moment.updateLocale("de", {
 		months : [
 			dec_month_january,
@@ -219,6 +224,9 @@ jQuery(function ($) {
 
 	$('#reportrange').daterangepicker({
 		"locale": {
+			format: decDateRangeFormat,
+			cancelLabel: decCancelButton,
+			applyLabel: decApplyButton,
 			"daysOfWeek": [
 				dec_day_sunday,
 				dec_day_monday,
@@ -258,7 +266,7 @@ jQuery(function ($) {
 
 
 	$('#reportrange').on('apply.daterangepicker', function (ev, picker) {
-		$('#dec-date-current-select').html(picker.startDate.format('MMMM D, YYYY') + ' - ' + picker.endDate.format('MMMM D, YYYY'));
+		$('#dec-date-current-select').html(picker.startDate.format(decDateRangeFormat) + ' - ' + picker.endDate.format(decDateRangeFormat));
 		jQuery(mainClass + " input[name='EventstartDate']").val(picker.startDate.format('YYYY-MM-DD'));
 		jQuery(mainClass + " input[name='EventendDate']").val(picker.endDate.format('YYYY-MM-DD'));
 		jQuery('#reportrange').addClass("dec-filter-select");
@@ -266,7 +274,7 @@ jQuery(function ($) {
 	});
 
 	$(' #reportrange').on('cancel.daterangepicker', function (ev, picker) {
-		$('#dec-date-current-select').html('<span>Date Range</span>');
+		$('#dec-date-current-select').html('<span>'+ decDateRange +'</span>');
 		jQuery(mainClass + " input[name='EventstartDate']").val('');
 		jQuery(mainClass + " input[name='EventendDate']").val('');
 		jQuery('#reportrange').removeClass("dec-filter-select");
@@ -867,7 +875,7 @@ jQuery(function ($) {
 
 
 	jQuery('.dec-date-range-remove').on("click", function () {
-		$('#dec-date-current-select').html("<span>Date Range</span>");
+		$('#dec-date-current-select').html('<span>'+ decDateRange +'</span>');
 		$('#reportrange').removeClass("dec-filter-select");
 		jQuery('.dec-date-range-remove').css({ "display": "none" });
 		$(mainClass + ' #EventstartDate').val("");
@@ -1094,7 +1102,7 @@ jQuery(function ($) {
 		$(mainClass + ' #dec-eventfeed-recurring').val("");
 		//	$(mainClass +' #eventfeed_current_page').val("0");
 		
-		$('#dec-date-current-select').html("<span>Date Range</span>");
+		$('#dec-date-current-select').html('<span>'+ decDateRange +'</span>');
 		$('#dec-event-current-select').parent().removeClass("dec-filter-select");
 		$('#dec-tag-current-select').parent().removeClass("dec-filter-select");
 		$('#dec-month-current-select').parent().removeClass("dec-filter-select");
@@ -1157,4 +1165,3 @@ jQuery(function ($) {
 	}
 
 });
-
