@@ -370,7 +370,7 @@ jQuery(function ($) {
 			$('#dec-event-current-select').parent().removeClass("dec-filter-select");
 			$('.dec-category-remove').css({ "display": "none" });
 			$('#dec-event-current-select').html("");
-			$('#dec-eventfeed-category').val("");
+			$(mainClass + ' #dec-eventfeed-category').val("");
 		}
 
 		//	console.log(jQuery(this).text());
