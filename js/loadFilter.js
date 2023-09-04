@@ -266,7 +266,7 @@ jQuery(function ($) {
 	});
 
 	$(' #reportrange').on('cancel.daterangepicker', function (ev, picker) {
-		$('#dec-date-current-select').html('<span>Date Range</span>');
+		$('#dec-date-current-select').html('<span>'+ decDateRange +'</span>');
 		jQuery(mainClass + " input[name='EventstartDate']").val('');
 		jQuery(mainClass + " input[name='EventendDate']").val('');
 		jQuery('#reportrange').removeClass("dec-filter-select");
