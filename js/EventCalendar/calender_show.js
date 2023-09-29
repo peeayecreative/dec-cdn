@@ -463,7 +463,7 @@ if((info.event.extendedProps.event_start_time !=null)){
       if ((myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on")) && screen.width < 767) {
         tooltip = new Tooltip(info.el, {
           title: nsfields.html,
-         delay:10,
+          delay:10,
           html: true,
           placement: "left",
           trigger: "hover",
@@ -521,7 +521,8 @@ if((info.event.extendedProps.event_start_time !=null)){
         +"&number_event_day="+myAjax.number_event_day+ "&limit_event=" + myAjax.limit_event + "&hide_month_range=" + myAjax.hide_month_range + "&day_of_the_week_name_tablet=" + myAjax.day_of_the_week_name_tablet + "&button_classes=" + myAjax.button_classes + "&disable_event_button_link=" + myAjax.disable_event_button_link
         + "&custom_icon=" + myAjax.custom_icon + "&custom_icon_tablet=" + myAjax.custom_icon_tablet + "&custom_icon_phone=" + myAjax.custom_icon_phone + "&view_more_text=" + myAjax.view_more_text+"&button_classes="+myAjax.button_classes+"&custom_icon="+myAjax.custom_icon+"&custom_icon_tablet="+myAjax.custom_icon_tablet+"&custom_icon_phone="+myAjax.custom_icon_phone
         +"&view_more_text="+myAjax.view_more_text+"&module_class="+myAjax.module_class+'&event_time_format='+myAjax.event_time_format+'&show_calendar_thumbnail='+myAjax.show_calendar_thumbnail+
-        "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day+"&multdaycutoff="+myAjax.multidaycutoff,
+        "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day+"&multdaycutoff="+myAjax.multidaycutoff+"&show_tag="+myAjax.show_tag+"&hide_comma_tag="+myAjax.hide_comma_tag+"&custom_tag_link_target="+myAjax.custom_tag_link_target+"&custom_tag_link_target="+myAjax.custom_tag_link_target+"&enable_tag_links="+myAjax.enable_tag_links+"&hide_comma_cat="+myAjax.hide_comma_cat
+        +"&category_detail_label="+myAjax.category_detail_label+"&time_detail_label="+myAjax.time_detail_label+"&date_detail_label="+myAjax.date_detail_label+"&venue_detail_label="+myAjax.venue_detail_label+"&location_detail_label="+myAjax.location_detail_label+"&organizer_detail_label="+myAjax.organizer_detail_label+"&price_detail_label="+myAjax.price_detail_label+"&tag_detail_label="+myAjax.tag_detail_label+"&website_detail_label="+myAjax.website_detail_label,
 
       type: 'POST',
       // extraParams: function() {
