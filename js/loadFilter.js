@@ -1,4 +1,6 @@
+
 jQuery(function ($) {
+
 	$('#dec-filter-search__input').on('keyup', function () {
 		if( $(this).val() ) {
 		$(".close-icon").css({ "display": "block" });
@@ -76,9 +78,7 @@ jQuery(function ($) {
 	$('.dec-order-list').on("click", function () {
 		$('.dec-order-filter-list').toggle();
 	});
-	$('.dec-future-past-list').on("click", function () {
-		$('.dec-future-past-filter-list').toggle();
-	});
+
 	$(".show_collapse_show").show();
 	$(".show_collapse_hide").hide();
 	// 	}
@@ -116,8 +116,8 @@ jQuery(function ($) {
 	//console.log(mainClass,"main class");
 
 	$('.dec-filter-event-inline li').on("click", function () {
-		$('li.dec-filter-select ').removeClass('dec-filter-select ');
-		$(this).addClass('dec-filter-select');
+		$('li.active').removeClass('active');
+		$(this).addClass('active');
 		var dataId = $(this).data("id");
 		$(mainClass + ' #dec-eventfeed-category').val(dataId);
 	});
@@ -155,7 +155,7 @@ jQuery(function ($) {
 		container.push($('.dec-order-filter-list'));
 		container.push($('.dec-recurring-filter-list'));
 		container.push($('.dec-status-filter-list'));
-		container.push($('.dec-future-past-filter-list'));
+
 
 		$.each(container, function (key, value) {
 			if (!$(value).is(e.target)
@@ -167,94 +167,17 @@ jQuery(function ($) {
 	});
 
 
-	var Today = jQuery("input[name='dec-daterange-today-text']").val();
-	var Tomorrow = jQuery("input[name='dec-daterange-tomorrow-text']").val();
-	var Next_7_days = jQuery("input[name='dec-daterange-next-7-days-text']").val();
-	var Next_30_days = jQuery("input[name='dec-daterange-next-30-days-text']").val();
-	var This_month = jQuery("input[name='dec-daterange-this-month-text']").val();
-	var Next_month = jQuery("input[name='dec-daterange-next-month-text']").val();
-	var Custom_range = jQuery("input[name='dec-daterange-custom-range-text']").val();
-//	var Custom = jQuery("input[name='dec-daterange-custom-range-text']").val();
-
-	var dec_month_january = jQuery("input[name='dec-month-january-text']").val();
-	var dec_month_february = jQuery("input[name='dec-month-february-text']").val();
-	var dec_month_march = jQuery("input[name='dec-month-march-text']").val();
-	var dec_month_april = jQuery("input[name='dec-month-april-text']").val();
-	var dec_month_may = jQuery("input[name='dec-month-may-text']").val();
-	var dec_month_june = jQuery("input[name='dec-month-june-text']").val();
-	var dec_month_july = jQuery("input[name='dec-month-july-text']").val();
-	var dec_month_august = jQuery("input[name='dec-month-august-text']").val();
-	var dec_month_september = jQuery("input[name='dec-month-september-text']").val();
-	var dec_month_october = jQuery("input[name='dec-month-october-text']").val();
-	var dec_month_november = jQuery("input[name='dec-month-november-text']").val();
-	var dec_month_december = jQuery("input[name='dec-month-december-text']").val();
-
-	var dec_day_sunday = jQuery("input[name='dec-day-sunday-text']").val();
-	var dec_day_monday = jQuery("input[name='dec-day-monday-text']").val();
-	var dec_day_tuesday = jQuery("input[name='dec-day-tuesday-text']").val();
-	var dec_day_wednesday = jQuery("input[name='dec-day-wednesday-text']").val();
-	var dec_day_thursday = jQuery("input[name='dec-day-thursday-text']").val();
-	var dec_day_friday = jQuery("input[name='dec-day-friday-text']").val();
-	var dec_day_saturday = jQuery("input[name='dec-day-saturday-text']").val();
-
-
-	moment.updateLocale("de", {
-		months : [
-			dec_month_january,
-			dec_month_february,
-			dec_month_march,
-			dec_month_april,
-			dec_month_may,
-			dec_month_june,
-			dec_month_july,
-			dec_month_august,
-			dec_month_september,
-			dec_month_october,
-			dec_month_november,
-			dec_month_december
-		],	
-	//	monthsShort : ['Jan', 'Feb', 'März', 'Apr', 'Mai', 'Juni', 'Juli', 'Aug', 'Sept', 'Okt', 'Nov', 'Dez']
-	});
-	
-
 	$('#reportrange').daterangepicker({
-		"locale": {
-			"daysOfWeek": [
-				dec_day_sunday,
-				dec_day_monday,
-				dec_day_tuesday,
-				dec_day_wednesday,
-				dec_day_thursday,
-				dec_day_friday,
-				dec_day_saturday
-			],
-			"monthNames": [
-				dec_month_january,
-				dec_month_february,
-				dec_month_march,
-				dec_month_april,
-				dec_month_may,
-				dec_month_june,
-				dec_month_july,
-				dec_month_august,
-				dec_month_september,
-				dec_month_october,
-				dec_month_november,
-				dec_month_december
-			],	
-		},
 		autoUpdateInput: false,
 		ranges: {
-			[Today] : [moment(), moment()],
-			[Tomorrow] : [moment().add(1, 'days'), moment().add(1, 'days')],
-			[Next_7_days] : [moment(), moment().add(6, 'days')],
-			[Next_30_days] : [moment(), moment().add(29, 'days')],
-			[This_month] : [moment().startOf('month'), moment().endOf('month')],
-			[Next_month] : [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')]
+			'Today': [moment(), moment()],
+			'Tomorrow': [moment().add(1, 'days'), moment().add(1, 'days')],
+			'Next 7 Days': [moment(), moment().add(6, 'days')],
+			'Next 30 Days': [moment(), moment().add(29, 'days')],
+			'This Month': [moment().startOf('month'), moment().endOf('month')],
+			'Next Month': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')]
 		}
 	});
-
-	jQuery('[data-range-key="Custom Range"]').text(Custom_range);
 
 
 	$('#reportrange').on('apply.daterangepicker', function (ev, picker) {
@@ -556,8 +479,8 @@ jQuery(function ($) {
 			$('.dec-city-remove').css({ "display": "initial" });
 		} else if (jQuery(this).text() != '') {
 			var text = jQuery(this).text();
-				var dataId = $(this).data("id");
-			$(mainClass + ' #dec-eventfeed-city').val(dataId);
+			//	var dataId = $(this).data("id");
+			$(mainClass + ' #dec-eventfeed-city').val(text);
 			$('#dec-city-current-select').html(": " + text);
 			$('#dec-city-current-select').parent().addClass("dec-filter-select");
 			$('.dec-city-remove').css({ "display": "initial" });
@@ -720,35 +643,7 @@ jQuery(function ($) {
 
 	});
 
-	jQuery('input[name=\'dec_filter_future_past\'], .dec-future-past-list').on("click", function () {
 
-		var selectedStatus = new Array();
-		var selectedStatusId = new Array();
-		$("input[name='dec_filter_future_past']:checked").each(function () {
-			selectedStatus.push(" " + this.value);
-			selectedStatusId.push(this.id);
-		});
-
-		if (selectedStatus.length > 0) {
-			$(mainClass + ' #dec-eventfeed-future-past').val(selectedStatusId);
-			$('#dec-future-past-current-select').html(": " + selectedStatus);
-			$('#dec-future-past-current-select').parent().addClass("dec-filter-select");
-			$('.dec-future-past-remove').css({ "display": "initial" });
-		} else if (jQuery(this).text() != '') {
-			var text = jQuery(this).text();
-			var dataId = $(this).data("id");
-			$(mainClass + ' #dec-eventfeed-future-past').val(dataId);
-			$('#dec-future-past-current-select').html(": " + text);
-			$('#dec-future-past-current-select').parent().addClass("dec-filter-select");
-			$('.dec-future-past-remove').css({ "display": "initial" });
-		} else {
-			$(mainClass + ' #dec-eventfeed-future-past').val("");
-			$('#dec-future-past-current-select').html("");
-			$('#dec-future-past-current-select').parent().removeClass("dec-filter-select");
-			$('.dec-future-past-remove').css({ "display": "none" });
-		}
-		//$('.dec-month-filter-selection-list' ).html("<span class='venue-filter-selection'>"+ text +"</span>");
-	});
 	jQuery('input[name=\'dec_filter_years\'], .dec-years-list').on("click", function () {
 		var selectedYear = new Array();
 		var selectedYearId = new Array();
@@ -827,10 +722,7 @@ jQuery(function ($) {
 	$('.dec-filter-month').on("click", function () {
 		$('.dec-month-filter-list').toggle();
 	});
-	$('.dec-filter-future-past-by').on("click", function () {
-		$('.dec-future-past-filter-list').toggle();
 
-	});
 
 	$('.dec-filter-location').on("click", function () {
 		$('.dec-location-filter-list').toggle();
@@ -1010,14 +902,7 @@ jQuery(function ($) {
 		$('#dec-order-current-select').parent().removeClass("dec-filter-select");
 		$('.dec-order-category-filter-list').hide();
 	});
-	jQuery('.dec-future-past-remove').on("click", function () {
-		$("input[name='dec_filter_future_past']").prop('checked', false);
-		$('#dec-future-past-current-select').html("");
-		$(mainClass + ' #dec-eventfeed-future-past').val("");
-		$(this).css({ "display": "none" });
-		$('#dec-future-past-current-select').parent().removeClass("dec-filter-select");
-		$('.dec-future-past-category-filter-list').hide();
-	});
+
 	jQuery('.dec-status-remove').on("click", function () {
 		$("input[name='dec_filter_status']").prop('checked', false);
 		$('#dec-status-current-select').html("");
@@ -1037,12 +922,10 @@ jQuery(function ($) {
 	});
 
 	jQuery('#dec-filter-remove').on("click", function () {
-		$('li.dec-filter-select ').removeClass('dec-filter-select ');
 		$(".dec-filter-label > button").hide();
 		$("input[name='dec_filter_venue']").prop('checked', false);
 		$("input[name='dec_filter_tag']").prop('checked', false);
 		$("input[name='dec_filter_city']").prop('checked', false);
-		$("input[name='dec_filter_future_past']").prop('checked', false);
 		$("input[name='dec_filter_country']").prop('checked', false);
 		$("input[name='dec_filter_location']").prop('checked', false);
 		$("input[name='dec_filter_category']").prop('checked', false);
@@ -1056,7 +939,6 @@ jQuery(function ($) {
 		$("input[name='dec_filter_state']").prop('checked', false);
 		$('#dec-tag-current-select').html("");
 		$('#dec-order-current-select').html("");
-		$('#dec-future-past-current-select').html("");
 		$('#dec-venue-current-select').html("");
 		$('#dec-event-current-select').html("");
 		$('#dec-organizer-current-select').html("");
@@ -1093,7 +975,6 @@ jQuery(function ($) {
 		$(mainClass + ' #dec-eventfeed-status').val("");
 		$(mainClass + ' #dec-eventfeed-recurring').val("");
 		//	$(mainClass +' #eventfeed_current_page').val("0");
-		
 		$('#dec-date-current-select').html("<span>Date Range</span>");
 		$('#dec-event-current-select').parent().removeClass("dec-filter-select");
 		$('#dec-tag-current-select').parent().removeClass("dec-filter-select");
