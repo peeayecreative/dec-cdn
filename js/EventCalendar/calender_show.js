@@ -21,6 +21,59 @@ number_event_day=myAjax.number_event_day=="1"?1:myAjax.number_event_day=="2"?2:m
 //   alert("Hello! I am an alert box!!");
 // });
 jQuery(document).ready(function ($) {
+
+  function handleTabVisibility() {
+    if (document.visibilityState === 'visible') {
+      // Your existing code here
+      setTimeout(function() {
+        jQuery(document.body).on("click", 'td.fc-event-container', function() {
+          var text = jQuery(this).find('.fc-content .fc-title .fc-calendar-title a').text();
+          jQuery("#event_name_input").val(text);
+        });
+
+        var info_btn = jQuery("#data_info_btn").val();
+        if (info_btn === 'off') {
+          console.log("if condition");
+          var style = `<style> @media screen and (max-width: 430px) {.fc-body .dec-tooltip{ display: none !important}} </style>`
+          style = jQuery(style);
+          jQuery("body").append(style);
+        } else {
+          console.log("else condition");
+          const CheckCalender = setInterval(function () {
+            if (jQuery("a.fc-day-grid-event.fc-h-event").length) {
+              clearInterval(CheckCalender)
+              setTimeout(function () {
+                // Your existing code here
+                var style = `<style> div.dec-tooltip.active-event { position: relative !important;transform: inherit !important;visibility: visible !important;will-change: unset !important; display: block !important}@media screen and (max-width: 430px) {div.dec-tooltip { display: none !important; } div#calendar {height: 851px !important;} div.dec-tooltip.active-event { width: 100% !important;} img.attachment-post-thumbnail.size-post-thumbnail.wp-post-image {width: 110px !important;height: 70px !important;object-fit: cover !important;}.tooltip_main {display: flex !important;align-items: end !important;}} </style>`
+                style = jQuery(style);
+                jQuery("body").append(style);
+
+                jQuery("body").on("click", "a.fc-day-grid-event.fc-h-event", function () {
+                  let widthScreen = jQuery(window).width();
+                  if (widthScreen < 430) {
+                    jQuery(".custom-toolTip").before(jQuery("div.dec-tooltip"))
+                    const checkTool = setInterval(function () {
+                      if ($("div.dec-tooltip").length) {
+                        clearInterval(checkTool)
+                        jQuery("div.dec-tooltip").addClass("active-event");
+                      }
+                    }, 50)
+                  }
+                });
+              }, 100)
+            }
+          }, 50);
+        }
+      }, 2000);
+    }
+  }
+
+// Attach event listener to detect visibility change
+  document.addEventListener('visibilitychange', handleTabVisibility);
+
+// Initial execution
+  handleTabVisibility();
+
   jQuery('.fc-view-container').append("<div class='fc-list-empty-wrap2'><div class='fc-list-empty-wrap1'><div class='fc-list-empty'><div class='spinner_calendar'><div class='bounce_calendar1'></div><div class='bounce_calendar2'></div><div class='bounce_calendar3'></div></div>Events are loading, please wait...</div></div></div>");
   // jQuery('.fc-button-next span').click(function () {
   //   alert('nextis clicked, do something');
@@ -463,7 +516,7 @@ if((info.event.extendedProps.event_start_time !=null)){
       if ((myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on")) && screen.width < 767) {
         tooltip = new Tooltip(info.el, {
           title: nsfields.html,
-         delay:10,
+          delay:10,
           html: true,
           placement: "left",
           trigger: "hover",
@@ -521,7 +574,8 @@ if((info.event.extendedProps.event_start_time !=null)){
         +"&number_event_day="+myAjax.number_event_day+ "&limit_event=" + myAjax.limit_event + "&hide_month_range=" + myAjax.hide_month_range + "&day_of_the_week_name_tablet=" + myAjax.day_of_the_week_name_tablet + "&button_classes=" + myAjax.button_classes + "&disable_event_button_link=" + myAjax.disable_event_button_link
         + "&custom_icon=" + myAjax.custom_icon + "&custom_icon_tablet=" + myAjax.custom_icon_tablet + "&custom_icon_phone=" + myAjax.custom_icon_phone + "&view_more_text=" + myAjax.view_more_text+"&button_classes="+myAjax.button_classes+"&custom_icon="+myAjax.custom_icon+"&custom_icon_tablet="+myAjax.custom_icon_tablet+"&custom_icon_phone="+myAjax.custom_icon_phone
         +"&view_more_text="+myAjax.view_more_text+"&module_class="+myAjax.module_class+'&event_time_format='+myAjax.event_time_format+'&show_calendar_thumbnail='+myAjax.show_calendar_thumbnail+
-        "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day+"&multdaycutoff="+myAjax.multidaycutoff,
+        "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day+"&multdaycutoff="+myAjax.multidaycutoff+"&show_tag="+myAjax.show_tag+"&hide_comma_tag="+myAjax.hide_comma_tag+"&custom_tag_link_target="+myAjax.custom_tag_link_target+"&custom_tag_link_target="+myAjax.custom_tag_link_target+"&enable_tag_links="+myAjax.enable_tag_links+"&hide_comma_cat="+myAjax.hide_comma_cat
+        +"&category_detail_label="+myAjax.category_detail_label+"&time_detail_label="+myAjax.time_detail_label+"&date_detail_label="+myAjax.date_detail_label+"&venue_detail_label="+myAjax.venue_detail_label+"&location_detail_label="+myAjax.location_detail_label+"&organizer_detail_label="+myAjax.organizer_detail_label+"&price_detail_label="+myAjax.price_detail_label+"&tag_detail_label="+myAjax.tag_detail_label+"&website_detail_label="+myAjax.website_detail_label,
 
       type: 'POST',
       // extraParams: function() {
@@ -541,12 +595,12 @@ if((info.event.extendedProps.event_start_time !=null)){
 
     },
 
-
   });
-
 
   
   calendar.render();
   calendar.setOption('locale', language);
-
+   
+      
 });
+
