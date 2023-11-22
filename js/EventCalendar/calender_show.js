@@ -33,12 +33,10 @@ jQuery(document).ready(function ($) {
 
         var info_btn = jQuery("#data_info_btn").val();
         if (info_btn === 'off') {
-          console.log("if condition");
           var style = `<style> @media screen and (max-width: 430px) {.fc-body .dec-tooltip{ display: none !important}} </style>`
           style = jQuery(style);
           jQuery("body").append(style);
         } else {
-          console.log("else condition");
           const CheckCalender = setInterval(function () {
             if (jQuery("a.fc-day-grid-event.fc-h-event").length) {
               clearInterval(CheckCalender)
@@ -74,6 +72,71 @@ jQuery(document).ready(function ($) {
 // Initial execution
   handleTabVisibility();
 
+  // Time Range code start
+  function processTimeData() {
+    const Z = [];
+    jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
+      let currentDataElement = $(this);
+      var value = $(this).text();
+      Z.push(value);
+    });
+  
+    function convertTo24HourFormat(time) {
+      const [hour, period] = time.match(/\d+|\D+/g);
+      return period.toLowerCase() === 'pm' ? (parseInt(hour, 10) + 12).toString() : hour.padStart(2, '0');
+    }
+  
+    function isTimeInRange(time, startTime, endTime) {
+      const formattedTime = convertTo24HourFormat(time);
+      const formattedStartTime = convertTo24HourFormat(startTime);
+      const formattedEndTime = convertTo24HourFormat(endTime);
+      return formattedTime >= formattedStartTime && formattedTime <= formattedEndTime;
+    }
+  
+    var start = jQuery("#__start_point").val();
+    var end = jQuery("#__end_point").val();
+    const startTime = start;
+    const endTime = end;
+  
+    jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
+      const time = $(this).text();
+      if (isTimeInRange(time, startTime, endTime)) {
+        $(this).hide();
+      }
+    });
+  
+  }
+  
+  // Function to handle button click events
+  function handleButtonClick() {
+    if ($(this).hasClass('fc-button-active')) {
+      processTimeData();
+    }
+  }
+  
+  // Attach the function to the week button click event
+  $('.fc-timeGridWeek-button.fc-button.fc-button-primary').on('click', handleButtonClick);
+  
+  // Attach the function to the day button click event
+  $('.fc-timeGridDay-button.fc-button.fc-button-primary').on('click', handleButtonClick);
+  
+  // Attach the function to the prev button click event
+  $('.fc-prev-button.fc-button.fc-button-primary').on('click', function () {
+    if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
+        $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
+      processTimeData();
+    }
+  });
+  
+  // Attach the function to the next button click event
+  $('.fc-next-button.fc-button.fc-button-primary').on('click', function () {
+    if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
+        $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
+      processTimeData();
+    }
+  });
+
+ // Time Range code end
   jQuery('.fc-view-container').append("<div class='fc-list-empty-wrap2'><div class='fc-list-empty-wrap1'><div class='fc-list-empty'><div class='spinner_calendar'><div class='bounce_calendar1'></div><div class='bounce_calendar2'></div><div class='bounce_calendar3'></div></div>Events are loading, please wait...</div></div></div>");
   // jQuery('.fc-button-next span').click(function () {
   //   alert('nextis clicked, do something');
