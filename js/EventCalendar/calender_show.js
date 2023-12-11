@@ -73,103 +73,112 @@ jQuery(document).ready(function ($) {
   handleTabVisibility();
 
   // Time Range code start
-  function processTimeData() {
-    const Z = [];
-    const H = [];
-    jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
-      let currentDataElement = $(this);
-      var value = $(this).text();
-      Z.push(value);
-    });
-  
-    function convertTo24HourFormat(time) {
-      const [hour, period] = time.match(/\d+|\D+/g);
-      return period.toLowerCase() === 'pm' ? (parseInt(hour, 10) + 12).toString() : hour.padStart(2, '0');
-    }
-  
-    function isTimeInRange(time, startTime, endTime) {
-      const formattedTime = convertTo24HourFormat(time);
-      const formattedStartTime = convertTo24HourFormat(startTime);
-      const formattedEndTime = convertTo24HourFormat(endTime);
-      return formattedTime >= formattedStartTime && formattedTime <= formattedEndTime;
-    }
-  
-    var start = jQuery("#__start_point").val();
-    var end = jQuery("#__end_point").val();
-    const startTime = start;
-    const endTime = end;
-  
-    jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
-      const time = $(this).text();
-      if (isTimeInRange(time, startTime, endTime)) {
-        H.push(time);
-        // Hide the current span
-        $(this).hide();
-  
-        // Hide the grandparent of the span (2 levels up)
-        $(this).parent().parent().hide();
-      }
-    });
-  
-    // New array based on the result array (H)
-    const newTimeArray = H.map(time => {
-      const [hour, minute] = time.match(/\d+/g);
-      const formattedHour = hour.padStart(2, '0');
-      const formattedMinute = '30'; // Always add '30' minutes
-      const formattedTime = `${formattedHour}:${formattedMinute}:00`;
-  
-      if (time.toLowerCase().includes('pm')) {
-        // If it's PM, add 12 hours to the hour part
-        const adjustedHour = (parseInt(hour, 10) + 12).toString().padStart(2, '0');
-        return `${adjustedHour}:${formattedMinute}:00`;
-      }
-  
-      return formattedTime;
-    });
-  
-    // Hide the divs with class '.fc-minor' based on the condition
-    const Half_val = [];
-    $('.fc-minor').each(function() {
-      const values = $(this).attr('data-time');
-      Half_val.push(values);
-  
-      if (newTimeArray.includes(values)) {
-        // Hide the current '.fc-minor' div
-        $(this).hide();
-      }
-    });
-  
+ var str = jQuery("#__hide_range_toggle").val();
+if (str === 'on') {
+ function processTimeData() {
+  const Z = [];
+  const H = [];
+  jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
+    let currentDataElement = $(this);
+    var value = $(this).text();
+    Z.push(value);
+  });
+
+  function convertTo24HourFormat(time)
+
+ {
+    const [hour, period] = time.match(/\d+|\D+/g);
+    return period.toLowerCase() === 'pm' ? (parseInt(hour, 10) + 12).toString() : hour.padStart(2, '0');
   }
-  
-  
-  // Function to handle button click events
-  function handleButtonClick() {
-    if ($(this).hasClass('fc-button-active')) {
-      processTimeData();
-    }
+
+  function isTimeInRange(time, startTime, endTime) {
+    const formattedTime = convertTo24HourFormat(time)
+;
+    const formattedStartTime = convertTo24HourFormat(startTime);
+    const formattedEndTime = convertTo24HourFormat(endTime);
+    return formattedTime >= formattedStartTime && formattedTime <= formattedEndTime;
   }
-  
-  // Attach the function to the week button click event
-  $('.fc-timeGridWeek-button.fc-button.fc-button-primary').on('click', handleButtonClick);
-  
-  // Attach the function to the day button click event
-  $('.fc-timeGridDay-button.fc-button.fc-button-primary').on('click', handleButtonClick);
-  
-  // Attach the function to the prev button click event
-  $('.fc-prev-button.fc-button.fc-button-primary').on('click', function () {
-    if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
-        $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
-      processTimeData();
+
+  var start = jQuery("#__start_point").val();
+  var end = jQuery("#__end_point").val();
+  const startTime = start;
+  const endTime = end;
+
+  jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
+    const time = $(this).text();
+    if (isTimeInRange(time, startTime, endTime)) {
+      H.push(time)
+
+;
+      // Hide the current span
+      $(this).hide();
+
+      // Hide the grandparent of the span (2 levels up)
+      $(this).parent().parent().hide();
     }
   });
-  
-  // Attach the function to the next button click event
-  $('.fc-next-button.fc-button.fc-button-primary').on('click', function () {
-    if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
-        $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
-      processTimeData();
+
+  // New array based on the result array (H)
+  const newTimeArray = H.map(time => {
+    const [hour, minute] = time.match(/\d+/g);
+    const formattedHour = hour.padStart(2, '0');
+    const formattedMinute = '30'; // Always add '30' minutes
+    const formattedTime = `${formattedHour}:${formattedMinute}:00`;
+
+    if (time.toLowerCase().includes('pm')) {
+      // If it's PM, add 12 hours to the hour part
+      const adjustedHour = (parseInt(hour, 10) + 12).toString().padStart(2, '0');
+      return `${adjustedHour}:${formattedMinute}:00`;
+    }
+
+    return formattedTime;
+  });
+
+  // Hide the divs with class '.fc-minor' based on the condition
+  const Half_val = [];
+  $('.fc-minor').each(function() {
+    const values = $(this).attr('data-time');
+    Half_val.push(values);
+
+    if (newTimeArray.includes(values)) {
+      // Hide the current '.fc-minor' div
+      $(this).hide();
     }
   });
+
+  console.log(newTimeArray);
+}
+
+
+// Function to handle button click events
+function handleButtonClick() {
+  if ($(this).hasClass('fc-button-active')) {
+    processTimeData();
+  }
+}
+
+// Attach the function to the week button click event
+$('.fc-timeGridWeek-button.fc-button.fc-button-primary').on('click', handleButtonClick);
+
+// Attach the function to the day button click event
+$('.fc-timeGridDay-button.fc-button.fc-button-primary').on('click', handleButtonClick);
+
+// Attach the function to the prev button click event
+$('.fc-prev-button.fc-button.fc-button-primary').on('click', function () {
+  if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
+      $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
+    processTimeData();
+  }
+});
+
+// Attach the function to the next button click event
+$('.fc-next-button.fc-button.fc-button-primary').on('click', function () {
+  if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
+      $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
+    processTimeData();
+  }
+});   
+}
 
  // Time Range code end
   jQuery('.fc-view-container').append("<div class='fc-list-empty-wrap2'><div class='fc-list-empty-wrap1'><div class='fc-list-empty'><div class='spinner_calendar'><div class='bounce_calendar1'></div><div class='bounce_calendar2'></div><div class='bounce_calendar3'></div></div>Events are loading, please wait...</div></div></div>");
