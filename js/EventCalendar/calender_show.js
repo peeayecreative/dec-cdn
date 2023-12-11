@@ -708,4 +708,3 @@ if((info.event.extendedProps.event_start_time !=null)){
    
       
 });
-
