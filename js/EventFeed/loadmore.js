@@ -1,5 +1,5 @@
 jQuery(function ($) {
-
+ jQuery('#eventfeed_current_page').val("1");
   jQuery(window).on("load", function () {
 
 
