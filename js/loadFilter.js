@@ -201,7 +201,7 @@ jQuery(function ($) {
 	var decApplyButton = jQuery("input[name='dec-apply-button-text']").val();
 	var decDateRange = jQuery("input[name='dec-date-range-text']").val();
 	var decDateRangeCase = jQuery("input[name='dec-date-range-format']").val();
-	var decDateRangeFormat = decDateRangeCase;
+	var decDateRangeFormat = typeof decDateRangeCase === 'string' ? decDateRangeCase.toUpperCase() : 'MMMM D, YYYY';
 
 	
 	moment.updateLocale("de", {
