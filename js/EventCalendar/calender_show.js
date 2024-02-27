@@ -21,6 +21,176 @@ number_event_day=myAjax.number_event_day=="1"?1:myAjax.number_event_day=="2"?2:m
 //   alert("Hello! I am an alert box!!");
 // });
 jQuery(document).ready(function ($) {
+
+ 
+if(jQuery('.fc-right').is(':empty')) {
+    jQuery('.fc-right').css("width", "20.5%");
+}
+
+  function handleTabVisibility() {
+    if (document.visibilityState === 'visible') {
+      // Your existing code here
+      setTimeout(function() {
+        jQuery(document.body).on("click", 'td.fc-event-container', function() {
+          var text = jQuery(this).find('.fc-content .fc-title .fc-calendar-title a').text();
+          jQuery("#event_name_input").val(text);
+        });
+
+        var info_btn = myAjax.detail_below_calander;
+        if (info_btn === 'off') {
+          var style = `<style> @media screen and (max-width: 430px) {.fc-body .dec-tooltip{ display: none !important}} </style>`
+          style = jQuery(style);
+          jQuery("body").append(style);
+        } else {
+          const CheckCalender = setInterval(function () {
+            if (jQuery("a.fc-day-grid-event.fc-h-event").length) {
+              clearInterval(CheckCalender)
+              setTimeout(function () {
+                // Your existing code here
+                var style = `<style> div.dec-tooltip.active-event { position: relative !important;transform: inherit !important;visibility: visible !important;will-change: unset !important; display: block !important}@media screen and (max-width: 430px) {div.dec-tooltip { display: none !important; } div#calendar {height: 851px !important;} div.dec-tooltip.active-event { width: 100% !important;} img.attachment-post-thumbnail.size-post-thumbnail.wp-post-image {width: 110px !important;height: 70px !important;object-fit: cover !important;}.tooltip_main {display: flex !important;align-items: end !important;}} </style>`
+                style = jQuery(style);
+                jQuery("body").append(style);
+
+                jQuery("body").on("click", "a.fc-day-grid-event.fc-h-event", function () {
+                  let widthScreen = jQuery(window).width();
+                  if (widthScreen < 430) {
+                    jQuery(".custom-toolTip").before(jQuery("div.dec-tooltip"))
+                    const checkTool = setInterval(function () {
+                      if ($("div.dec-tooltip").length) {
+                        clearInterval(checkTool)
+                        jQuery("div.dec-tooltip").addClass("active-event");
+                      }
+                    }, 50)
+                  }
+                });
+              }, 100)
+            }
+          }, 50);
+        }
+      }, 2000);
+    }
+  }
+
+// Attach event listener to detect visibility change
+//  document.addEventListener('visibilitychange', handleTabVisibility);
+
+// Initial execution
+//  handleTabVisibility();
+
+  // Time Range code start
+  var str = myAjax.hide_time_range_in_week_day;
+  
+if (str === 'on') {
+ function processTimeData() {
+  const Z = [];
+  const H = [];
+  jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
+    let currentDataElement = $(this);
+    var value = $(this).text();
+    Z.push(value);
+  });
+
+  function convertTo24HourFormat(time)
+
+
+ {
+    const [hour, period] = time.match(/\d+|\D+/g);
+    return period.toLowerCase() === 'pm' ? (parseInt(hour, 10) + 12).toString() : hour.padStart(2, '0');
+  }
+
+  function isTimeInRange(time, startTime, endTime) {
+    const formattedTime = convertTo24HourFormat(time)
+;
+    const formattedStartTime = convertTo24HourFormat(startTime);
+    const formattedEndTime = convertTo24HourFormat(endTime);
+    return formattedTime >= formattedStartTime && formattedTime <= formattedEndTime;
+  }
+
+  // var start = jQuery("#__start_point").val();
+  // var end = jQuery("#__end_point").val();
+   
+  var start = myAjax.start_point;
+   
+  var end   = myAjax.end_point;
+  
+  const startTime = start;
+  const endTime = end;
+
+  jQuery('.fc-axis.fc-time.fc-widget-content span').each(function () {
+    const time = $(this).text();
+    if (isTimeInRange(time, startTime, endTime)) {
+      H.push(time)
+;
+      // Hide the current span
+      $(this).hide();
+
+      // Hide the grandparent of the span (2 levels up)
+      $(this).parent().parent().hide();
+    }
+  });
+
+  // New array based on the result array (H)
+  const newTimeArray = H.map(time => {
+    const [hour, minute] = time.match(/\d+/g);
+    const formattedHour = hour.padStart(2, '0');
+    const formattedMinute = '30'; // Always add '30' minutes
+    const formattedTime = `${formattedHour}:${formattedMinute}:00`;
+
+    if (time.toLowerCase().includes('pm')) {
+      // If it's PM, add 12 hours to the hour part
+      const adjustedHour = (parseInt(hour, 10) + 12).toString().padStart(2, '0');
+      return `${adjustedHour}:${formattedMinute}:00`;
+    }
+
+    return formattedTime;
+  });
+
+  // Hide the divs with class '.fc-minor' based on the condition
+  const Half_val = [];
+  $('.fc-minor').each(function() {
+    const values = $(this).attr('data-time');
+    Half_val.push(values);
+
+    if (newTimeArray.includes(values)) {
+      // Hide the current '.fc-minor' div
+      $(this).hide();
+    }
+  });
+
+}
+
+
+// Function to handle button click events
+function handleButtonClick() {
+  if ($(this).hasClass('fc-button-active')) {
+    processTimeData();
+  }
+}
+
+// Attach the function to the week button click event
+$('.fc-timeGridWeek-button.fc-button.fc-button-primary').on('click', handleButtonClick);
+
+// Attach the function to the day button click event
+$('.fc-timeGridDay-button.fc-button.fc-button-primary').on('click', handleButtonClick);
+
+// Attach the function to the prev button click event
+$('.fc-prev-button.fc-button.fc-button-primary').on('click', function () {
+  if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
+      $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
+    processTimeData();
+  }
+});
+
+// Attach the function to the next button click event
+$('.fc-next-button.fc-button.fc-button-primary').on('click', function () {
+  if ($('.fc-timeGridWeek-button.fc-button.fc-button-primary').hasClass('fc-button-active') ||
+      $('.fc-timeGridDay-button.fc-button.fc-button-primary').hasClass('fc-button-active')) {
+    processTimeData();
+  }
+});   
+}
+
+ // Time Range code end
   jQuery('.fc-view-container').append("<div class='fc-list-empty-wrap2'><div class='fc-list-empty-wrap1'><div class='fc-list-empty'><div class='spinner_calendar'><div class='bounce_calendar1'></div><div class='bounce_calendar2'></div><div class='bounce_calendar3'></div></div>Events are loading, please wait...</div></div></div>");
   // jQuery('.fc-button-next span').click(function () {
   //   alert('nextis clicked, do something');
@@ -276,8 +446,6 @@ document.addEventListener("DOMContentLoaded", function () {
          }
     // });
      
-
-
     },
     // viewRender: function (view, element) {
     //   var b = jQuery('#calendar').fullCalendar('getDate');
@@ -290,9 +458,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     eventRender: function (info) {
       
-      let show_calendar_thumbnail= myAjax.show_calendar_thumbnail=="on" &&info.event.extendedProps.event_end_date==""?info.event.extendedProps.feature_image_calendar:"";
+      let show_calendar_thumbnail= myAjax.show_calendar_thumbnail=="on"?info.event.extendedProps.feature_image_calendar:"";
  
-
       var date1 = new Date();
       var date2 = new Date();
       // var get_end_month = myAjax.event_end_date;
@@ -421,8 +588,6 @@ if((info.event.extendedProps.event_start_time !=null)){
 
       }
 
-
-
       // if (tooltip) {
       //   console.log(tooltip);
       //   tooltip.dispose();
@@ -463,7 +628,7 @@ if((info.event.extendedProps.event_start_time !=null)){
       if ((myAjax.show_tooltip_phone == "on" || (myAjax.show_tooltip_phone == "" && myAjax.show_tooltip == "on")) && screen.width < 767) {
         tooltip = new Tooltip(info.el, {
           title: nsfields.html,
-         delay:10,
+          delay:10,
           html: true,
           placement: "left",
           trigger: "hover",
@@ -482,7 +647,7 @@ if((info.event.extendedProps.event_start_time !=null)){
       // nextDayThreshold: '11:59:00',
       // allDay:false,
 
-      url: myAjax.ajaxurl + "?action=fetch_Events&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone+ "&timezone_abb=" + myAjax.show_time_zone_abb + "&venue=" + myAjax.show_venue + "&location=" + myAjax.show_location + "&street=" + myAjax.show_address + "&locality=" + myAjax.show_locality + "&postal=" + myAjax.show_postal +
+      url: myAjax.ajaxurl + "?action=fetch_Events&locale=" + language + "&dateformat=" + myAjax.date_format + "&timeformat=" + myAjax.time_format + "&timezone=" + myAjax.show_time_zone+ "&timezone_abb=" + myAjax.show_time_zone_abb + "&venue=" + myAjax.show_venue + "&location=" + myAjax.show_location + "&street=" + myAjax.show_address + "&locality=" + myAjax.show_locality + "&postal=" + myAjax.show_postal +
         "&country=" + myAjax.show_country+ "&street_comma=" + myAjax.show_address_comma +"&state_comma=" + myAjax.show_state_comma+ "&locality_comma=" + myAjax.show_locality_comma + "&postal_comma=" + myAjax.show_postal_comma +
         "&country_comma=" + myAjax.show_country_comma+"&show_postal_code_before_locality="+myAjax.show_postal_code_before_locality + "&organizer=" + myAjax.show_organizer + "&categories=" +
         myAjax.included_categories + "&show_tooltip=" + myAjax.show_tooltip +"&show_tooltip_tablet="+ myAjax.show_tooltip_tablet+"&show_tooltip_phone="
@@ -521,7 +686,9 @@ if((info.event.extendedProps.event_start_time !=null)){
         +"&number_event_day="+myAjax.number_event_day+ "&limit_event=" + myAjax.limit_event + "&hide_month_range=" + myAjax.hide_month_range + "&day_of_the_week_name_tablet=" + myAjax.day_of_the_week_name_tablet + "&button_classes=" + myAjax.button_classes + "&disable_event_button_link=" + myAjax.disable_event_button_link
         + "&custom_icon=" + myAjax.custom_icon + "&custom_icon_tablet=" + myAjax.custom_icon_tablet + "&custom_icon_phone=" + myAjax.custom_icon_phone + "&view_more_text=" + myAjax.view_more_text+"&button_classes="+myAjax.button_classes+"&custom_icon="+myAjax.custom_icon+"&custom_icon_tablet="+myAjax.custom_icon_tablet+"&custom_icon_phone="+myAjax.custom_icon_phone
         +"&view_more_text="+myAjax.view_more_text+"&module_class="+myAjax.module_class+'&event_time_format='+myAjax.event_time_format+'&show_calendar_thumbnail='+myAjax.show_calendar_thumbnail+
-        "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day+"&multdaycutoff="+myAjax.multidaycutoff,
+        "&hide_calendar_event_multi_days="+myAjax.hide_calendar_event_multi_days+"&hide_calendar_event_all_day="+myAjax.hide_calendar_event_all_day+"&multdaycutoff="+myAjax.multidaycutoff+"&show_tag="+myAjax.show_tag+"&hide_comma_tag="+myAjax.hide_comma_tag+"&custom_tag_link_target="+myAjax.custom_tag_link_target+"&custom_tag_link_target="+myAjax.custom_tag_link_target+"&enable_tag_links="+myAjax.enable_tag_links+"&hide_comma_cat="+myAjax.hide_comma_cat
+        +"&category_detail_label="+myAjax.category_detail_label+"&time_detail_label="+myAjax.time_detail_label+"&date_detail_label="+myAjax.date_detail_label+"&venue_detail_label="+myAjax.venue_detail_label+"&location_detail_label="+myAjax.location_detail_label+"&organizer_detail_label="+myAjax.organizer_detail_label+"&price_detail_label="+myAjax.price_detail_label+"&tag_detail_label="+myAjax.tag_detail_label+"&website_detail_label="+myAjax.website_detail_label
+        +"&event_series_label="+myAjax.event_series_label+"&event_series_name="+myAjax.event_series_name+"&custom_series_link_target="+myAjax.custom_series_link_target+"&enable_series_link="+myAjax.enable_series_link,
 
       type: 'POST',
       // extraParams: function() {
@@ -541,12 +708,23 @@ if((info.event.extendedProps.event_start_time !=null)){
 
     },
 
-
   });
 
-
-  
   calendar.render();
   calendar.setOption('locale', language);
+  // calendar.gotoDate(date);
 
+  if(myAjax.show_specific_month == 'on'){
+    let dateOne = new Date();
+    let date = new Date(dateOne.getFullYear(), dateOne.getMonth(), 1);
+    let no_of_months = getMonthFromString(myAjax.specific_month_start);
+    date.setMonth(no_of_months);
+    calendar.gotoDate(date);
+  }
+   
 });
+
+function getMonthFromString(mon){
+  return new Date(Date.parse(mon +" 1, 2024")).getMonth();
+}
+
