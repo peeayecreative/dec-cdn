@@ -466,6 +466,7 @@ jQuery(function ($) {
       categslug: eventFeed.categslug,
       term_id: eventFeed.term_id,
       venue_page_id: eventFeed.venue_page_id,
+      event_id_realted: eventFeed.event_id_realted,
 			organizer_page_id: eventFeed.organizer_page_id,
 			term_id_tag: eventFeed.term_id_tag,
       pagination_type: eventFeed.pagination_type,
