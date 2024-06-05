@@ -540,9 +540,6 @@ if (myAjax.show_time_zone_on_calendar == 'on') {
   info.el.querySelector('.fc-title').innerHTML = eventHtml;
 }
 if (myAjax.show_event_venue == "on" && info.event.extendedProps.show_event_venue) {
-  console.log(info.event.extendedProps, "--show calendar");
-
-  console.log("venue html");
   info.el.querySelector('.fc-title').innerHTML += '<div class="fc-calendar-venue">' + info.event.extendedProps.show_event_venue + '</div>';;
   
 }
